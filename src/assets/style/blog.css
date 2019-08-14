@@ -200,3 +200,43 @@ input {
 }
 
 .username {}
+
+
+/* 前台博客详细界面卡片样式 */
+
+.blog-title {
+    text-align: center;
+    font-size: 25px;
+    color: black;
+}
+
+.avatar {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.post-info {
+    display: inline-block;
+    margin-left: 20px;
+    color: rgba(0, 0, 0, 0.705);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+    text-align: left;
+    color: #525f7f;
+}
+
+.post-info-date {
+    color: #525f7f;
+    font-size: 12px;
+    text-transform: uppercase;
+    line-height: 22px;
+}
+
+.post-info-auth {
+    color: #525f7f;
+    font-size: 12px;
+    text-transform: uppercase;
+    line-height: 22px;
+}

@@ -66,7 +66,6 @@ export default {
             this.id = row.id;
 
         }
-            console.log(this.$route.params.content)
     },
     methods: {
         ...mapActions(["postArticle"]),

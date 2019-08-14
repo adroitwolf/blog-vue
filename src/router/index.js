@@ -62,6 +62,12 @@ export default new Router({
         }, {
             path: '/',
             redirect: '/index.html'
+        },
+        {
+            path: '/blogDetail',
+            name: '博客内容',
+            component: () =>
+                import ("@/ivews/blog-detail")
         }
     ]
 })

@@ -16,5 +16,11 @@ blogApi.getAllList = (pageSize, pageNum) => {
     })
 }
 
+blogApi.getDetail = (id) => {
+    return new service({
+        url: `${baseUrl}/detail/${id}`,
+        method: 'get'
+    })
+}
 
 export default blogApi

@@ -95,7 +95,6 @@ const actions = {
             aboutMe = state.aboutMe
         }
 
-        console.log(username + phone + email + aboutMe)
 
         return new Promise((resolve, reject) => {
             userApi.updateProfile(username, phone, email, aboutMe).then(response => {

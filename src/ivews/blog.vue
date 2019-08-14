@@ -1,22 +1,6 @@
 <template>
     <div class="blog-content">
-        <nav  class="navbar navbar-inverse navbar-expand-md  bg-darkx py-0 " >
-            <div class="container">
-                <div class="navbar-header">
-                    <a  href="#"><div class="navbar-brand text-white"><h1>逝痕<span class=" text-danger">枫</span>舞</h1></div></a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                         <li class="navbar-item mx-2 nav-link">
-                           <a href="#" class="nav-link text-light">首页</a>  
-                        </li>
-                        <li class="navbar-item mx-2 nav-link">
-                             <a href="#" class="nav-link text-light">留言板</a>  
-                        </li>
-                    </ul>
-                </div>
-            </div>
-</nav >
+        <Header></Header>
 <div class="mt-5">
     <div class="container">
         <div class="row">
@@ -29,7 +13,7 @@
                                     <span class="day">{{article.day}}</span>
                                 </div>
                                 <div class="article-title">
-                                    <h1><a href="#" target="_blank"><span class="title-blog">{{article.title}}</span></a>
+                                    <h1><a @click="goDetail(article.id)"><span class="title-blog">{{article.title}}</span></a>
                                         </h1>
                                     </div>
                                 <div class="article-img">
@@ -116,7 +100,7 @@ import $ from 'jquery'
 import {Page,Avatar} from 'iview'
 import blogApi from '@/api/blog'
 import {mapGetters} from 'vuex'
-
+import Header from '@/components/common/header'
 
 export default {
     name:'blog',
@@ -124,6 +108,14 @@ export default {
         ...mapGetters(['getUsername'])
     },
     methods: {
+        goDetail(id){
+            this.$router.push({
+                name:'博客内容',
+                params:{
+                    id:id
+                }
+                });
+        },
         toStatus(){
             this.$router.push({name:'状态面板'});
             
@@ -160,7 +152,8 @@ export default {
     },
     components:{
         Page,
-        Avatar
+        Avatar,
+        Header
     },
     data() {
         return {
