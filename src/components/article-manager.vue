@@ -99,11 +99,17 @@ import articleApi from '@/api/article'
                })
             },
             eidtArticle(row){
-                console.log(row);
-                this.$router.push({
+                
+
+                articleApi.getDetail(row.id).then(response=>{
+                    var article = response.data.data;
+                    console.log(article);
+                    this.$router.push({
                     name:'写文章',
-                    params:row
+                    params:article
                     })
+                })
+
             },
             //点击，切换页面
             changepage(index) {

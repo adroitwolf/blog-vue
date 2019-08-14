@@ -60,6 +60,13 @@ articleApi.deleteArticle = (id) => {
 }
 
 
+articleApi.getDetail = (id) => {
+    return new service({
+        url: `${baseUrl}/detail/${id}`,
+        method: 'get'
+    })
+}
+
 articleApi.countArticle = () => {
     return new service({
         url: `${baseUrl}/count`,

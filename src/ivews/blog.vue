@@ -121,11 +121,12 @@ import {mapGetters} from 'vuex'
 export default {
     name:'blog',
     computed: {
-        
+        ...mapGetters(['getUsername'])
     },
     methods: {
         toStatus(){
             this.$router.push({name:'状态面板'});
+            
         },
         change(index){
             this.pageNum = index;
@@ -155,6 +156,7 @@ export default {
     },
     created() {
         this.getArticleList();
+        console.log(this.getUsername);
     },
     components:{
         Page,

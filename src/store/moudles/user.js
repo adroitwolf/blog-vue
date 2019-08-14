@@ -1,7 +1,7 @@
 import userApi from '@/api/user'
 
 const state = {
-    username: '',
+    username: '123',
     password: '',
     token: null,
     avatarId: '',
