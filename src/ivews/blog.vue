@@ -13,8 +13,10 @@
                                     <span class="day">{{article.day}}</span>
                                 </div>
                                 <div class="article-title">
-                                    <h1><a @click="goDetail(article.id)"><span class="title-blog">{{article.title}}</span></a>
+                                    <h1><router-link tag='a' target="_blank" :to="{name:'博客内容', query:{id: article.id}}"><span class="title-blog">{{article.title}}</span></router-link>
                                         </h1>
+                                    <!-- <h1><a @click="goDetail(article.id)"><span class="title-blog">{{article.title}}</span></a>
+                                        </h1> -->
                                     </div>
                                 <div class="article-img">
                                     <img :src="article.img?article.img:imglist[index%pageSize]" alt="">
@@ -109,12 +111,13 @@ export default {
     },
     methods: {
         goDetail(id){
-            this.$router.push({
+            let skip = this.$router.push({
                 name:'博客内容',
                 params:{
                     id:id
                 }
                 });
+            
         },
         toStatus(){
             this.$router.push({name:'状态面板'});

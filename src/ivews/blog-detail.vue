@@ -28,7 +28,7 @@
                                            
                                         </div>
                                 </div>
-                                <div class="blog-html-content" v-html="content"></div>
+                                <div class="blog-html-content my-2" v-html="content"></div>
                         </div>
                     </div>
                     <div class="col-md-4"></div>
@@ -60,8 +60,9 @@
             }
         },
         mounted() {
-            let blogId = this.$route.params.id;
-            console.log(blogId);
+  
+        
+            let blogId = this.$route.query.id;
             if(blogId){
                 blogApi.getDetail(blogId).then(response =>{
                     let data = response.data.data;
