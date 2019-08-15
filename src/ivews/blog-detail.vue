@@ -5,7 +5,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8">
-                        <div class="p-4 blog-card text-dark">
+                        <div class="p-4 blog-card text-dark mb-5">
                                 <div class="blog-title mb-1">{{title}}</div>
                                 <div class="auth-box my-2 ">
 

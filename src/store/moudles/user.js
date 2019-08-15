@@ -47,7 +47,8 @@ const actions = {
         return new Promise((resolve, reject) => {
             userApi.login(username, password)
                 .then(response => {
-                    const token = response.data.accsess_token;
+                    const token = response.data;
+                    console.log(token);
                     localStorage.setItem('token', token);
                     commit('setToken', token);
                     resolve(response)
@@ -108,15 +109,21 @@ const actions = {
         })
     },
     logout({ commit }) {
-        return new Promise((resolve, reject) => {
-            userApi.logout().then(response => {
-                localStorage.removeItem("token");
-                commit("setToken", null);
-                resolve(reject);
-            }).catch(error => {
-                reject(error);
-            })
-        })
+
+        localStorage.removeItem("token");
+        commit("setToken", null);
+
+        // return new Promise((resolve, reject) => {
+        //     userApi.logout().then(response => {
+        //         localStorage.removeItem("token");
+        //         commit("setToken", null);
+        //         resolve(reject);
+        //     }).catch(error => {
+        //         reject(error);
+        //     })
+        // })
+
+
     }
 };
 
