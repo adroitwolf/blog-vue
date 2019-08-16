@@ -48,9 +48,22 @@ service.interceptors.response.use(
             Message.error("网络连接超时");
             //return Promise.reject(error); // reject这个错误信息
         } else if (errorData.status === 401) {
-            console.log(this.$route);
-            Message.error("您还未登陆，请先登录");
-            router.push({ name: 'Login' });
+
+            // 验证当前地址 如果当前的是主页的登陆，则不退到登陆窗口
+
+            let href = window.location.href;
+            let url = href.split("80/");
+            console.log(url[1]);
+
+            var re = /index.html.*?/;
+
+            if (re.test(url[1])) {
+
+            } else {
+                Message.error("您还未登陆，请先登录");
+                router.push({ name: 'Login' });
+            }
+
         } else if (errorData.message) {
             Message.warning(errorData.message);
         } else {

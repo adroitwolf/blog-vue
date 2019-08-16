@@ -1,4 +1,4 @@
-import adminApi from '@/api/adminApi'
+import adminApi from '@/api/admin'
 
 const state = {
     account: '',
@@ -28,10 +28,10 @@ const actions = {
                     console.log(token);
                     localStorage.setItem('token', token);
                     commit('setToken', token);
-                    resolve(response)
+                    resolve(response);
                 })
                 .catch(error => {
-                    reject(error)
+                    reject(error);
                 })
         })
     },
