@@ -4,13 +4,14 @@ import md5 from 'js-md5'
 import qs from 'qs'
 
 const baseUrl = '/api/user'
+const adminUrl = '/api/admin'
 const userApi = {}
 
 
 // 登陆函数
 userApi.login = (username, password) => {
     return service({
-        url: `${baseUrl}/login`,
+        url: `${adminUrl}/login`,
         data: {
             username: username,
             password: md5(password)
@@ -30,7 +31,7 @@ userApi.getProfile = () => {
 
 userApi.changePassword = (opassword, password) => {
     return service({
-        url: `${baseUrl}/changePassword`,
+        url: `${adminUrl}/changePassword`,
         data: {
             oldPassword: md5(opassword),
             newPassword: md5(password)
@@ -55,7 +56,7 @@ userApi.updateProfile = (username, phone, email, aboutMe) => {
 
 userApi.logout = () => {
     return service({
-        url: `${baseUrl}/logout`,
+        url: `${adminUrl}/logout`,
         method: 'post'
     })
 }
