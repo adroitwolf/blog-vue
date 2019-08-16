@@ -37,18 +37,18 @@
             <div class="col-md-4">
             <!-- 登陆表单 -->
                 <div class="blog-card">
-                    <div v-if="token">
+                    <div v-if="username">
                         <div class="form-title text-center">
                             欢迎你
                         </div>
                         <div class="user-info">
                             <div class="py-2 row">
-                                <div v-if="avatarId === 'null'" class="col-md-4">
-                                <Avatar :src='baseAvatar' size="large" />
-                                </div>
-                                <div v-else>
-                                <Avatar :src='avatarId' size="large" />                               
-                                </div>
+                                 <div v-if="avatarId" class="col-md-4">
+                                    <Avatar  :src='avatarId' size="large"  />
+                                    </div>
+                                    <div v-else class="col-md-4">
+                                    <Avatar  :src='baseAvatar' size="large"  />
+                                 </div>
                                 <div class="username col-md-6">{{username}} </div>
                             </div>
                             
@@ -66,19 +66,18 @@
                                       <div class="form-group-icon ">
                                     <Icon type="ios-person-outline" /> 
                                  </div>
-                                 <input class="form-control form-input"></input>
+                                 <input class="form-control form-input" v-model="account"></input>
                                  </div>
-                                
                              </div>
                               <div class="form-group">
                                 <div class="input-group">
                                   <div class="form-group-icon ">
                                     <Icon type="ios-person-outline" /> 
                                  </div>
-                                 <input class="form-control form-input" type="password"></input>
+                                 <input class="form-control form-input" type="password" v-model="password"></input>
                                  </div>
                              </div>
-                                <button class="btn btn-inverse-primary center-block">登陆</button>
+                                <button class="btn btn-inverse-primary center-block" type="button" @click="handleSubmit">登陆</button>
                         </form>
 
                     </div>
@@ -99,17 +98,38 @@ import $ from 'jquery'
 // import './node_modules/bootstrap/dist/js/bootstrap.min.js';
 // import 'bootstrap/dist/css/bootstrap.min.css'
 // import 'bootstrap/dist/js/bootstrap.min'
-import {Page,Avatar} from 'iview'
+import {Page,Avatar,Notice,Message} from 'iview'
 import blogApi from '@/api/blog'
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 import Header from '@/components/common/header'
 
 export default {
     name:'blog',
     computed: {
-        ...mapGetters(['getUsername'])
+        ...mapGetters({
+            username:"getUsername",
+            avatarId:"getAvatarId"
+        })
     },
     methods: {
+        ...mapActions(["getProfile","login"]),
+        handleSubmit(){
+            if(!this.account){
+                    Message.warning('用户名不能为空！');
+                    return 
+                }
+                if(!this.password){
+                    Message.warning('密码不能为空！')
+                    return 
+                }
+            
+                this.login({username:this.account,password: this.password}).then(response=>{
+                  Notice.success({
+                        title: '登陆成功',
+                    });
+                  this.getProfile();
+                })
+        },
         goDetail(id){
             let skip = this.$router.push({
                 name:'博客内容',
@@ -151,12 +171,15 @@ export default {
     },
     created() {
         this.getArticleList();
-        console.log(this.getUsername);
+        this.getProfile();
+
     },
     components:{
         Page,
         Avatar,
-        Header
+        Header,
+        Notice,
+        Message
     },
     data() {
         return {
@@ -178,9 +201,8 @@ export default {
             pageSize:5,
             pageNum:1,
             total:0,
-            token: localStorage.getItem('token'),
-            username:localStorage.getItem('username'),
-            avatarId:localStorage.getItem('avatarId'),
+            account:"",
+            password:""
         }
     },
 }
