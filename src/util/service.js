@@ -52,7 +52,8 @@ service.interceptors.response.use(
             // 验证当前地址 如果当前的是主页的登陆，则不退到登陆窗口
 
             let href = window.location.href;
-            let url = href.split("80/");
+            let post = window.location.port;
+            let url = href.split(post + "/");
             console.log(url[1]);
 
             var re = /index.html.*?/;
