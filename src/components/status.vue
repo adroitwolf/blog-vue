@@ -5,7 +5,7 @@
             <Card>
                 <div slot="title" class="title">
                     <span>文章数</span>
-                    <router-link to="/index.html/articleManager"><Icon type="ios-link" class="link" size="25"/></router-link>
+                    <router-link :to="{name:'文章管理'}"><Icon type="ios-link" class="link" size="25"/></router-link>
                     
                    
                 </div >

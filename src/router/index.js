@@ -68,6 +68,11 @@ export default new Router({
             name: '博客内容',
             component: () =>
                 import ("@/ivews/blog-detail")
+        }, {
+            path: '/register.html',
+            name: '注册',
+            component: () =>
+                import ("@/ivews/register")
         }
     ]
 })

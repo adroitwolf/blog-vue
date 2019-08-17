@@ -7,17 +7,6 @@ const baseUrl = '/api/user'
 const userApi = {}
 
 
-// 登陆函数
-userApi.login = (username, password) => {
-    return service({
-        url: `${baseUrl}/login`,
-        data: {
-            username: username,
-            password: md5(password)
-        },
-        method: 'post'
-    })
-}
 
 
 userApi.getProfile = () => {
@@ -28,17 +17,6 @@ userApi.getProfile = () => {
 }
 
 
-userApi.changePassword = (opassword, password) => {
-    return service({
-        url: `${baseUrl}/changePassword`,
-        data: {
-            oldPassword: md5(opassword),
-            newPassword: md5(password)
-
-        },
-        method: 'put'
-    })
-}
 
 userApi.updateProfile = (username, phone, email, aboutMe) => {
     return service({
@@ -53,11 +31,6 @@ userApi.updateProfile = (username, phone, email, aboutMe) => {
     })
 }
 
-userApi.logout = () => {
-    return service({
-        url: `${baseUrl}/logout`,
-        method: 'post'
-    })
-}
+
 
 export default userApi

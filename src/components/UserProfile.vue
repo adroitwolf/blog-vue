@@ -26,7 +26,7 @@
                     <h1><Icon type="ios-call-outline" size='24'/>:</h1>
                 </Col>
                 <Col span="12">
-                    <h1>{{phonex}}</h1>
+                    <h1>{{phonex?phonex:"暂无"}}</h1>
                 </Col>
             </Row>
             <Row type='flex' justify="center" align="middle" class-name="profile-detail">
@@ -34,7 +34,7 @@
                     <h1><Icon type="ios-mail-outline" size='24'/>:</h1>
                 </Col>
                 <Col span="12">
-                    <h1><a href="#">{{emailx}}</a></h1>
+                    <h1><a href="#">{{emailx?emailx:"暂无"}}</a></h1>
                 </Col>
             </Row>
              <Divider />
@@ -53,13 +53,13 @@
                     <TabPane label="基本资料" name="name1">
                        <Form  label-position="top">
                         <FormItem label="用户名">
-                            <Input :value='usernamex' @on-blur="changeUsername"></Input>
+                            <Input :value='usernamex' @on-blur="changeUsername" ></Input>
                         </FormItem>
                         <FormItem label="手机号">
-                            <Input :value='phonex' @on-blur="changePhone"></Input>
+                            <Input :value='phonex' @on-blur="changePhone" placeholder="试着填写一下手机号吧"></Input>
                         </FormItem>
                         <FormItem label="邮箱">
-                            <Input :value='emailx' @on-blur="changeEmail"></Input>
+                            <Input :value='emailx' @on-blur="changeEmail" placeholder="试着填写一下邮箱呢"></Input>
                         </FormItem>
                         <FormItem label="个人说明" >
                             <Input :value="aboutMex" @on-blur="changeAboutMe" type="textarea" :rows="4" 
