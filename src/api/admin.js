@@ -40,4 +40,16 @@ adminApi.logout = () => {
     })
 }
 
+adminApi.register = (account, username, password) => {
+    return service({
+        url: `${adminUrl}/register`,
+        method: 'post',
+        data: {
+            account: account,
+            username: username,
+            password: md5(password)
+        }
+    })
+}
+
 export default adminApi

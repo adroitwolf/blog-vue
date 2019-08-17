@@ -52,7 +52,7 @@
                                 <div class="username col-md-6">{{username}} </div>
                             </div>
                             
-                            <button @click="toStatus" class="btn btn-inverse-primary">状态表</button>
+                            <button @click="toStatus" class="btn btn-fluid btn-inverse-primary">状态表</button>
                         </div>
                     </div>
                     <div v-else>
@@ -77,7 +77,11 @@
                                  <input class="form-control form-input" type="password" v-model="password"></input>
                                  </div>
                              </div>
-                                <button class="btn btn-inverse-primary center-block" type="button" @click="handleSubmit">登陆</button>
+                             <div class="form-group d-flex flex-row justify-content-between">
+                                  <button class="btn btn-inverse-primary btn-half center-block" type="button" @click="handleSubmit">登陆</button>
+                                <button type="button" class="btn btn-inverse-primary btn-half center-block" @click="toRegister">注册</button>
+                             </div>
+                               
                         </form>
 
                     </div>
@@ -113,6 +117,11 @@ export default {
     },
     methods: {
         ...mapActions(["getProfile","login"]),
+        toRegister(){
+            this.$router.push({
+                name:'注册'
+            })
+        },
         handleSubmit(){
             if(!this.account){
                     Message.warning('用户名不能为空！');
