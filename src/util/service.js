@@ -56,7 +56,7 @@ service.interceptors.response.use(
             let url = href.split(post + "/");
             console.log(url[1]);
 
-            var re = /index.html.*?/;
+            var re = /^index.html.*?/;
 
             if (re.test(url[1])) {
 
