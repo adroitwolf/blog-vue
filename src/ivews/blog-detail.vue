@@ -28,7 +28,10 @@
                                            
                                         </div>
                                 </div>
-                                <div class="blog-html-content my-2" v-html="content"></div>
+                                <div class="blog-html-content my-2 markdown-body ">
+
+                                <div class="" v-html="content"></div>
+                                </div>
                         </div>
                     </div>
                     <div class="col-md-4"></div>
@@ -39,6 +42,9 @@
 </template>
 
 <script>
+    
+    import 'mavon-editor/dist/css/index.css'
+    import 'mavon-editor/dist/markdown/github-markdown.min.css'
     import $ from 'jquery'
     import Header from '@/components/common/header'
     import blogApi from '@/api/blog'
@@ -47,7 +53,7 @@
         name: 'blogDetail',
         components:{
             Header,
-            Avatar
+            Avatar,
         },
         data() {
             return {
