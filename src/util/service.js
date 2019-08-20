@@ -20,8 +20,12 @@ service.interceptors.request.use(
         }
         if (config.method === 'post' || config.method === 'put') {
             // config.data = qs.stringify({...config.data });
-            config.headers['Content-Type'] = 'application/json; charset=utf-8';
-            config.data = JSON.stringify({...config.data })
+            if (config.headers['Content-Type'] === 'multipart/form-data') {
+
+            } else {
+                config.headers['Content-Type'] = 'application/json; charset=utf-8';
+                config.data = JSON.stringify({...config.data })
+            }
 
         } else if (config.method === 'get') {
             config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -56,7 +60,7 @@ service.interceptors.response.use(
             let url = href.split(post + "/");
             console.log(url[1]);
 
-            var re = /index.html.*?/;
+            var re = /^index.html.*?/;
 
             if (re.test(url[1])) {
 

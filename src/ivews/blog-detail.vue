@@ -29,6 +29,10 @@
                                         </div>
                                 </div>
                                 <div class="blog-html-content my-2" v-html="content"></div>
+=======
+                                <div class="blog-html-content my-2 markdown-body " v-html="content"></div>
+
+>>>>>>> Stashed changes
                         </div>
                     </div>
                     <div class="col-md-4"></div>

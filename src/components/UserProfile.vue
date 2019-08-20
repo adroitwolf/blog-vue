@@ -89,6 +89,21 @@
                             </FormItem>
                         </Form>
                     </TabPane>
+                    <TabPane label="上传头像" name="name3">
+                         <Upload
+                         :show-upload-list="false"
+                         accept="image/jpg, image/jpeg,image/png,image/bmp"
+                        type="drag"
+                        :before-upload="handleUpload"
+                        action="xxx">
+                        <div style="padding: 20px 0">
+                            <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+                            <p>上传一些好看的头像吧~</p>
+                        </div>
+                    </Upload>
+                    <div class="mt-4">
+                        <Button type="primary" @click="uploadAvatar">上传</Button></div>
+                    </TabPane>
                 </Tabs>
             </Card>
         </Col>
@@ -97,15 +112,20 @@
 
 <script>
 
-import {mapGetters,mapActions} from 'vuex'
-import {Avatar,Divider,Tabs,TabPane,Form,FormItem,Message,Notice} from 'iview'
+import $ from 'jquery'
 
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min'
+import {mapGetters,mapActions} from 'vuex'
+import {Avatar,Divider,Tabs,TabPane,Form,FormItem,Message,Notice,Upload} from 'iview'
+import userApi from '@/api/user'
 
 export default {
 
     name:'UserProfile',
     data() {
         return {
+            avatar:null,
             opassword:'',
             password:'',
             cpassword:'',
@@ -125,7 +145,9 @@ export default {
         TabPane,
         Form,
         FormItem,
-        Message
+        Message,
+        Upload,
+
     },
     computed: {
         ...mapGetters({
@@ -142,7 +164,22 @@ created() {
     })
 },
     methods: {
-        ...mapActions(['changePassword',"updateProfile","getArticleCount"]),
+        ...mapActions(['changePassword',"updateProfile","getArticleCount","uploadAvatarId"]),
+        uploadAvatar(){
+            if(this.avatar == null){
+                Message.error("请先上传图片！");
+                return false;
+            }
+            this.uploadAvatarId({file:this.avatar}).then(response=>{
+                 Notice.success({
+                    title: '更新个人头像成功',
+                });
+            })
+        },
+        handleUpload(file){
+            this.avatar = file;
+            return false;
+        },
         changeUsername(e){
             console.log(e)
             this.username = e.target.value;

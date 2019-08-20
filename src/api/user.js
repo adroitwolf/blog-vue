@@ -32,5 +32,19 @@ userApi.updateProfile = (username, phone, email, aboutMe) => {
 }
 
 
+userApi.uploadAvatar = (file) => {
+    let data = new FormData();
+    data.append("avatar", file)
+    return service({
+        url: `${baseUrl}/updateAvatar`,
+        data: data,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        },
+        method: 'post'
+
+    })
+}
+
 
 export default userApi
