@@ -55,3 +55,8 @@ router.beforeEach((to, from, next) => {
 router.afterEach(route => {
     LoadingBar.finish();
 });
+
+// 全局变量
+import Global from '@/util/Global'
+
+Vue.prototype.Global = Global

@@ -1,5 +1,5 @@
 import userApi from '@/api/user'
-
+import Global from '@/util/Global'
 const state = {
     username: '',
 
@@ -22,18 +22,31 @@ const mutations = {
 
 
     setProfile: (state, profile) => {
-        state.username = profile.username,
-            state.avatarId = profile.avatarId,
-            state.phone = profile.phone,
-            state.email = profile.email,
-            state.aboutMe = profile.aboutMe
+        state.username = profile.username;
+        var re = /^[ ]*$/;
+        if (!re.test(profile.avatarId)) {
+            state.avatarId = Global.baseUrl + "/" + profile.avatarId;
+        }
+        state.phone = profile.phone;
+        state.email = profile.email;
+        state.aboutMe = profile.aboutMe
     },
     updateProfile: (state, profile) => {
-        state.username = profile.username,
-            state.avatarId = profile.avatarId,
-            state.phone = profile.phone,
-            state.email = profile.email
-        state.aboutMe = profile.aboutMe
+        state.username = profile.username;
+        var re = /^[ ]*$/;
+        if (!re.test(profile.avatarId)) {
+            state.avatarId = Global.baseUrl + "/" + profile.avatarId;
+        }
+
+        state.phone = profile.phone;
+        state.email = profile.email;
+        state.aboutMe = profile.aboutMe;
+    },
+    updateAvatar: (state, avatar) => {
+        var re = /^[ ]*$/;
+        if (!re.test(avatar)) {
+            state.avatarId = Global.baseUrl + "/" + avatar;
+        }
     }
 };
 
@@ -42,7 +55,6 @@ const actions = {
     getProfile({ commit }) {
         return new Promise((resolve, reject) => {
             userApi.getProfile().then(response => {
-                console.log(response.data);
                 const profile = response.data;
                 commit('setProfile', profile);
                 resolve(response)
@@ -70,6 +82,7 @@ const actions = {
 
         return new Promise((resolve, reject) => {
             userApi.updateProfile(username, phone, email, aboutMe).then(response => {
+
                 commit("updateProfile", response.data.data);
                 resolve(response);
             }).catch(error => {
@@ -77,6 +90,17 @@ const actions = {
             })
         })
     },
+    uploadAvatarId({ commit }, { file }) {
+        return new Promise((resolve, reject) => {
+            userApi.uploadAvatar(file).then(response => {
+                console.log(response.data.data);
+                commit("updateAvatar", response.data.data);
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            })
+        })
+    }
 
 };
 
