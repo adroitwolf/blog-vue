@@ -24,11 +24,12 @@
                                             <div class="post-info-auth">
                                                 <Icon type="ios-contact-outline" size="12" />
                                                 <span>{{username}}</span>
-                                            </div>
-                                           
+                                            </div>            
                                         </div>
                                 </div>
+
                                 <div class="blog-html-content my-2 markdown-body " v-html="content"></div>
+
 
                         </div>
                     </div>
@@ -40,6 +41,7 @@
 </template>
 
 <script>
+    
     import 'mavon-editor/dist/css/index.css'
     import 'mavon-editor/dist/markdown/github-markdown.min.css'
     import $ from 'jquery'
@@ -51,7 +53,7 @@
         name: 'blogDetail',
         components:{
             Header,
-            Avatar
+            Avatar,
         },
         data() {
             return {
