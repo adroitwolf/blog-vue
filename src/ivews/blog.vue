@@ -18,6 +18,24 @@
                                     <!-- <h1><a @click="goDetail(article.id)"><span class="title-blog">{{article.title}}</span></a>
                                         </h1> -->
                                     </div>
+                                
+                                <!-- 新增 tag标签片段 -->
+                                
+                                <div class="article-tag my-2 d-flex justify-content-around">
+                                    <div class="btn-hover" v-if="article.tagsTitle.length >0">
+                                        <div style="display:inline-block" v-for="(tag,index) in article.tagsTitle" :key="index">
+                                            <div v-if="index != 0" style="display:inline-block;" class="px-1">&nbsp;|&nbsp;</div>      
+                                            <a >
+                                             <Icon type="ios-pricetag-outline" style="padding-right:5px;"/>{{tag}}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-hover" v-else>
+                                            <Icon type="ios-pricetag-outline" style="padding-right:5px;"/>暂无
+                                        </div>
+                                </div>
+                                 <!-- 新增 tag标签片段结束 -->
+                                
                                 <div class="article-img">
                                     <img :src="article.img?article.img:imglist[index%pageSize]" alt="">
                                 </div>

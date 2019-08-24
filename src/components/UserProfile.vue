@@ -96,9 +96,12 @@
                         type="drag"
                         :before-upload="handleUpload"
                         action="xxx">
-                        <div style="padding: 20px 0">
+                        <div style="padding: 20px 0" v-if="idBefore==''">
                             <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
                             <p>上传一些好看的头像吧~</p>
+                        </div>
+                        <div style="padding:20px 0" v-else>
+                            <img :src="idBefore" alt="">
                         </div>
                     </Upload>
                     <div class="mt-4">
@@ -125,6 +128,7 @@ export default {
     name:'UserProfile',
     data() {
         return {
+            idBefore:"",
             avatar:null,
             opassword:'',
             password:'',
@@ -170,6 +174,7 @@ created() {
                 Message.error("请先上传图片！");
                 return false;
             }
+            
             this.uploadAvatarId({file:this.avatar}).then(response=>{
                  Notice.success({
                     title: '更新个人头像成功',
@@ -178,6 +183,7 @@ created() {
         },
         handleUpload(file){
             this.avatar = file;
+            this.idBefore = window.URL.createObjectURL(this.avatar);
             return false;
         },
         changeUsername(e){

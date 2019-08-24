@@ -19,9 +19,14 @@
             </FormItem>
 
              <Drawer title="文章设置" width="30%" :closable="true" v-model="DrawerStatus">
-                <Form  label-position="top">
+                <Form  label-position="top" @submit.native.prevent>
                     <FormItem  label="文章分类">
-                        <Input type="text" v-model="tag"></Input>
+                        <!--修改代码 -> 增加文章标签处理 日期 8-23-19 处理人：WHOMAI -->
+                        <!-- <Input type="text" v-model="tag"></Input> -->
+                        <Tag v-for="(item,index) in tagList" :key="index" :name="item" closable @on-close="handleCloseTag(index)">{{item}}</Tag>
+                        <Button icon="ios-add" type="dashed" size="small" @click="handleAdd" v-if="addTag">添加标签</Button>
+                        <Input v-model.trim="tagTemp" size="small" style="width:20%;" autofocus  @keyup.enter.native='handleTagComplelte()' v-else></Input>
+                        <!-- 增加文章标签处理 结束 -->
                     </FormItem >
                     
                     <Divider />
@@ -40,7 +45,7 @@
 
 <script>
 import { mavonEditor } from 'mavon-editor'
-import {Form,FormItem,Drawer,Divider,Message,Notice} from 'iview'
+import {Form,FormItem,Drawer,Divider,Message,Notice,Tag} from 'iview'
 import 'mavon-editor/dist/css/index.css'
 import {mapGetters,mapActions} from 'vuex'
 import articleApi from '@/api/article'
@@ -53,7 +58,8 @@ export default {
         Form,
         Drawer,
         mavonEditor,
-        Divider
+        Divider,
+        Tag
     },
     mounted() {
         let row = this.$route.params;
@@ -69,6 +75,23 @@ export default {
     },
     methods: {
         ...mapActions(["postArticle"]),
+        /* 处理文章Tag的所有函数*/ 
+        handleCloseTag(index){
+
+            this.tagList.splice(index,1);//从start的位置开始向后删除delCount个元素
+
+        },
+        handleTagComplelte(){
+           this.tagList.push(this.tagTemp);
+           this.tagTemp = '';
+           this.addTag = !this.addTag;
+        },
+        handleAdd(){
+           this.tagTemp = '';
+           this.addTag = !this.addTag;
+        },
+        /* 处理文章Tag的所有函数结束*/
+        /* 处理文章详细信息的所有函数 */
         toDrawer(){
             if(!this.title){
                Message.warning("请输入文章标题"); 
@@ -92,7 +115,7 @@ export default {
             if(this.id){
                 let articleParams = {};
                 articleParams.title = this.title;
-                articleParams.tag = this.tag;
+                articleParams.tagList = this.tagList;
                 articleParams.summary = this.summary;
                 articleParams.htmlContent = this.htmlContent;
                 articleParams.content = this.content;
@@ -107,10 +130,10 @@ export default {
                 })
                 return;
             }
-            this.postArticle({title: this.title, tag:this.tag, summary:this.summary, htmlContent:this.htmlContent, content:this.content,id:this.id}).then(response=>{
+            this.postArticle({title: this.title, tagList:this.tagList, summary:this.summary, htmlContent:this.htmlContent, content:this.content,id:this.id}).then(response=>{
                 Message.success('发布文章成功！');
                 this.title = '';
-                this.tag = '';
+                this.tagList = [];
                 this.summary = '';
                 this.htmlContent = "";
                 this.content = "";
@@ -121,6 +144,7 @@ export default {
                 this.DrawerStatus = false;
             })
         }
+        /* 处理文章详细信息的所有函数结束 */
     },
     computed: {
        
@@ -130,6 +154,8 @@ export default {
             id:'',
             title:'',
             tag: '',
+            tagList:[],
+            addTag:true,
             summary: '',
             htmlContent: '',
             content: '',
@@ -176,7 +202,14 @@ export default {
 }
 </script>
 
+<style scoped>
+    /* .body{
+    height: 100%;
+    overflow: auto;
+} */
+</style>
 <style>
+
 .v-note-wrapper{
     z-index: 10!important;
 }

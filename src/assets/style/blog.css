@@ -27,12 +27,12 @@ input {
 .article-card {
     margin-bottom: 60px;
     padding-bottom: 20px;
-    border-radius: 0 30px 0 0;
+    border-radius: 4px;
     padding: 10px;
 }
 
 .blog-card {
-    background: rgba(230, 238, 232, 0.5);
+    background: rgba(255, 255, 255, 0.1);
     box-shadow: black 0px 0px 8px;
     position: relative;
 }
@@ -176,6 +176,17 @@ input {
     padding: 5px 10px;
 }
 
+.btn-hover {
+    position: relative;
+    overflow: hidden;
+    background: rgba(29, 27, 27, 0.4);
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline;
+    padding: 4px 10px;
+    font-size: 14px;
+}
+
 .btn-inverse-primary:hover {
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
@@ -243,9 +254,12 @@ input {
     line-height: 22px;
 }
 
-.post-info-auth {
+.post-info-auth,
+.post-info-tags {
     color: #525f7f;
     font-size: 12px;
     text-transform: uppercase;
     line-height: 22px;
+    padding-right: 4px;
+    display: inline-block;
 }
