@@ -3,13 +3,13 @@ import service from '@/util/service'
 const baseUrl = '/api/blog'
 const articleApi = {}
 
-articleApi.submit = (title, tag, summary, htmlContent, content) => {
+articleApi.submit = (title, tagList, summary, htmlContent, content) => {
     return service({
         url: `${baseUrl}/submit`,
         method: 'post',
         data: {
             title: title,
-            tag: tag,
+            tagList: tagList,
             summary: summary,
             htmlContent: htmlContent,
             content: content
@@ -43,7 +43,7 @@ articleApi.updateArticle = (id, postParams) => {
         method: 'put',
         data: {
             title: postParams.title,
-            tag: postParams.tag,
+            tagList: postParams.tagList,
             summary: postParams.summary,
             htmlContent: postParams.htmlContent,
             content: postParams.content

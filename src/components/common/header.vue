@@ -2,12 +2,12 @@
     <nav  class="navbar navbar-inverse navbar-expand-md  bg-darkx py-0 " >
             <div class="container">
                 <div class="navbar-header">
-                    <a  href="#"><div class="navbar-brand text-white"><h1>逝痕<span class=" text-danger">枫</span>舞</h1></div></a>
+                    <router-link :to="{name:'博客'}"><div class="navbar-brand text-white"><h1>逝痕<span class=" text-danger">枫</span>舞</h1></div></router-link> 
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                          <li class="navbar-item mx-2 nav-link">
-                           <a href="#" class="nav-link text-light">首页</a>  
+                             <router-link :to="{name:'博客'}" class="nav-link text-light" >首页</router-link>  
                         </li>
                         <li class="navbar-item mx-2 nav-link">
                              <a href="#" class="nav-link text-light">留言板</a>  

@@ -1,7 +1,10 @@
 <template>
 <div>
-    <Card class="b-card">
-        <Table :columns="managerColumns" :data="articleData" stripe :loading="loading">
+    <Card >
+        
+    </Card>
+    <Card class="b-card" style="margin:20px 0">
+        <Table id="data" :columns="managerColumns" :data="articleData" align="center" stripe :loading="loading">
             <div slot-scope='{row}' slot="status">
                 <div v-if="row.status === 'PUBLISHED'">
                 <Badge status='success' text="已发布"/>
@@ -9,6 +12,9 @@
                 <div v-else-if='row.status === "RECYCLE"'>
                 <Badge status='error' text="回收站"/>                    
                 </div>
+            </div>
+            <div slot-scope="{row}" slot="tagsTitle">
+                <Tag  color="error" v-for="(item,index) in row.tagsTitle" :key="index">{{item}}</Tag>
             </div>
             <div slot-scope="{ row, index}" slot="action">
                 <div v-if="row.status === 'PUBLISHED'">
@@ -53,7 +59,7 @@
 </template>
 <script>
 
-import {Page,Card,Table,Badge,Poptip,Notice} from 'iview'
+import {Page,Card,Table,Badge,Poptip,Notice,Tag} from 'iview'
 import {mapGetters,mapActions} from 'vuex'
 import router from '@/router'
 import articleApi from '@/api/article'
@@ -65,7 +71,8 @@ import articleApi from '@/api/article'
             Card,
             Table,
             Badge,
-            Poptip
+            Poptip,
+            Tag
         },
         data () {
             return {
@@ -156,4 +163,16 @@ import articleApi from '@/api/article'
 .ivu-table-wrapper{
     position: static!important;
 }
+
+
+</style>
+
+<style>
+#data .ivu-table th,#data .ivu-table td {
+
+text-align: center;
+
+}
+
+
 </style>

@@ -16,6 +16,10 @@ const state = {
             slot: 'status'
         },
         {
+            title: '标签',
+            slot: 'tagsTitle'
+        },
+        {
             title: '更新时间',
             key: 'nearestModifyDate',
         },

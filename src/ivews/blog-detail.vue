@@ -7,6 +7,8 @@
                     <div class="col-md-8">
                         <div class="p-4 blog-card text-dark mb-5">
                                 <div class="blog-title mb-1">{{title}}</div>
+                                
+                            
                                 <div class="auth-box my-2 ">
 
                                         <div v-if="avatarId" class="avatar">
@@ -24,7 +26,20 @@
                                             <div class="post-info-auth">
                                                 <Icon type="ios-contact-outline" size="12" />
                                                 <span>{{username}}</span>
-                                            </div>            
+                                                <span>&nbsp;|&nbsp;</span>
+                                            </div>
+                                            <!-- 新增 tag标签片段  8-24-19 WHOAMI-->
+                                            <div class="post-info-tags">
+                                                <Icon type="ios-pricetag-outline" size="12" />
+                                                <span v-if='tagsTitle.length >0'>
+                                                    <span v-for="(tag,index) in tagsTitle" :key="index" >
+                                                    {{tag}}
+                                                        <span v-if="index != tagsTitle.length-1">&nbsp;-&nbsp;</span>
+                                                    </span>
+                                                </span>
+                                                <span v-else>暂无</span>
+                                            </div> 
+                                            <!--  新增 tag标签片段结束-->
                                         </div>
                                 </div>
 
@@ -57,12 +72,14 @@
         },
         data() {
             return {
+                height:"",
                 baseAvatar:require('../assets/img/avatar.png'),
                 title: "",
                 content: "",
                 date:"",
                 username:"",
-                avatarId:""
+                avatarId:"",
+                tagsTitle:[],
             }
         },
         mounted() {
@@ -76,10 +93,20 @@
                     this.content = data.content;
                     this.date = data.releaseDate;
                     this.username = data.username;
-                    this.avatarId = data.avatarId
+                    this.tagsTitle = data.tagsTitle;
+                    var re = /^[ ]*$/;
+                    if(!re.test(data.avatarId)){
+
+                        this.avatarId =this.Global.baseUrl + '/'+ data.avatarId;
+                    }
 
                 })
             }
+
+            //  设置100% 填充
+
+            // let h = document.body.clientHeight || document.documentElement.clientHeight;
+            // console.log("height:"+h);
         },
     }
 </script>
