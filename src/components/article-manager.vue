@@ -1,7 +1,23 @@
 <template>
 <div>
     <Card >
-        
+        <Form @submit.native.prevent  label-postion="left" inline :label-width="100">
+            <FormItem label="关键词:">
+                            
+                <Input type="text" v-model="keyword" >
+                </Input>
+            </FormItem>
+                         
+            <FormItem label="文章状态:">
+                <Select v-model="status" style="width:200px">
+                    <Option value="PUBLISHED">已发布</Option>
+                    <Option value="RECYCLE" >回收站</Option>
+                </Select>
+            </FormItem>
+                <FormItem>
+                    <Button type="primary" @click="handleList()">查询</Button>
+                </FormItem>        
+    </Form>        
     </Card>
     <Card class="b-card" style="margin:20px 0">
         <Table id="data" :columns="managerColumns" :data="articleData" align="center" stripe :loading="loading">
@@ -59,7 +75,7 @@
 </template>
 <script>
 
-import {Page,Card,Table,Badge,Poptip,Notice,Tag} from 'iview'
+import {Page,Card,Table,Badge,Poptip,Notice,Tag,Form,FormItem,Select,Option } from 'iview'
 import {mapGetters,mapActions} from 'vuex'
 import router from '@/router'
 import articleApi from '@/api/article'
@@ -72,15 +88,20 @@ import articleApi from '@/api/article'
             Table,
             Badge,
             Poptip,
-            Tag
+            Tag,
+            Form,
+            FormItem,
+            Select,
+            Option
         },
         data () {
-            return {
-                
+            return {   
               loading:false,
                pageSize:5,
                pageNum:1,
-                page:[5,10,20,50]
+                page:[5,10,20,50],
+                keyword:"",
+                status:'',
             }
         },
         methods: {
@@ -92,10 +113,7 @@ import articleApi from '@/api/article'
                         title:'删除文章成功！',
                         desc:'注意，此操作不可逆'
                     });
-                    this.loading = true;
-                    this.getArticleList({pageSize:this.pageSize,pageNum:this.pageNum}).then(response=>{
-                        this.loading = false
-                    })
+                    this.queryArticleList();
 
                 })
             },
@@ -107,7 +125,6 @@ import articleApi from '@/api/article'
             },
             eidtArticle(row){
                 
-
                 articleApi.getDetail(row.id).then(response=>{
                     var article = response.data.data;
                     this.$router.push({
@@ -117,14 +134,30 @@ import articleApi from '@/api/article'
                 })
 
             },
+            handleList(){
+                this.pageNum = 1;
+                this.pageSize = 5;
+                this.queryArticleList();
+            },
+            queryArticleList(){
+                this.loading = true;
+                let postParams = {};
+                console.log("keyword:" + this.keyword);
+                
+                if(this.keyword != ''){
+                    postParams.keyword = this.keyword;
+                }
+                if(this.status != ''){
+                    postParams.status = this.status;
+                }
+             this.getArticleList({pageSize:this.pageSize,pageNum:this.pageNum,postParams:postParams}).then(response=>{
+                    this.loading = false
+                })
+            },
             //点击，切换页面
             changepage(index) {
                 
-                this.loading = true;
-                this.getArticleList({pageSize:this.pageSize,pageNum:index}).then(response=>{
-                    this.pageNum = index
-                    this.loading = false;
-                })
+                this.queryArticleList();
             },
             
             //每页显示的数据条数
@@ -132,10 +165,7 @@ import articleApi from '@/api/article'
 
                  this.loading = true;
                 //实时获取当前需要显示的条数
-                this.getArticleList({pageSize:size,pageNum:this.pageNum}).then(response=>{
-                    this.pageSize = size;
-                    this.loading = false;
-                })
+                this.queryArticleList();
 
             },
         },
@@ -147,10 +177,7 @@ import articleApi from '@/api/article'
             })
         },
         mounted()  {
-            this.loading = true;
-             this.getArticleList({pageSize:this.pageSize,pageNum:this.pageNum}).then(response=>{
-                    this.loading = false
-                })
+            this.queryArticleList();
         },
     }
 </script>
