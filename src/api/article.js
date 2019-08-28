@@ -25,12 +25,14 @@ articleApi.updateArticleStatus = (id, status) => {
     })
 }
 
-articleApi.getList = (pageNum, pageSize) => {
+articleApi.getList = (pageNum, pageSize, postParams) => {
     return service({
-        url: `${baseUrl}/list`,
+        url: `${baseUrl}/query`,
         params: {
             pageSize: pageSize,
-            pageNum: pageNum
+            pageNum: pageNum,
+            keyword: postParams.keyword,
+            status: postParams.status
         },
         method: 'get'
     })
@@ -73,5 +75,7 @@ articleApi.countArticle = () => {
         method: "get"
     })
 }
+
+
 
 export default articleApi

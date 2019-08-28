@@ -1,14 +1,12 @@
 <template>
-    <div class="blog-content">
-        <Header></Header>
+    
         <div class="mt-5">
             <div class="container">
                 <div class="row">
                     <div class="col-md-8">
                         <div class="p-4 blog-card text-dark mb-5">
                                 <div class="blog-title mb-1">{{title}}</div>
-                                
-                            
+                                  
                                 <div class="auth-box my-2 ">
 
                                         <div v-if="avatarId" class="avatar">
@@ -52,7 +50,6 @@
                 </div>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -61,13 +58,12 @@
     import 'mavon-editor/dist/markdown/github-markdown.min.css'
     import $ from 'jquery'
     
-    import Header from '@/components/common/header'
+
     import blogApi from '@/api/blog'
     import {Avatar} from 'iview'
     export default {
         name: 'blogDetail',
         components:{
-            Header,
             Avatar,
         },
         data() {

@@ -71,9 +71,9 @@ const actions = {
             })
         })
     },
-    getArticleList({ commit }, { pageNum, pageSize }) {
+    getArticleList({ commit }, { pageNum, pageSize, postParams }) {
         return new Promise((resolve, reject) => {
-            articleApi.getList(pageNum, pageSize).then(response => {
+            articleApi.getList(pageNum, pageSize, postParams).then(response => {
                 commit("setArticleData", response.data.rows)
                 commit("setTotal", response.data.total)
                 resolve(response);

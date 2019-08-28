@@ -60,8 +60,9 @@ export default {
         ...mapActions(["getArticleList","getArticleCount"]),
     },
     created() {
-        LoadingBar.start()
-        this.getArticleList({pageSize:5,pageNum:1});
+        LoadingBar.start();
+        let postParams = {};
+        this.getArticleList({pageSize:5,pageNum:1,postParams:postParams});
         this.getArticleCount();
         LoadingBar.finish()
     },

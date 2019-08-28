@@ -58,17 +58,33 @@ export default new Router({
             path: '/index.html',
             name: '博客',
             component: () =>
-                import ('@/ivews/blog')
+                import ('@/ivews/blog'),
+            children: [{
+                path: 'blogIndex',
+                name: "博客主页",
+                component: () =>
+                    import ('@/components/blog-index')
+            }, {
+                path: '/',
+                name: '博客主页',
+                component: () =>
+                    import ('@/components/blog-index')
+            }, {
+                path: 'blogDetail',
+                name: '博客内容',
+                component: () =>
+                    import ("@/components/blog-detail")
+            }, {
+                path: 'blogSearch',
+                name: '博客搜索',
+                component: () =>
+                    import ("@/components/blog-search")
+            }]
         }, {
             path: '/',
             redirect: '/index.html'
         },
         {
-            path: '/blogDetail',
-            name: '博客内容',
-            component: () =>
-                import ("@/ivews/blog-detail")
-        }, {
             path: '/register.html',
             name: '注册',
             component: () =>

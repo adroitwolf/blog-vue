@@ -139,8 +139,14 @@ input {
 }
 
 .article-summary {
-    color: black;
-    padding: 5px 30px;
+    font-size: 1rem;
+    display: block;
+    margin: 1em 8px;
+    padding: 1em 1.2em 1em 1.2em;
+    position: relative;
+    color: rgba(227, 227, 228, 0.8);
+    background-color: #0611166c;
+    border-left: 3px solid #1e6d8f;
 }
 
 .article-page {
@@ -176,6 +182,50 @@ input {
     padding: 5px 10px;
 }
 
+
+/* 搜索框样式代码 */
+
+.search-block {
+    background-color: #0611166c;
+}
+
+.search-box {
+    padding: 5px 10px;
+}
+
+.search-box input {
+    width: 84%!important;
+    float: left;
+    margin-right: 10px;
+    color: rgba(255, 255, 255, 0.637);
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.637);
+    /*输入文字、placeholder颜色*/
+    caret-color: red;
+}
+
+.search-box input::placeholder {
+    color: rgba(255, 255, 255, 0.637);
+}
+
+.search-box button {
+    float: left;
+}
+
+
+/* 搜索框样式代码结束 */
+
+
+/* 提示卡片 */
+
+.alert-card {
+    background: rgba(24, 22, 22, 0.384);
+    border-left: 2px solid rgba(226, 23, 23, 0.884);
+    box-sizing: border-box;
+}
+
+
+/* 闪烁卡片 */
+
 .btn-hover {
     position: relative;
     overflow: hidden;
@@ -186,6 +236,27 @@ input {
     padding: 4px 10px;
     font-size: 14px;
 }
+
+.btn-hover::before {
+    content: '';
+    position: absolute;
+    left: -50px;
+    top: -20px;
+    width: 30px;
+    height: 80px;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+    transform: rotateZ(-30deg);
+}
+
+.btn-hover:hover::before {
+    left: 100%;
+    top: -20px;
+    transform: rotateZ(0deg);
+    transition: all 0.5s;
+}
+
+
+/* 闪烁卡片结束 */
 
 .btn-inverse-primary:hover {
     -webkit-transition: all .3s ease;
