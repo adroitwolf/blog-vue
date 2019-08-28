@@ -16,10 +16,25 @@ blogApi.getAllList = (pageSize, pageNum) => {
     })
 }
 
+
+
 blogApi.getDetail = (id) => {
     return new service({
         url: `${baseUrl}/detail/${id}`,
         method: 'get'
+    })
+}
+
+
+blogApi.queryListByExample = (pageSize, pageNum, keyword) => {
+    return new service({
+        url: `${baseUrl}/query`,
+        method: 'get',
+        params: {
+            pageNum: pageNum,
+            pageSize: pageSize,
+            keyword: keyword
+        }
     })
 }
 

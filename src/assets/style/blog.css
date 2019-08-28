@@ -183,6 +183,49 @@ input {
 }
 
 
+
+/* 搜索框样式代码 */
+
+.search-block {
+    background-color: #0611166c;
+}
+
+.search-box {
+    padding: 5px 10px;
+}
+
+.search-box input {
+    width: 84%!important;
+    float: left;
+    margin-right: 10px;
+    color: rgba(255, 255, 255, 0.637);
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.637);
+    /*输入文字、placeholder颜色*/
+    caret-color: red;
+}
+
+.search-box input::placeholder {
+    color: rgba(255, 255, 255, 0.637);
+}
+
+.search-box button {
+    float: left;
+}
+
+
+/* 搜索框样式代码结束 */
+
+
+/* 提示卡片 */
+
+.alert-card {
+    background: rgba(24, 22, 22, 0.384);
+    border-left: 2px solid rgba(226, 23, 23, 0.884);
+    box-sizing: border-box;
+}
+
+
+
 /* 闪烁卡片 */
 
 .btn-hover {
