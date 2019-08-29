@@ -183,7 +183,6 @@ input {
 }
 
 
-
 /* 搜索框样式代码 */
 
 .search-block {
@@ -223,7 +222,6 @@ input {
     border-left: 2px solid rgba(226, 23, 23, 0.884);
     box-sizing: border-box;
 }
-
 
 
 /* 闪烁卡片 */
@@ -336,3 +334,13 @@ input {
     padding-right: 4px;
     display: inline-block;
 }
+
+
+/* tag标签 */
+
+.article-tag .tag:hover {
+    color: rgb(253, 6, 6);
+}
+
+
+/* tag标签结束 */

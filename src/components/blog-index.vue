@@ -24,7 +24,7 @@
                                         <div style="display:inline-block" v-for="(tag,index) in article.tagsTitle" :key="index">
                                             <div v-if="index != 0" style="display:inline-block;" class="px-1">&nbsp;|&nbsp;</div>      
                                             <a >
-                                             <Icon type="ios-pricetag-outline" style="padding-right:5px;"/>{{tag}}
+                                             <Icon type="ios-pricetag-outline" style="padding-right:5px;"/><span class="tag" @click="searchTag(tag)">{{tag}}</span>
                                             </a>
                                         </div>
                                     </div>
@@ -141,6 +141,9 @@
     },
     methods: {
         ...mapActions(["getProfile","login"]),
+        searchTag(tag){
+            this.$router.push({name:'博客搜索',params:{tag:tag}});
+        },
         handleSearch(){
             if(!this.keyword){
                 $('#keyword').addClass('shake');
