@@ -9,21 +9,22 @@
             
             </MenuItem>
         </div>
+        <div>
+            <div class="accessory">
+                 <router-link to="/index.html"><Icon type="ios-link-outline" size="20"/></router-link>
+            </div>
+            <Dropdown  @on-click="checkProfile">
+                <div class="profile">
+                    <!-- 判断用户是否有头像 -->
+                    <Avatar  :src='avatarId?avatarId:avatarUrl' size="large"  />
+                </div>
+                <DropdownMenu  slot="list" >
+                    <DropdownItem name="个人资料"><Icon type="ios-person"/>个人资料</DropdownItem>
+                    <DropdownItem name="logout"><Icon type="ios-log-out" />退出登陆</DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
+        </div>
         
-        <div class="accessory">
-            <router-link to="/index.html"><Icon type="ios-link-outline" size="20"/></router-link>
-        </div>
-        <Dropdown  @on-click="checkProfile">
-        <div class="profile">
-            
-            <!-- 判断用户是否有头像 -->
-            <Avatar  :src='avatarId?avatarId:avatarUrl' size="large"  />
-        </div>
-        <DropdownMenu  slot="list" >
-            <DropdownItem name="个人资料"><Icon type="ios-person"/>个人资料</DropdownItem>
-            <DropdownItem name="logout"><Icon type="ios-log-out" />退出登陆</DropdownItem>
-        </DropdownMenu>
-    </Dropdown>
         
         
     </Menu>
@@ -96,5 +97,6 @@ import router from '@/router'
 
 .accessory{
     color: #fff;
+    display: inline-block;
 }
 </style>
