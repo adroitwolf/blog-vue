@@ -44,7 +44,7 @@ const mutations = {
     },
     updateAvatar: (state, avatar) => {
         var re = /^[ ]*$/;
-        if (profile.avatarId != null && !re.test(avatar)) {
+        if (avatar != null && !re.test(avatar)) {
             state.avatarId = Global.baseUrl + "/" + avatar;
         }
     }
