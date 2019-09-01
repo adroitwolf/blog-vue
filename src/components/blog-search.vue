@@ -119,7 +119,8 @@
         },
         methods: {
             searchTag(tag){
-              this.tag = tag;  
+              this.tag = tag; 
+              this.getArticleList();
             },
             handleSearch(){
             if(!this.keywordx){
