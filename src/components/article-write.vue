@@ -65,7 +65,7 @@ export default {
         let row = this.$route.params;
         if(row){
             this.title = row.title;
-            this.tag = row.tag;
+            this.tagList = row.tagsTitle;
             this.summary = row.summary;
             this.htmlContent = row.content;
             this.content = row.contentMd;

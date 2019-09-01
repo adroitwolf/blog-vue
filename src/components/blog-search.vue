@@ -80,6 +80,7 @@
     import blogApi from '@/api/blog'
     import $ from 'jquery'
     import {Page} from 'iview'
+
     export default {
         name: 'blogSearch',
         data() {
@@ -196,6 +197,7 @@
         }
     }
 </script>
+
 
 
 <style lang="sass" scoped>
