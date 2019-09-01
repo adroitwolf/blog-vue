@@ -67,8 +67,7 @@ export default {
     position: relative;
     border-radius: 4px;
     overflow: hidden;
-    height: 100%;
-    width: 100%;
+    min-height: 800px;
 
 }
 

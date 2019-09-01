@@ -6,12 +6,7 @@
                 <Col span="12">
                   <div class="profile">
                     <!-- 判断用户是否有头像 -->
-                    <div v-if="avatarIdx">
-                        <img  :src="avatarIdx" />
-                    </div>
-                    <div v-else>
-                    <img  :src='avatarUrl' />
-                    </div>
+                        <img  :src="avatarIdx?avatarIdx:avatarUrl" />
                      
                 </div>
                 </Col>
@@ -249,5 +244,6 @@ created() {
     width: 150px;
     height: 150px;
     border-radius: 50%;
+    margin-bottom: 10px;
 }
 </style>

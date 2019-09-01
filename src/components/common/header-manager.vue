@@ -17,12 +17,7 @@
         <div class="profile">
             
             <!-- 判断用户是否有头像 -->
-            <div v-if="avatarId">
-            <Avatar  :src='avatarId' size="large"  />
-            </div>
-            <div v-else>
-            <Avatar  :src='avatarUrl' size="large"  />
-            </div>
+            <Avatar  :src='avatarId?avatarId:avatarUrl' size="large"  />
         </div>
         <DropdownMenu  slot="list" >
             <DropdownItem name="个人资料"><Icon type="ios-person"/>个人资料</DropdownItem>
