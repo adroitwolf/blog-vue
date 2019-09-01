@@ -24,7 +24,7 @@
                                         <div style="display:inline-block" v-for="(tag,index) in article.tagsTitle" :key="index">
                                             <div v-if="index != 0" style="display:inline-block;" class="px-1">&nbsp;|&nbsp;</div>      
                                             <a >
-                                             <Icon type="ios-pricetag-outline" style="padding-right:5px;"/>{{tag}}
+                                             <Icon type="ios-pricetag-outline" style="padding-right:5px;"/><span class="tag" @click="searchTag(tag)">{{tag}}</span>
                                             </a>
                                         </div>
                                     </div>
@@ -67,21 +67,27 @@
             <!-- 登陆表单 -->
                 <div class="blog-card">
                     <div v-if="username">
-                        <div class="form-title text-center">
-                            欢迎你
+                        <div class="form-title text-center slide_username">
+                            {{username}}
                         </div>
                         <div class="user-info">
-                            <div class="py-2 row">
-                                 <div v-if="avatarId" class="col-md-4">
+                              <!-- 修改用户头像卡片 -->
+                            <div class="py-2">                                    
+                                 <!-- <div v-if="avatarId" class="col-md-4">
                                     <Avatar  :src='avatarId' size="large"  />
                                     </div>
                                     <div v-else class="col-md-4">
                                     <Avatar  :src='baseAvatar' size="large"  />
-                                 </div>
-                                <div class="username col-md-6">{{username}} </div>
+                                 </div> -->
+                                    
+                                <img  @click="toStatus" :src="!avatarId?baseAvatar:avatarId" alt="" class="slide_avatar">
+                                    
+
+                                
+                               
                             </div>
                             
-                            <button @click="toStatus" class="btn btn-fluid btn-inverse-primary">状态表</button>
+                            <!-- <button class="btn btn-fluid btn-inverse-primary">状态表</button> -->
                         </div>
                     </div>
                     <div v-else>
@@ -141,6 +147,9 @@
     },
     methods: {
         ...mapActions(["getProfile","login"]),
+        searchTag(tag){
+            this.$router.push({name:'博客搜索',params:{tag:tag}});
+        },
         handleSearch(){
             if(!this.keyword){
                 $('#keyword').addClass('shake');

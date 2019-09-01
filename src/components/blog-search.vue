@@ -3,7 +3,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <div class="alert-card mb-4 p-2 ">>> 搜索「{{keyword}}」的结果</div>
+
+                <div class="alert-card mb-4 p-2 ">
+                   <span v-if="tag">>>「{{tag}}」</span>
+                   <span v-else> >> 搜索「{{keyword}}」的结果</span></div>
                  <div id="article-list">
                      <div v-for="(article,index) in articleLists" :key="index">
                             <div class="article-card blog-card">
@@ -25,7 +28,7 @@
                                         <div style="display:inline-block" v-for="(tag,index) in article.tagsTitle" :key="index">
                                             <div v-if="index != 0" style="display:inline-block;" class="px-1">&nbsp;|&nbsp;</div>      
                                             <a >
-                                             <Icon type="ios-pricetag-outline" style="padding-right:5px;"/>{{tag}}
+                                             <Icon type="ios-pricetag-outline" style="padding-right:5px;"/><span class="tag"  @click="searchTag(tag)">{{tag}}</span>
                                             </a>
                                         </div>
                                     </div>
@@ -99,13 +102,26 @@
                 pageSize:5,
                 pageNum:1,
                 total:0,
+                tag:'',
             }
         },
         mounted() {
-           this.keyword = this.$route.params.keyword;
+            if(this.$route.params.keyword){
+
+                this.keyword = this.$route.params.keyword;
+            }
+            if(this.$route.params.tag){
+
+                this.tag = this.$route.params.tag;
+            }
+          
            this.getArticleList();
         },
         methods: {
+            searchTag(tag){
+              this.tag = tag; 
+              this.getArticleList();
+            },
             handleSearch(){
             if(!this.keywordx){
                 $('#keyword').addClass('shake');
@@ -120,6 +136,7 @@
 
                 this.keyword = this.keywordx;
                 this.keywordx = '';
+                this.tag = '';
                 this.getArticleList();
             },
 
@@ -137,6 +154,22 @@
             this.getArticleList();
             },
             getArticleList(){
+                if(this.tag != ''){
+                    blogApi.searchTag(this.pageSize,this.pageNum,this.tag).then(response =>{
+                        this.total = response.data.total;
+                    this.articleLists = response.data.rows;
+                    // 转换日期
+                    for(var i=0;i<this.articleLists.length;i++){
+                    this.articleLists[i].releaseDate = this.articleLists[i].releaseDate.split(' ')[0];
+                    this.articleLists[i].releaseDate = this.articleLists[i].releaseDate.split('-');
+                    var month = this.articleLists[i].releaseDate[1];
+                    month = parseInt(month).toString() + "月";
+                    this.articleLists[i].month = month;
+                    this.articleLists[i].day = this.articleLists[i].releaseDate[2];
+                    }
+                    });
+                    return 
+                }
                 blogApi.queryListByExample(this.pageSize,this.pageNum,this.keyword).then(response=>{
                     this.total = response.data.total;
                     this.articleLists = response.data.rows;

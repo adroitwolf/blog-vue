@@ -38,4 +38,17 @@ blogApi.queryListByExample = (pageSize, pageNum, keyword) => {
     })
 }
 
+
+blogApi.searchTag = (pageSize, pageNum, tag) => {
+    return new service({
+        url: `${baseUrl}/tag`,
+        method: 'get',
+        params: {
+            pageNum: pageNum,
+            pageSize: pageSize,
+            tag: tag
+        }
+    })
+}
+
 export default blogApi
