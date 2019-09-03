@@ -68,8 +68,11 @@ import router from '@/router'
   margin: 0;
   padding: 0;
   background: url(../assets/img/bg.png) no-repeat;
-  width: 100%;
-  height: 100%;
+  background-size: cover;
+  /* width: 100%;
+  height: 100%; */
+  min-height: 800px;
+  max-height: 100%;
 }
 
 .container{

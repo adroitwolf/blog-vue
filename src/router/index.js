@@ -17,31 +17,36 @@ export default new Router({
                 name: '状态面板',
                 meta: ["主页", "状态面板"],
                 component: () =>
-                    import ('@/components/status')
+                    import ('@/components/manager-status')
             }, {
                 path: 'status',
                 name: '状态面板',
                 meta: ["主页", "状态面板"],
                 component: () =>
-                    import ('@/components/status')
+                    import ('@/components/manager-status')
             }, {
                 path: 'articleManager',
                 meta: ["主页", "文章", "文章管理"],
                 name: '文章管理',
                 component: () =>
-                    import ('@/components/article-manager')
+                    import ('@/components/manager-article')
             }, {
                 path: 'userProfile',
                 meta: ["主页", "用户", "个人资料"],
                 name: '个人资料',
                 component: () =>
-                    import ('@/components/UserProfile')
+                    import ('@/components/manager-user-profile')
             }, {
                 path: 'writeArticle',
                 meta: ["主页", "文章", "写文章"],
                 name: '写文章',
                 component: () =>
-                    import ("@/components/article-write")
+                    import ("@/components/manager-article-write")
+            }, {
+                path: 'photo',
+                meta: ["主页", "附件", "图片"],
+                component: () =>
+                    import ("@/components/manager-photo")
             }],
         },
         {
