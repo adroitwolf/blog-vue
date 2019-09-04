@@ -38,8 +38,8 @@
                                 </div>
                                  <!-- 新增 tag标签片段结束 -->
                                 
-                                <div class="article-img">
-                                    <img :src="article.img?article.img:imglist[index%pageSize]" alt="">
+                                 <div class="article-img">
+                                    <img :src="article.picture?Global.baseUrl + '/' + article.picture:imglist[index%pageSize]" alt="">
                                 </div>
                                 <div class="article-summary">
                                     {{article.summary}}
@@ -80,6 +80,7 @@
     import blogApi from '@/api/blog'
     import $ from 'jquery'
     import {Page} from 'iview'
+    import Global from '@/util/Global'
 
     export default {
         name: 'blogSearch',
