@@ -156,7 +156,8 @@ import articleApi from '@/api/article'
             },
             //点击，切换页面
             changepage(index) {
-                
+                this.loading = true;
+                this.pageNum = index;
                 this.queryArticleList();
             },
             

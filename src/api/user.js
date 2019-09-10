@@ -34,7 +34,7 @@ userApi.updateProfile = (username, phone, email, aboutMe) => {
 
 userApi.uploadAvatar = (file) => {
     let data = new FormData();
-    data.append("avatar", file)
+    data.append("avatar", file, "avatar.jpg");
     return service({
         url: `${baseUrl}/updateAvatar`,
         data: data,

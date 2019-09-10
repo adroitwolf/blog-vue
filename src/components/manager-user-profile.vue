@@ -1,5 +1,6 @@
 <template>
-    <Row type='flex' justify="space-around">
+<div>
+<Row type='flex' justify="space-around">
         <Col span="8">
         <Card class="profileCard">
             <Row type='flex' justify="center" align="middle"> 
@@ -86,36 +87,51 @@
                     </TabPane>
                     <TabPane label="上传头像" name="name3">
                          <Upload
+                         
                          :show-upload-list="false"
                          accept="image/jpg, image/jpeg,image/png,image/bmp"
                         type="drag"
                         :before-upload="handleUpload"
                         action="xxx">
-                        <div style="padding: 20px 0" v-if="idBefore==''">
+                        <div style="padding: 20px 0" id="upload-box">
                             <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
                             <p>上传一些好看的头像吧~</p>
                         </div>
-                        <div style="padding:20px 0" v-else>
-                            <img :src="idBefore" alt="">
+                        <div style="padding:20px 0" id="avatar-box" class="hidden">
+                            <img style="height:auto;max-width:100%" :src="idBefore" alt="">
                         </div>
                     </Upload>
-                    <div class="mt-4">
+                    <div class="mt-4 flex">
+                        <Button type="primary" @click="open = true">修剪照片</Button>
                         <Button type="primary" @click="uploadAvatar">上传</Button></div>
                     </TabPane>
                 </Tabs>
             </Card>
         </Col>
     </Row>
+
+    <!-- 照片遮罩层 -->
+    <Modal
+        v-model="open"
+        @on-ok="crppper"
+        title="建议是200x200规格的哦"
+        >
+        <div style="width:360px;height:360px;">
+            <img :src="idBefore" style="max-width:100%;height:auto;" id="avatar" alt="">
+        </div>
+    </Modal>
+</div>
+    
 </template>
 
 <script>
-
+import 'cropperjs/dist/cropper.css';
 import $ from 'jquery'
-
+import Cropper from 'cropperjs'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min'
 import {mapGetters,mapActions} from 'vuex'
-import {Avatar,Divider,Tabs,TabPane,Form,FormItem,Message,Notice,Upload} from 'iview'
+import {Avatar,Divider,Tabs,TabPane,Form,FormItem,Message,Notice,Upload,Modal} from 'iview'
 import userApi from '@/api/user'
 
 export default {
@@ -134,7 +150,9 @@ export default {
             phone:'',
             email:'',
             avatarUrl:require('@/assets/img/avatar.png'),
-            articleCount:0
+            articleCount:0,
+            cropper:"",
+            open:false
         }
     },
     components:{
@@ -146,6 +164,7 @@ export default {
         FormItem,
         Message,
         Upload,
+        Modal,
 
     },
     computed: {
@@ -160,25 +179,61 @@ export default {
 created() {
     this.getArticleCount().then(response=>{
         this.articleCount = response.data.data;
-    })
+    });
+    
+},
+mounted() {
+    let that = this;
+    let image  = document.getElementById("avatar");
+    this.cropper = new Cropper(image, { 
+           aspectRatio: 1,
+           zoomable:false,
+           scalable:false,
+           movable:false,
+           minContainerWidth:360,
+           minContainerHeight:360
+          }); 
 },
     methods: {
         ...mapActions(['changePassword',"updateProfile","getArticleCount","uploadAvatarId"]),
+        crppper(){
+            let that = this;
+            const canvas = this.cropper.getCroppedCanvas();
+            this.idBefore = canvas.toDataURL("image/png");
+             canvas.toBlob(function(blob){
+                 that.avatar = blob;
+             });
+
+        },
         uploadAvatar(){
+            
             if(this.avatar == null){
                 Message.error("请先上传图片！");
                 return false;
             }
+
+            
             
             this.uploadAvatarId({file:this.avatar}).then(response=>{
                  Notice.success({
                     title: '更新个人头像成功',
                 });
-            })
+            });
+            
         },
         handleUpload(file){
             this.avatar = file;
             this.idBefore = window.URL.createObjectURL(this.avatar);
+
+            $("#upload-box").addClass("hidden");
+            $("#avatar-box").removeClass("hidden");
+
+             if(this.cropper){
+                this.cropper.replace(this.idBefore);
+                this.open = true;
+            }
+        
+
             return false;
         },
         changeUsername(e){
@@ -228,6 +283,8 @@ created() {
 </script>
 
 <style scoped>
+
+/* @import "https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.5/cropper.min.css"; */
 *{
     font-size: 16px;
 }
@@ -245,5 +302,9 @@ created() {
     height: 150px;
     border-radius: 50%;
     margin-bottom: 10px;
+}
+
+.hidden{
+    display: none;
 }
 </style>

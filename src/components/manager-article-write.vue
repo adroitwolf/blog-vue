@@ -18,7 +18,7 @@
                 <Button type="primary" @click="toDrawer">发布</Button>
             </FormItem>
 
-             <Drawer title="文章设置" width="30%" :closable="true" v-model="DrawerStatus">
+             <Drawer title="文章设置" width="50%" :closable="true" v-model="DrawerStatus">
                 <Form  label-position="top" @submit.native.prevent>
                     <FormItem  label="文章分类">
                         <!--修改代码 -> 增加文章标签处理 日期 8-23-19 处理人：WHOMAI -->
@@ -34,47 +34,123 @@
                         <Input v-model="summary" type="textarea" :rows="4" placeholder="随便写一点" />
                     </FormItem>
                     <Divider/>
-                    <FormItem>
-                        <Button type="primary" @click='submit'>发布</Button>
+                    <FormItem label="文章缩略图">
+                        <div style="width:350px;height:200px">
+                            <img :src="picture?Global.baseUrl+'/'+picture:uploadImgUrl" alt="" style="width:100%;height:200px;" @click="uploadImgStatus = !uploadImgStatus">
+                        </div>
                     </FormItem>
                 </Form>
+                    <div class="drawer-footer">
+                        <Button type="primary" @click='submit'>发布</Button>
+                    </div>
              </Drawer>
+             <Drawer title="照片库" :closable="true" :width="600" v-model="uploadImgStatus">
+                <Row type="flex"  justify="space-between" style="padding-bottom:10px;">
+                 <Col span="11" v-for="(item,index) in attachmentList" :key="index" style="margin-bottom:20px;">
+                 <img @click="picChoose(item)" style="width:100%;height:100%;" :src="Global.baseUrl+'/'+item.title" :alt="item.id" >
+                 </Col>
+                </Row>
+                <Divider/>
+                <Page :total="total" show-total :page-size="5"/>
+                <Divider/>
+                <div class="drawer-footer">
+                     <Button type="primary" @click="uploadModoal = !uploadModoal">上传附件</Button>
+                </div>  
+             </Drawer>
+             
         </Form>
+        <Modal
+            v-model="uploadModoal"
+            title="上传文件"
+            @on-ok="upload"
+            width="500">
+            <Upload
+                multiple
+                type="drag"
+                :before-upload="handleUpload"
+                action="">
+                    <div style="padding: 20px 0" id="upload-box">
+                        <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+                        <p>Click or drag files here to upload</p>
+                    </div>
+                    <div style="padding:20px 0" id="file-box" class="hidden">
+                            <img style="height:auto;max-width:100%" :src="idBefore" alt="">
+                    </div>
+             </Upload>
+        </Modal>
     </div>
 </template>
 
 <script>
+import $ from 'jquery'
 import { mavonEditor } from 'mavon-editor'
-import {Form,FormItem,Drawer,Divider,Message,Notice,Tag} from 'iview'
+import {Form,FormItem,Drawer,Divider,Message,Notice,Tag,Upload,Modal,Page} from 'iview'
 import 'mavon-editor/dist/css/index.css'
 import {mapGetters,mapActions} from 'vuex'
 import articleApi from '@/api/article'
+import attachmentApi from "@/api/attachment"
+import Global from '@/util/Global'
 
 export default {
     
     name:'articleWrite',
     components:{
+        Global,
         FormItem,
         Form,
         Drawer,
         mavonEditor,
         Divider,
-        Tag
+        Tag,
+        Upload,
+        Modal,
+        Page,
     },
     mounted() {
         let row = this.$route.params;
         if(row){
             this.title = row.title;
-            this.tag = row.tag;
+            this.tagList = row.tagsTitle== null?[]:row.tagsTitle;
             this.summary = row.summary;
             this.htmlContent = row.content;
             this.content = row.contentMd;
             this.id = row.id;
-
+            this.picture = row.picture;
         }
+        attachmentApi.getAttachmentList(this.pageSize,this.pageNum).then(response=>{
+            console.log(response.data);
+            this.attachmentList = response.data.rows;
+            this.total  = response.data.total;
+        })
     },
     methods: {
         ...mapActions(["postArticle"]),
+        picChoose(item){
+            this.uploadImgStatus = !this.uploadImgStatus;
+            this.picture = item.title;
+        },
+        /*上传文章缩略图*/ 
+        handleUpload(file){
+            this.file = file;
+            this.idBefore = window.URL.createObjectURL(file);
+            $("#upload-box").addClass("hidden");
+            $("#file-box").removeClass("hidden");
+            return false;
+        },
+        upload(){
+            if(this.file == null){
+                Message.error("请先上传文件！");
+                return 
+            }
+           attachmentApi.uploadFile(this.file).then(response =>{
+               attachmentApi.getAttachmentList(this.pageSize,this.pageNum).then(response =>{
+                    this.attachmentList = response.data.rows;
+                    this.total  = response.data.total;
+               })
+           })
+
+        },
+        /*上传结束*/ 
         /* 处理文章Tag的所有函数*/ 
         handleCloseTag(index){
 
@@ -119,6 +195,7 @@ export default {
                 articleParams.summary = this.summary;
                 articleParams.htmlContent = this.htmlContent;
                 articleParams.content = this.content;
+                articleParams.picture = this.picture;
                 articleApi.updateArticle(this.id,articleParams).then(response=>{
                  
                     Notice.success({
@@ -130,7 +207,7 @@ export default {
                 })
                 return;
             }
-            this.postArticle({title: this.title, tagList:this.tagList, summary:this.summary, htmlContent:this.htmlContent, content:this.content,id:this.id}).then(response=>{
+            this.postArticle({title: this.title, tagList:this.tagList,picture:this.picture,summary:this.summary, htmlContent:this.htmlContent, content:this.content,id:this.id}).then(response=>{
                 Message.success('发布文章成功！');
                 this.title = '';
                 this.tagList = [];
@@ -151,9 +228,19 @@ export default {
     },
     data() {
         return {
+            total:0,
+            attachmentList:[],
+            idBefore:null,
+            file:null,
+            uploadModoal:false,
+            pageSize:5,
+            pageNum:1,
+            uploadImgStatus:false,
+            uploadImgUrl: require("../assets/img/upload.png"),
             id:'',
             title:'',
             tag: '',
+            picture:"",
             tagList:[],
             addTag:true,
             summary: '',
@@ -212,5 +299,20 @@ export default {
 
 .v-note-wrapper{
     z-index: 10!important;
+}
+
+.drawer-footer{
+    width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-top: 1px solid #e8e8e8;
+        padding: 10px 16px;
+        text-align: right;
+        background: #fff;
+}
+
+.hidden{
+    display: none;
 }
 </style>

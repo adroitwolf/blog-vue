@@ -40,7 +40,9 @@
                                             <!--  新增 tag标签片段结束-->
                                         </div>
                                 </div>
-
+                                 <div class="article-img">
+                                    <img :src="picture?Global.baseUrl + '/' +picture:imglist[blogId%imglist.length]" alt="">
+                                </div>
                                 <div class="blog-html-content my-2 markdown-body " v-html="content"></div>
 
 
@@ -68,6 +70,7 @@
         },
         data() {
             return {
+                blogId:"",
                 height:"",
                 baseAvatar:require('../assets/img/avatar.png'),
                 title: "",
@@ -76,6 +79,20 @@
                 username:"",
                 avatarId:"",
                 tagsTitle:[],
+                picture:"",
+                imglist:[
+                require('../assets/img/0.jpg'),
+                require('../assets/img/1.jpg'),
+                require('../assets/img/2.jpg'),
+                require('../assets/img/3.jpg'),
+                require('../assets/img/4.jpg'),
+                require('../assets/img/5.png'),
+                require('../assets/img/6.jpg'),
+                require('../assets/img/7.jpg'),
+                require('../assets/img/8.jpg'),
+                require('../assets/img/9.jpg'),
+                
+            ],
             }
         },
         mounted() {
@@ -84,12 +101,14 @@
             let blogId = this.$route.query.id;
             if(blogId){
                 blogApi.getDetail(blogId).then(response =>{
+                    this.blogId = blogId;
                     let data = response.data.data;
                     this.title = data.title;
                     this.content = data.content;
                     this.date = data.releaseDate;
                     this.username = data.username;
                     this.tagsTitle = data.tagsTitle;
+                    this.picture = data.picture;
                     var re = /^[ ]*$/;
                     if(!re.test(data.avatarId)){
 

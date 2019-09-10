@@ -19,6 +19,11 @@ const state = {
             icon: 'md-clipboard'
         }, {
             id: 4,
+            to: '/admin/index.html/photo',
+            name: '图片',
+            icon: 'ios-albums-outline'
+        }, {
+            id: 5,
             to: '/admin/index.html/userProfile',
             name: '个人资料',
             icon: 'ios-person-outline'
