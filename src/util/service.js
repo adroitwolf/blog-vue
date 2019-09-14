@@ -8,6 +8,7 @@ import router from '@/router'
 const service = axios.create({
     timeout: 5000,
     baseURL: "http://localhost:8099"
+        // baseURL: "http://192.168.3.137:8848"
 });
 
 

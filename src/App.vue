@@ -1,18 +1,15 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
+  name: "App",
   data() {
-    return {
-       
-    }
-  },
+    return {};
+  }
   // watch: {
   //     initData () {
   //       let H = document.querySelector('#cdapp')
@@ -29,13 +26,11 @@ export default {
   //       }, 300)
   //     }
   //   }
-}
+};
 </script>
 
 <style>
-
-
-*{
+* {
   margin: 0;
   padding: 0;
 }
@@ -56,12 +51,12 @@ export default {
   height: 100%;
   overflow: auto;
 } */
-#app{
-
+#app {
   min-height: 800px;
   width: 100%;
   /* font-family: "微软雅黑"; */
-   font-family:Lato,"Microsoft Jhenghei","Hiragino Sans GB","Microsoft YaHei",sans-serif!important; 
-   /*font-family: 'Rajdhani',sans-serif;*/
+  font-family: Lato, "Microsoft Jhenghei", "Hiragino Sans GB", "Microsoft YaHei",
+    sans-serif !important;
+  /*font-family: 'Rajdhani',sans-serif;*/
 }
 </style>
