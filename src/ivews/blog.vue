@@ -1,30 +1,27 @@
 <template>
-    <div class="blog-content">
-        <Header></Header>
-        <router-view></router-view>
-    </div>
+  <div class="blog-content">
+    <Header></Header>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import Header from '@/components/common/header'
+import Header from "@/components/common/header";
 
 // import './node_modules/bootstrap/dist/css/bootstrap.min.css';
 // import './node_modules/bootstrap/dist/js/bootstrap.min.js';
 // import 'bootstrap/dist/css/bootstrap.min.css'
 // import 'bootstrap/dist/js/bootstrap.min'
 
-
 export default {
-    name:'blog',
-    components:{
-        Header,
-    },
-    data() {
-        return {
-            
-        }
-    },
-}
+  name: "blog",
+  components: {
+    Header
+  },
+  data() {
+    return {};
+  }
+};
 </script>
 
 <style lang="sass" scoped>
@@ -39,19 +36,19 @@ export default {
 
 
 <style scoped>
-    @import '../assets/style/blog.css';
+@import "../assets/style/blog.css";
 </style>
 
 <style>
 /* 修改的iview分页样式 */
-.ivu-page-total{
-    color:black ;
-    opacity: .8 ;
+.ivu-page-total {
+  color: black;
+  opacity: 0.8;
 }
-.ivu-page-prev,.ivu-page-item,.ivu-page-next{
-    background: transparent;
-    color: black;
+.ivu-page-prev,
+.ivu-page-item,
+.ivu-page-next {
+  background: transparent;
+  color: black;
 }
-
-
 </style>
