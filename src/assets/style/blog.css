@@ -159,6 +159,29 @@ input {
     width: 100%;
 }
 
+.img-box{
+    width: 690px;
+    overflow: hidden;
+    max-height: 400px;
+}
+
+.img-box img {
+    display: block;
+    border-radius: 2px 2px 0 0;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    transition: transform .3s ease;
+}
+
+.img-box img:hover{
+    transform: scale(1.2);
+}
+
 .article-summary {
     font-size: 1rem;
     display: block;
