@@ -4,7 +4,7 @@
       <Header></Header>
       <Content class="body" :style="{padding: '0 50px'}">
         <Breadcrumb :style="{margin: '20px 0'}">
-          <BreadcrumbItem v-for="(item,index) in $route.meta" :key="index">{{item}}</BreadcrumbItem>
+          <BreadcrumbItem v-for="(item,index) in $route.meta.Bread" :key="index">{{item}}</BreadcrumbItem>
         </Breadcrumb>
         <div class="content">
           <router-view></router-view>
