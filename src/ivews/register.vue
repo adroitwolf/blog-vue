@@ -85,7 +85,7 @@ export default {
           let _that = this;
           setTimeout(function() {
             _that.$router.push({
-              name: "博客"
+              name: "博客主页"
             });
           }, 2000);
         });
