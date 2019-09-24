@@ -34,10 +34,12 @@
       <!-- 新增 tag标签片段结束 -->
 
       <div class="article-img">
-        <img
-          :src="article.picture?Global.baseUrl + '/' + article.picture:imglist[index%pageSize]"
-          alt
-        />
+        <div class="img-box">
+          <img
+            :src="article.picture?Global.baseUrl + '/' + article.picture:imglist[index%pageSize]"
+            alt
+          />
+        </div>
       </div>
       <div class="article-summary">{{article.summary}}</div>
     </div>

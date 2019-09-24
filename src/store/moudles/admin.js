@@ -37,7 +37,7 @@ const actions = {
     },
     changePassword({ commit }, { opassword, password }) {
         return new Promise((resolve, reject) => {
-            userApi.changePassword(opassword, password).then(response => {
+            adminApi.changePassword(opassword, password).then(response => {
                 resolve(response);
             }).catch(error => {
                 reject(error);

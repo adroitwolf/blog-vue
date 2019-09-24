@@ -204,9 +204,15 @@ export default {
 .ivu-table-wrapper {
   position: static !important;
 }
+
+
+
 </style>
 
 <style>
+.ivu-poptip-confirm .ivu-poptip-body .ivu-icon {
+  left: 8%;
+}
 #data .ivu-table th,
 #data .ivu-table td {
   text-align: center;
