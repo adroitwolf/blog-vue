@@ -17,8 +17,12 @@
                 <input type="text" id="account" v-model="account" class="form-control form-input" />
               </div>
               <div class="form-group">
-                <label for="username" class="text-dark">昵称:</label>
-                <input type="text" id="username" v-model="username" class="form-control form-input" />
+                <label for="username" class="text-dark">手机号:</label>
+                <input type="text" id="phont" v-model="phone" class="form-control form-input" />
+              </div>
+              <div class="form-group">
+                <label for="username" class="text-dark">邮箱:</label>
+                <input type="text" id="email" v-model="email" class="form-control form-input" />
               </div>
               <div class="form-group">
                 <label for="password" class="text-dark">密码:</label>
@@ -58,7 +62,6 @@ export default {
     toRegister() {
       if (
         !this.account ||
-        !this.username ||
         !this.password ||
         !this.passwordc
       ) {
@@ -71,7 +74,7 @@ export default {
       }
 
       adminApi
-        .register(this.account, this.username, this.password)
+        .register(this.account, this.password,this.phone,this.email)
         .then(response => {
           let data = response.data;
           if (200 != data.status) {
@@ -96,7 +99,8 @@ export default {
       account: "",
       password: "",
       passwordc: "",
-      username: ""
+      email:"",
+      phone:""
     };
   },
   components: {
@@ -129,6 +133,7 @@ export default {
   background: rgba(230, 238, 232, 0.5);
   box-shadow: black 0px 0px 8px;
   width: 400px;
+  height:auto;
 }
 
 .register-box {
