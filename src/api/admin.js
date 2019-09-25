@@ -12,7 +12,7 @@ adminApi.login = (username, password) => {
     return service({
         url: `${adminUrl}/login`,
         data: {
-            username: username,
+            p: username,
             password: md5(password)
         },
         method: 'post'
@@ -40,13 +40,14 @@ adminApi.logout = () => {
     })
 }
 
-adminApi.register = (account, username, password) => {
+adminApi.register = (account, password, phone, email) => {
     return service({
         url: `${adminUrl}/register`,
         method: 'post',
         data: {
             account: account,
-            username: username,
+            phone: phone,
+            email: email,
             password: md5(password)
         }
     })

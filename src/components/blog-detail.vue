@@ -7,11 +7,8 @@
             <div class="blog-title mb-1">{{title}}</div>
 
             <div class="auth-box my-2">
-              <div v-if="avatarId" class="avatar">
-                <Avatar :src="avatarId" size="large" />
-              </div>
-              <div v-else class="avatar">
-                <Avatar :src="baseAvatar" size="large" />
+              <div class="avatar">
+                <Avatar :src="avatarId?avatarId:baseAvatar" size="large" />
               </div>
 
               <div class="post-info ml-2">
@@ -101,8 +98,9 @@ export default {
         this.username = data.username;
         this.tagsTitle = data.tagsTitle;
         this.picture = data.picture;
+        console.log(data.avatarId);
         var re = /^[ ]*$/;
-        if (!re.test(data.avatarId)) {
+        if (null != data.avatarId &&!re.test(data.avatarId)) {
           this.avatarId = this.Global.baseUrl + "/" + data.avatarId;
         }
       });
