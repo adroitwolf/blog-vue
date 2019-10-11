@@ -2,7 +2,15 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+
+// 修改动态路由
 import router from './router'
+import store from './store/'
+// router.beforeEach((to, from, next) => {
+//     if (store.getters.getToken) { //判断是否有token
+
+//     }
+// })
 
 import { Button, Input, Icon, Card, Message, Row, Col, LoadingBar } from 'iview'
 import 'iview/dist/styles/iview.css';
@@ -23,7 +31,6 @@ Vue.use(VueAxios, axios)
 
 
 
-import store from './store/'
 
 
 

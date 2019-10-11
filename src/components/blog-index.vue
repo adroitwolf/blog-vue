@@ -119,10 +119,7 @@ import BlogCard from "@/components/blog-card-component";
 export default {
   name: "blogIndex",
   computed: {
-    ...mapGetters({
-      username: "getUsername",
-      avatarId: "getAvatarId"
-    })
+    ...mapGetters(["username", "avatarId"])
   },
   methods: {
     ...mapActions(["getProfile", "login"]),

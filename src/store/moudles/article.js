@@ -36,26 +36,25 @@ const state = {
 }
 
 
-const getters = {
-    getTag: state => state.tag,
-    getSummary: state => state.summary,
-    getHtmlContent: state => state.htmlContent,
-    getContent: state => state.content,
-    getManagerColumns: state => state.managerColumns,
-    getArticleData: state => state.articleData,
-    getTotal: state => state.total
-
-}
+// const getters = {
+//     getTag: state => state.tag,
+//     getSummary: state => state.summary,
+//     getHtmlContent: state => state.htmlContent,
+//     getContent: state => state.content,
+//     getManagerColumns: state => state.managerColumns,
+//     getArticleData: state => state.articleData,
+//     getTotal: state => state.total
+// }
 
 
 const mutations = {
-    setArticleData(state, data) {
+    SET_DATA(state, data) {
         state.articleData = data;
     },
-    setTotal(state, data) {
+    SET_TOTAL(state, data) {
         state.total = data;
     },
-    setArticleStatus(state, updateStatus) {
+    SET_STATUS(state, updateStatus) {
         state.articleData[updateStatus.index].status = updateStatus.status
     }
 }
@@ -74,8 +73,8 @@ const actions = {
     getArticleList({ commit }, { pageNum, pageSize, postParams }) {
         return new Promise((resolve, reject) => {
             articleApi.getList(pageNum, pageSize, postParams).then(response => {
-                commit("setArticleData", response.data.rows)
-                commit("setTotal", response.data.total)
+                commit("SET_DATA", response.data.rows)
+                commit("SET_TOTAL", response.data.total)
                 resolve(response);
             }).catch(error => {
                 reject(error);
@@ -89,7 +88,7 @@ const actions = {
 
                 const status = response.data.data.status;
 
-                commit("setArticleStatus", { index: index, status: status })
+                commit("SET_STATUS", { index: index, status: status })
                 resolve(response)
             }).catch(error => {
                 reject(error);
@@ -101,4 +100,4 @@ const actions = {
 
 
 
-export default { state, getters, mutations, actions };
+export default { state, mutations, actions };

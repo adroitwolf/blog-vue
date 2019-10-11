@@ -1,19 +1,22 @@
 import adminApi from '@/api/admin'
+import { getToken, setToken, removeToken } from '@/util/auth'
+
 
 const state = {
     account: '',
     password: '',
-    token: null,
+    token: getToken(),
 }
 
-const getters = {
-    getToken: state => state.token,
-    getAccount: state => state.account,
+// const getters = {
+//     getToken: state => state.token,
+//     getAccount: state => state.account,
 
-}
+// }
 
 const mutations = {
-    setToken: (state, token) => {
+    SET_TOKEN: (state, token) => {
+        setToken(token);
         state.token = token
     },
 
@@ -26,8 +29,7 @@ const actions = {
                 .then(response => {
                     const token = response.data;
                     console.log(token);
-                    localStorage.setItem('token', token);
-                    commit('setToken', token);
+                    commit('SET_TOKEN', token);
                     resolve(response);
                 })
                 .catch(error => {
@@ -46,13 +48,13 @@ const actions = {
     },
     logout({ commit }) {
 
-        localStorage.removeItem("token");
-        commit("setToken", null);
+        removeToken();
+        commit("SET_TOKEN", '');
 
         // return new Promise((resolve, reject) => {
         //     userApi.logout().then(response => {
         //         localStorage.removeItem("token");
-        //         commit("setToken", null);
+        //         commit("SET_TOKEN", null);
         //         resolve(reject);
         //     }).catch(error => {
         //         reject(error);
@@ -64,4 +66,4 @@ const actions = {
 }
 
 
-export default { state, getters, mutations, actions };
+export default { state, mutations, actions };

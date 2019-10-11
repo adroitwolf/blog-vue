@@ -181,11 +181,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      usernamex: "getUsername",
-      avatarIdx: "getAvatarId",
-      phonex: "getPhone",
-      emailx: "getEmail",
-      aboutMex: "getAboutMe"
+      usernamex: "username",
+      avatarIdx: "avatarId",
+      phonex: "phone",
+      emailx: "email",
+      aboutMex: "aboutMe"
     })
   },
   created() {

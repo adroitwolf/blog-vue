@@ -111,7 +111,7 @@ import {
   Page
 } from "iview";
 import "mavon-editor/dist/css/index.css";
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 import articleApi from "@/api/article";
 import attachmentApi from "@/api/attachment";
 import Global from "@/util/Global";

@@ -18,7 +18,7 @@
         <Col span="8">
           <Card>
             <p slot="title">最新文章</p>
-            <Table :columns="column" :data="data" :show-header="false"></Table>
+            <Table :columns="column" :data="articleData" :show-header="false"></Table>
           </Card>
         </Col>
       </Row>
@@ -37,11 +37,7 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters({
-      column: "column",
-      data: "getArticleData",
-      status: "status"
-    })
+    ...mapGetters(["column", "articleData", "status"])
   },
   components: {
     Content,

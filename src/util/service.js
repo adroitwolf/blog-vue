@@ -1,7 +1,8 @@
 import axios from 'axios'
+import { getToken } from '@/util/auth'
 import qs from "qs"
-import store from '../store';
-import { Message } from 'iview';
+import store from '@/store'
+import { Message } from 'iview'
 import router from '@/router'
 
 // axios相应的封装
@@ -14,8 +15,8 @@ const service = axios.create({
 
 service.interceptors.request.use(
     config => {
-        const token = store.getters.getToken ? store.getters.getToken : localStorage.getItem('token');
-
+        const token = store.getters.token ? store.getters.token : getToken();
+        console.log(store.getters.token);
         if (token) {
             config.headers["Authentication"] = token
         }
@@ -43,6 +44,7 @@ service.interceptors.request.use(
 )
 
 service.interceptors.response.use(
+
     response => {
         return response;
     },

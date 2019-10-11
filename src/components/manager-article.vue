@@ -30,7 +30,7 @@
           <div v-if="row.status === 'PUBLISHED'">
             <Badge status="success" text="已发布" />
           </div>
-          <div v-else-if='row.status === "RECYCLE"'>
+          <div v-else-if="row.status === 'RECYCLE'">
             <Badge status="error" text="回收站" />
           </div>
         </div>
@@ -45,7 +45,7 @@
               <Button type="error">回收站</Button>
             </Poptip>
           </div>
-          <div v-else-if='row.status === "RECYCLE"'>
+          <div v-else-if="row.status === 'RECYCLE' ">
             <Button type="primary" style="margin-right: 5px" @click="totrash(row,'PUBLISHED')">还原</Button>
 
             <Poptip confirm title="确定要删除这篇文章么?" @on-ok="deleteArticle(row)">
@@ -184,11 +184,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      total: "getTotal",
-      managerColumns: "getManagerColumns",
-      articleData: "getArticleData"
-    })
+    ...mapGetters(["total", "managerColumns", "articleData"])
   },
   mounted() {
     this.queryArticleList();
@@ -204,9 +200,6 @@ export default {
 .ivu-table-wrapper {
   position: static !important;
 }
-
-
-
 </style>
 
 <style>
