@@ -43,7 +43,7 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu
-} from "iview";
+} from "view-design";
 import { mapGetters, mapActions } from "vuex";
 import router from "@/router";
 

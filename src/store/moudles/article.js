@@ -61,10 +61,11 @@ const mutations = {
 
 
 const actions = {
-    postArticle({ commit }, { title, tagList, picture, summary, htmlContent, content }) {
+    postArticle({ commit }, { title, tagList, picture, summary, content, contentMd }) {
         return new Promise((resolve, reject) => {
-            articleApi.submit(title, tagList, picture, summary, htmlContent, content).then(response => {
-                resolve(response);
+            articleApi.submit(title, tagList, picture, summary, content, contentMd).then(response => {
+                const msg = response.message;
+                resolve(msg);
             }).catch(error => {
                 reject(error);
             })
@@ -73,9 +74,10 @@ const actions = {
     getArticleList({ commit }, { pageNum, pageSize, postParams }) {
         return new Promise((resolve, reject) => {
             articleApi.getList(pageNum, pageSize, postParams).then(response => {
-                commit("SET_DATA", response.data.rows)
-                commit("SET_TOTAL", response.data.total)
-                resolve(response);
+                const data = response.data;
+                commit("SET_DATA", data.rows)
+                commit("SET_TOTAL", data.total)
+                resolve(data);
             }).catch(error => {
                 reject(error);
             })
@@ -85,8 +87,8 @@ const actions = {
         return new Promise((resolve, reject) => {
             articleApi.updateArticleStatus(id, status).then(response => {
 
-
-                const status = response.data.data.status;
+                const data = response.data;
+                const status = data.status;
 
                 commit("SET_STATUS", { index: index, status: status })
                 resolve(response)

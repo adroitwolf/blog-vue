@@ -28,7 +28,7 @@
 
 <script>
 import md5 from "js-md5";
-import { Content, Card, Table, LoadingBar } from "iview";
+import { Content, Card, Table, LoadingBar } from "view-design";
 import { mapGetters, mapActions } from "vuex";
 
 export default {

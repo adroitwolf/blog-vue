@@ -6,6 +6,8 @@ const state = {
     account: '',
     password: '',
     token: getToken(),
+
+
 }
 
 // const getters = {
@@ -24,11 +26,16 @@ const mutations = {
 
 const actions = {
     login({ commit }, { username, password }) {
+        let that = this;
         return new Promise((resolve, reject) => {
             adminApi.login(username, password)
                 .then(response => {
-                    const token = response.data;
-                    console.log(token);
+                    const data = response.data;
+                    const token = data.token;
+                    const roles = data.user.roles;
+                    // console.log(roles);
+
+
                     commit('SET_TOKEN', token);
                     resolve(response);
                 })
@@ -40,7 +47,19 @@ const actions = {
     changePassword({ commit }, { opassword, password }) {
         return new Promise((resolve, reject) => {
             adminApi.changePassword(opassword, password).then(response => {
-                resolve(response);
+                const msg = response.message;
+                resolve(msg);
+            }).catch(error => {
+                reject(error);
+            })
+        })
+    },
+    register(commit, userInfo) {
+        return new Promise((resolve, reject) => {
+            console.log(userInfo);
+            adminApi.register(userInfo).then(response => {
+                const msg = response.message;
+                resolve(msg);
             }).catch(error => {
                 reject(error);
             })
@@ -60,8 +79,6 @@ const actions = {
         //         reject(error);
         //     })
         // })
-
-
     }
 }
 

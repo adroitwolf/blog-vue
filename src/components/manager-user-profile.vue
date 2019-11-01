@@ -145,8 +145,7 @@ import {
   Notice,
   Upload,
   Modal
-} from "iview";
-import userApi from "@/api/user";
+} from "view-design";
 
 export default {
   name: "UserProfile",

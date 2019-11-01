@@ -53,7 +53,7 @@ import "mavon-editor/dist/markdown/github-markdown.min.css";
 import $ from "jquery";
 
 import blogApi from "@/api/blog";
-import { Avatar } from "iview";
+import { Avatar } from "view-design";
 export default {
   name: "blogDetail",
   components: {
@@ -90,8 +90,8 @@ export default {
     let blogId = this.$route.query.id;
     if (blogId) {
       blogApi.getDetail(blogId).then(response => {
+        let data = response.data;
         this.blogId = blogId;
-        let data = response.data.data;
         this.title = data.title;
         this.content = data.content;
         this.date = data.releaseDate;

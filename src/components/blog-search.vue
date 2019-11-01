@@ -54,7 +54,7 @@
 <script>
 import blogApi from "@/api/blog";
 import $ from "jquery";
-import { Page } from "iview";
+import { Page } from "view-design";
 import Global from "@/util/Global";
 import BlogCard from "@/components/blog-card-component";
 
@@ -127,8 +127,9 @@ export default {
         blogApi
           .searchTag(this.pageSize, this.pageNum, this.tag)
           .then(response => {
-            this.total = response.data.total;
-            this.articleLists = response.data.rows;
+            const data  = response.data;
+            this.total = data.total;
+            this.articleLists = data.rows;
             // 转换日期
             for (var i = 0; i < this.articleLists.length; i++) {
               this.articleLists[i].releaseDate = this.articleLists[
@@ -148,8 +149,9 @@ export default {
       blogApi
         .queryListByExample(this.pageSize, this.pageNum, this.keyword)
         .then(response => {
-          this.total = response.data.total;
-          this.articleLists = response.data.rows;
+          const data = response.data;
+          this.total = data.total;
+          this.articleLists = data.rows;
           // 转换日期
           for (var i = 0; i < this.articleLists.length; i++) {
             this.articleLists[i].releaseDate = this.articleLists[

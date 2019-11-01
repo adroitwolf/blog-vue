@@ -5,7 +5,8 @@ const state = {
     avatarId: '',
     phone: '',
     email: '',
-    aboutMe: ''
+    aboutMe: '',
+    roles: [],
 };
 
 
@@ -21,7 +22,8 @@ const mutations = {
         }
         state.phone = profile.phone;
         state.email = profile.email;
-        state.aboutMe = profile.aboutMe
+        state.aboutMe = profile.aboutMe;
+        state.roles = profile.roles;
     },
     UPDATE_PROFILE: (state, profile) => {
         state.username = profile.username;
@@ -47,15 +49,14 @@ const actions = {
     getProfile({ commit }) {
         return new Promise((resolve, reject) => {
             userApi.getProfile().then(response => {
-                const profile = response.data;
-                commit('SET_PROFILE', profile);
-                resolve(response)
+                const data = response.data;
+                commit('SET_PROFILE', data);
+                resolve(data)
             }).catch(error => {
                 reject(error);
             })
         })
     },
-
     updateProfile({ commit }, { username, phone, email, aboutMe }) {
         if (!username) {
             username = state.username;
@@ -74,8 +75,8 @@ const actions = {
 
         return new Promise((resolve, reject) => {
             userApi.updateProfile(username, phone, email, aboutMe).then(response => {
-
-                commit("UPDATE_PROFILE", response.data.data);
+                const data = response.data;
+                commit("UPDATE_PROFILE", data);
                 resolve(response);
             }).catch(error => {
                 reject(error);
@@ -85,8 +86,9 @@ const actions = {
     uploadAvatarId({ commit }, { file }) {
         return new Promise((resolve, reject) => {
             userApi.uploadAvatar(file).then(response => {
-                console.log(response.data.data);
-                commit("UPDATE_AVATAR", response.data.data);
+                const data = response.data;
+                console.log(data);
+                commit("UPDATE_AVATAR", data);
                 resolve(response);
             }).catch(error => {
                 reject(error);

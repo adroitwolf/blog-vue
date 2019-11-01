@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { Footer } from "iview";
+import { Footer } from "view-design";
 export default {
   name: "Foot"
 };

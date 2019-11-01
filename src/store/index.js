@@ -7,7 +7,7 @@ import admin from './moudles/admin'
 import user from './moudles/user'
 import menus from './moudles/menu'
 import article from './moudles/article'
-
+import permission from './moudles/permission'
 
 
 Vue.use(Vuex)
@@ -17,7 +17,8 @@ export default new Vuex.Store({
         user,
         menus,
         article,
-        admin
+        admin,
+        permission
     },
     getters
 });

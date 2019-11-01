@@ -40,15 +40,15 @@ adminApi.logout = () => {
     })
 }
 
-adminApi.register = (account, password, phone, email) => {
+adminApi.register = (userInfo) => {
     return service({
         url: `${adminUrl}/register`,
         method: 'post',
         data: {
-            account: account,
-            phone: phone,
-            email: email,
-            password: md5(password)
+            account: userInfo.account,
+            phone: userInfo.phone,
+            email: userInfo.email,
+            password: md5(userInfo.password)
         }
     })
 }
