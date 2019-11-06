@@ -275,7 +275,7 @@ export default {
       pageSize: 5,
       pageNum: 1,
       uploadImgStatus: false,
-      uploadImgUrl: require("../assets/img/upload.png"),
+      uploadImgUrl: require("@/assets/img/upload.png"),
       id: "",
       title: "",
       tag: "",

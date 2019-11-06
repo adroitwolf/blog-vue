@@ -8,7 +8,7 @@
 
         <FormItem label="图片类型:">
           <Select v-model="status" style="width:200px">
-            <Option value="PUBLISHED">已发布</Option>
+            <Option value="PUBLISHED">image/jpeg</Option>
             <Option value="RECYCLE">回收站</Option>
           </Select>
         </FormItem>
@@ -23,7 +23,8 @@
     </Card>
 
     <Card class="mt">
-      <Row :gutter="16">
+
+      <Row :gutter="16" v-if='datasources'>
         <div v-for="(item,index) in datasources" :key="index" @click="checkInfo(item.id)">
           <Col span="6">
             <Card :bordered="true">
@@ -37,6 +38,7 @@
           </Col>
         </div>
       </Row>
+      <span v-else>暂无数据</span>
       <Divider class="mt"></Divider>
       <Page @on-change="changePage" :total="total" show-elevator />
     </Card>

@@ -56,13 +56,13 @@ import blogApi from "@/api/blog";
 import $ from "jquery";
 import { Page } from "view-design";
 import Global from "@/util/Global";
-import BlogCard from "@/components/blog-card-component";
+import BlogCard from "./components/blog-card-component";
 
 export default {
   name: "blogSearch",
   watch: {
     $route(to, from) {
-      this.tag = this.$route.query.tag;
+      this.tag = this.$route.params.tag;
       this.getArticleList();
     }
   },
@@ -78,11 +78,13 @@ export default {
     };
   },
   mounted() {
-    if (this.$route.query.keyword) {
-      this.keyword = this.$route.query.keyword;
+
+    console.log(this.$route)
+    if (this.$route.params.keyword) {
+      this.keyword = this.$route.params.keyword;
     }
-    if (this.$route.query.tag) {
-      this.tag = this.$route.query.tag;
+    if (this.$route.params.tag) {
+      this.tag = this.$route.params.tag;
     }
 
     this.getArticleList();
@@ -183,7 +185,7 @@ export default {
 <style lang="sass" scoped>
 
 
-@import '../assets/style/custom.scss'
+@import '../../assets/style/custom.scss'
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
@@ -192,7 +194,7 @@ export default {
 
 
 <style scoped>
-@import "../assets/style/blog.css";
+@import "../../assets/style/blog.css";
 </style>
 
 <style>

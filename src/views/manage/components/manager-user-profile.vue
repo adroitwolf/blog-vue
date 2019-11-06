@@ -188,8 +188,8 @@ export default {
     })
   },
   created() {
-    this.getArticleCount().then(response => {
-      this.articleCount = response.data.data;
+    this.getArticleCount().then(value => {
+      this.articleCount = value;
     });
   },
   mounted() {

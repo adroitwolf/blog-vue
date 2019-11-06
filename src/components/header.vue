@@ -39,7 +39,7 @@ export default {
 <style lang="sass" scoped>
 
 
-    @import '../../assets/style/custom.scss'
+    @import '../assets/style/custom.scss'
 
     @import "node_modules/bootstrap/scss/bootstrap";
 
@@ -47,5 +47,5 @@ export default {
 </style>
 
 <style scoped>
-@import "../../assets/style/blog.css";
+@import "../assets/style/blog.css";
 </style>

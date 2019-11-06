@@ -114,7 +114,7 @@ import { Page, Avatar, Notice, Message } from "view-design";
 import blogApi from "@/api/blog";
 import { mapGetters, mapActions } from "vuex";
 import Global from "@/util/Global";
-import BlogCard from "@/components/blog-card-component";
+import BlogCard from "./components/blog-card-component";
 
 export default {
   name: "blogIndex",
@@ -218,7 +218,7 @@ export default {
   },
   data() {
     return {
-      baseAvatar: require("../assets/img/avatar.png"),
+      baseAvatar: require("@/assets/img/avatar.png"),
       articleLists: [],
       pageSize: 2,
       pageNum: 1,
@@ -237,7 +237,7 @@ export default {
 <style lang="sass">
 
 
-@import '../assets/style/custom.scss'
+@import '../../assets/style/custom.scss'
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
@@ -246,7 +246,7 @@ export default {
 
 
 <style >
-@import "../assets/style/blog.css";
+@import "../../assets/style/blog.css";
 </style>
 
 <style>

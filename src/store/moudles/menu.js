@@ -58,10 +58,10 @@ const actions = {
     getArticleCount({ commit }) {
         return new Promise((resolve, reject) => {
             articleApi.countArticle().then(response => {
-                const data = response;
-                const value = data.data;
+
+                const value = response.data;
                 commit("SET_COUNT", value);
-                resolve(response)
+                resolve(value)
             }).catch(error => {
                 reject(error)
             })
