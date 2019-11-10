@@ -145,8 +145,7 @@ import {
   Notice,
   Upload,
   Modal
-} from "iview";
-import userApi from "@/api/user";
+} from "view-design";
 
 export default {
   name: "UserProfile",
@@ -181,16 +180,16 @@ export default {
   },
   computed: {
     ...mapGetters({
-      usernamex: "getUsername",
-      avatarIdx: "getAvatarId",
-      phonex: "getPhone",
-      emailx: "getEmail",
-      aboutMex: "getAboutMe"
+      usernamex: "username",
+      avatarIdx: "avatarId",
+      phonex: "phone",
+      emailx: "email",
+      aboutMex: "aboutMe"
     })
   },
   created() {
-    this.getArticleCount().then(response => {
-      this.articleCount = response.data.data;
+    this.getArticleCount().then(value => {
+      this.articleCount = value;
     });
   },
   mounted() {

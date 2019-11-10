@@ -1,19 +1,24 @@
 import adminApi from '@/api/admin'
+import { getToken, setToken, removeToken } from '@/util/auth'
+
 
 const state = {
     account: '',
     password: '',
-    token: null,
-}
+    token: getToken(),
 
-const getters = {
-    getToken: state => state.token,
-    getAccount: state => state.account,
 
 }
+
+// const getters = {
+//     getToken: state => state.token,
+//     getAccount: state => state.account,
+
+// }
 
 const mutations = {
-    setToken: (state, token) => {
+    SET_TOKEN: (state, token) => {
+        setToken(token);
         state.token = token
     },
 
@@ -21,13 +26,17 @@ const mutations = {
 
 const actions = {
     login({ commit }, { username, password }) {
+        let that = this;
         return new Promise((resolve, reject) => {
             adminApi.login(username, password)
                 .then(response => {
-                    const token = response.data;
-                    console.log(token);
-                    localStorage.setItem('token', token);
-                    commit('setToken', token);
+                    const data = response.data;
+                    const token = data.token;
+                    const roles = data.user.roles;
+                    // console.log(roles);
+
+
+                    commit('SET_TOKEN', token);
                     resolve(response);
                 })
                 .catch(error => {
@@ -38,7 +47,19 @@ const actions = {
     changePassword({ commit }, { opassword, password }) {
         return new Promise((resolve, reject) => {
             adminApi.changePassword(opassword, password).then(response => {
-                resolve(response);
+                const msg = response.message;
+                resolve(msg);
+            }).catch(error => {
+                reject(error);
+            })
+        })
+    },
+    register(commit, userInfo) {
+        return new Promise((resolve, reject) => {
+            console.log(userInfo);
+            adminApi.register(userInfo).then(response => {
+                const msg = response.message;
+                resolve(msg);
             }).catch(error => {
                 reject(error);
             })
@@ -46,22 +67,20 @@ const actions = {
     },
     logout({ commit }) {
 
-        localStorage.removeItem("token");
-        commit("setToken", null);
+        removeToken();
+        commit("SET_TOKEN", '');
 
         // return new Promise((resolve, reject) => {
         //     userApi.logout().then(response => {
         //         localStorage.removeItem("token");
-        //         commit("setToken", null);
+        //         commit("SET_TOKEN", null);
         //         resolve(reject);
         //     }).catch(error => {
         //         reject(error);
         //     })
         // })
-
-
     }
 }
 
 
-export default { state, getters, mutations, actions };
+export default { state, mutations, actions };

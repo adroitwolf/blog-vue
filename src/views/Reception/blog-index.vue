@@ -110,22 +110,19 @@
 <script>
 import animate from "animate.css";
 import $ from "jquery";
-import { Page, Avatar, Notice, Message } from "iview";
+import { Page, Avatar, Notice, Message } from "view-design";
 import blogApi from "@/api/blog";
 import { mapGetters, mapActions } from "vuex";
 import Global from "@/util/Global";
-import BlogCard from "@/components/blog-card-component";
+import BlogCard from "./components/blog-card-component";
 
 export default {
   name: "blogIndex",
   computed: {
-    ...mapGetters({
-      username: "getUsername",
-      avatarId: "getAvatarId"
-    })
+    ...mapGetters(["username", "avatarId","addRouters"])
   },
   methods: {
-    ...mapActions(["getProfile", "login"]),
+    ...mapActions(["getProfile", "login","generateRoutes"]),
     handleSearch() {
       if (!this.keyword) {
         $("#keyword").addClass("shake");
@@ -146,6 +143,7 @@ export default {
       });
     },
     handleSubmit() {
+      let that = this;
       if (!this.account) {
         Message.warning("用户名不能为空！");
         return;
@@ -160,7 +158,11 @@ export default {
           Notice.success({
             title: "登陆成功"
           });
-          this.getProfile();
+          this.getProfile().then(data=>{
+            this.generateRoutes( data.roles)
+            console.log(this.addRouters);
+            that.$router.addRoutes(this.addRouters);
+          })
         }
       );
     },
@@ -181,8 +183,9 @@ export default {
     },
     getArticleList() {
       blogApi.getAllList(this.pageSize, this.pageNum).then(response => {
-        this.total = response.data.total;
-        this.articleLists = response.data.rows;
+        const data = response.data;
+        this.total = data.total;
+        this.articleLists = data.rows;
         // 转换日期
         for (var i = 0; i < this.articleLists.length; i++) {
           this.articleLists[i].releaseDate = this.articleLists[
@@ -204,7 +207,7 @@ export default {
   },
   created() {
     this.getArticleList();
-    this.getProfile();
+    // this.getProfile();
   },
   components: {
     Page,
@@ -215,7 +218,7 @@ export default {
   },
   data() {
     return {
-      baseAvatar: require("../assets/img/avatar.png"),
+      baseAvatar: require("@/assets/img/avatar.png"),
       articleLists: [],
       pageSize: 2,
       pageNum: 1,
@@ -234,7 +237,7 @@ export default {
 <style lang="sass">
 
 
-@import '../assets/style/custom.scss'
+@import '../../assets/style/custom.scss'
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
@@ -243,7 +246,7 @@ export default {
 
 
 <style >
-@import "../assets/style/blog.css";
+@import "../../assets/style/blog.css";
 </style>
 
 <style>

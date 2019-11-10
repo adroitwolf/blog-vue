@@ -17,10 +17,10 @@
 
 
 <script>
-import Header from "@/components/common/header-manager";
-import Foot from "@/components/common/footer";
+import Header from "@/components/header-manager";
+import Foot from "@/components/footer";
 import { mapGetters, mapActions } from "vuex";
-import { Breadcrumb, BreadcrumbItem, Content, Layout, Message } from "iview";
+import { Breadcrumb, BreadcrumbItem, Content, Layout, Message } from "view-design";
 import axios from "axios";
 
 export default {
@@ -48,7 +48,7 @@ export default {
     ...mapGetters({})
   },
   created() {
-    this.getProfile();
+    // this.getProfile();
   }
 };
 </script>

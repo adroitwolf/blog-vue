@@ -30,4 +30,29 @@ attachmentApi.uploadFile = (file) => {
 }
 
 
+attachmentApi.getAttachmentInfo = (id) => {
+    return service({
+        url: `${baseUrl}/${id}/info`,
+        method: 'get'
+    })
+}
+
+
+attachmentApi.updateAttachmentInfo = (title, id) => {
+    return service({
+        url: `${baseUrl}/${id}/info`,
+        method: 'put',
+        data: {
+            title: title
+        }
+    })
+}
+
+attachmentApi.deletePic = (id) => {
+    return service({
+        url: `${baseUrl}/${id}`,
+        method: 'delete'
+    })
+}
+
 export default attachmentApi

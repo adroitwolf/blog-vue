@@ -54,15 +54,15 @@
 <script>
 import blogApi from "@/api/blog";
 import $ from "jquery";
-import { Page } from "iview";
+import { Page } from "view-design";
 import Global from "@/util/Global";
-import BlogCard from "@/components/blog-card-component";
+import BlogCard from "./components/blog-card-component";
 
 export default {
   name: "blogSearch",
   watch: {
     $route(to, from) {
-      this.tag = this.$route.query.tag;
+      this.tag = this.$route.params.tag;
       this.getArticleList();
     }
   },
@@ -78,11 +78,13 @@ export default {
     };
   },
   mounted() {
-    if (this.$route.query.keyword) {
-      this.keyword = this.$route.query.keyword;
+
+    console.log(this.$route)
+    if (this.$route.params.keyword) {
+      this.keyword = this.$route.params.keyword;
     }
-    if (this.$route.query.tag) {
-      this.tag = this.$route.query.tag;
+    if (this.$route.params.tag) {
+      this.tag = this.$route.params.tag;
     }
 
     this.getArticleList();
@@ -127,8 +129,9 @@ export default {
         blogApi
           .searchTag(this.pageSize, this.pageNum, this.tag)
           .then(response => {
-            this.total = response.data.total;
-            this.articleLists = response.data.rows;
+            const data  = response.data;
+            this.total = data.total;
+            this.articleLists = data.rows;
             // 转换日期
             for (var i = 0; i < this.articleLists.length; i++) {
               this.articleLists[i].releaseDate = this.articleLists[
@@ -148,8 +151,9 @@ export default {
       blogApi
         .queryListByExample(this.pageSize, this.pageNum, this.keyword)
         .then(response => {
-          this.total = response.data.total;
-          this.articleLists = response.data.rows;
+          const data = response.data;
+          this.total = data.total;
+          this.articleLists = data.rows;
           // 转换日期
           for (var i = 0; i < this.articleLists.length; i++) {
             this.articleLists[i].releaseDate = this.articleLists[
@@ -181,7 +185,7 @@ export default {
 <style lang="sass" scoped>
 
 
-@import '../assets/style/custom.scss'
+@import '../../assets/style/custom.scss'
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
@@ -190,7 +194,7 @@ export default {
 
 
 <style scoped>
-@import "../assets/style/blog.css";
+@import "../../assets/style/blog.css";
 </style>
 
 <style>

@@ -52,22 +52,22 @@ export default {
   props: ["article", "index", "pageSize"],
   methods: {
     searchTag(tag) {
-      this.$router.push({ name: "博客搜索", query: { tag: tag } });
+      this.$router.push({ name: "博客搜索", params: { tag: tag } });
     }
   },
   data() {
     return {
       imglist: [
-        require("../assets/img/0.jpg"),
-        require("../assets/img/1.jpg"),
-        require("../assets/img/2.jpg"),
-        require("../assets/img/3.jpg"),
-        require("../assets/img/4.jpg"),
-        require("../assets/img/5.png"),
-        require("../assets/img/6.jpg"),
-        require("../assets/img/7.jpg"),
-        require("../assets/img/8.jpg"),
-        require("../assets/img/9.jpg")
+        require("@/assets/img/0.jpg"),
+        require("@/assets/img/1.jpg"),
+        require("@/assets/img/2.jpg"),
+        require("@/assets/img/3.jpg"),
+        require("@/assets/img/4.jpg"),
+        require("@/assets/img/5.png"),
+        require("@/assets/img/6.jpg"),
+        require("@/assets/img/7.jpg"),
+        require("@/assets/img/8.jpg"),
+        require("@/assets/img/9.jpg")
       ]
     };
   }

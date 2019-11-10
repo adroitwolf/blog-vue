@@ -53,12 +53,14 @@
 
 <script>
 import $ from "jquery";
-import Header from "@/components/common/header";
-import { Message, Notice } from "iview";
-import adminApi from "@/api/admin";
+import Header from "@/components/header";
+import { Message, Notice } from "view-design";
+import {  mapActions } from "vuex";
+import { error } from 'util';
 export default {
   name: "register",
   methods: {
+    ...mapActions(["register"]),
     toRegister() {
       if (
         !this.account ||
@@ -72,17 +74,15 @@ export default {
         Message.error("两次密码不一致！");
         return;
       }
-
-      adminApi
-        .register(this.account, this.password,this.phone,this.email)
+      const userInfo = {};
+      userInfo.account = this.account;
+      userInfo.password = this.password;
+      userInfo.phone = this.phone;
+      userInfo.email = this.email;
+      this.register(userInfo)
         .then(response => {
-          let data = response.data;
-          if (200 != data.status) {
-            Message.error(data.message);
-            return;
-          }
           Notice.success({
-            title: "注册成功",
+            title: response,
             desc: "即将返回到主页界面！ "
           });
           let _that = this;
@@ -91,6 +91,8 @@ export default {
               name: "博客主页"
             });
           }, 2000);
+        }).catch(error=>{
+            Message.error(error);
         });
     }
   },
@@ -114,7 +116,7 @@ export default {
 <style lang="sass" scoped>
 
 
-    @import '../assets/style/custom.scss'
+    @import '../../assets/style/custom.scss'
 
     @import "node_modules/bootstrap/scss/bootstrap";
 
@@ -123,7 +125,7 @@ export default {
 
 
 <style scoped>
-@import "../assets/style/blog.css";
+@import "../../assets/style/blog.css";
 
 #register {
   position: absolute;

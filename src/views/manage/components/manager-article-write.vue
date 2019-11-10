@@ -6,7 +6,7 @@
       </FormItem>
       <FormItem>
         <div id="editor">
-          <mavon-editor v-model="content" :ishljs="true" :toolbars="toolbars" @change="saveHtml" />
+          <mavon-editor v-model="contentMd" :ishljs="true" :toolbars="toolbars" @change="saveHtml" />
         </div>
       </FormItem>
       <FormItem>
@@ -68,7 +68,7 @@
             <img
               @click="picChoose(item)"
               style="width:100%;height:100%;"
-              :src="Global.baseUrl+'/'+item.title"
+              :src="Global.baseUrl+'/'+item.path"
               :alt="item.id"
             />
           </Col>
@@ -109,9 +109,9 @@ import {
   Upload,
   Modal,
   Page
-} from "iview";
+} from "view-design";
 import "mavon-editor/dist/css/index.css";
-import { mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 import articleApi from "@/api/article";
 import attachmentApi from "@/api/attachment";
 import Global from "@/util/Global";
@@ -136,10 +136,10 @@ export default {
       this.title = row.title;
       this.tagList = row.tagsTitle == null ? [] : row.tagsTitle;
       this.summary = row.summary;
-      this.htmlContent = row.content;
-      this.content = row.contentMd;
+      this.content = row.content;
+      this.contentMd = row.contentMd;
       this.id = row.id;
-      this.picture = row.picture;
+      this.picture= row.picture;
     }
     attachmentApi
       .getAttachmentList(this.pageSize, this.pageNum)
@@ -153,7 +153,7 @@ export default {
     ...mapActions(["postArticle"]),
     picChoose(item) {
       this.uploadImgStatus = !this.uploadImgStatus;
-      this.picture = item.title;
+      this.picture = item.path;
     },
     /*上传文章缩略图*/
 
@@ -173,8 +173,9 @@ export default {
         attachmentApi
           .getAttachmentList(this.pageSize, this.pageNum)
           .then(response => {
-            this.attachmentList = response.data.rows;
-            this.total = response.data.total;
+            const data = response.data;
+            this.attachmentList = data.rows;
+            this.total = data.total;
           });
       });
     },
@@ -201,7 +202,7 @@ export default {
         Message.warning("请输入文章标题");
         return;
       }
-      if (!this.content || !this.htmlContent) {
+      if (!this.contentMd || !this.content) {
         Message.warning("请输入文章内容");
         return;
       }
@@ -209,7 +210,7 @@ export default {
       this.DrawerStatus = true;
     },
     saveHtml(value, render) {
-      this.htmlContent = render;
+      this.content = render;
     },
     submit() {
       if (!this.summary) {
@@ -221,8 +222,8 @@ export default {
         articleParams.title = this.title;
         articleParams.tagList = this.tagList;
         articleParams.summary = this.summary;
-        articleParams.htmlContent = this.htmlContent;
         articleParams.content = this.content;
+        articleParams.contentMd = this.contentMd;
         articleParams.picture = this.picture;
         articleApi
           .updateArticle(this.id, articleParams)
@@ -233,6 +234,7 @@ export default {
             this.DrawerStatus = false;
           })
           .catch(error => {
+            console.log(error)
             Message.error("文章更新失败！");
           });
         return;
@@ -242,8 +244,8 @@ export default {
         tagList: this.tagList,
         picture: this.picture,
         summary: this.summary,
-        htmlContent: this.htmlContent,
         content: this.content,
+        contentMd: this.contentMd,
         id: this.id
       })
         .then(response => {
@@ -251,8 +253,8 @@ export default {
           this.title = "";
           this.tagList = [];
           this.summary = "";
-          this.htmlContent = "";
           this.content = "";
+          this.contentMd = "";
           this.DrawerStatus = false;
         })
         .catch(error => {
@@ -273,7 +275,7 @@ export default {
       pageSize: 5,
       pageNum: 1,
       uploadImgStatus: false,
-      uploadImgUrl: require("../assets/img/upload.png"),
+      uploadImgUrl: require("@/assets/img/upload.png"),
       id: "",
       title: "",
       tag: "",
@@ -281,8 +283,8 @@ export default {
       tagList: [],
       addTag: true,
       summary: "",
-      htmlContent: "",
       content: "",
+      contentMd: "",
       toolbars: {
         bold: true, // 粗体
         italic: true, // 斜体

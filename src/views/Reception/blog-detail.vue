@@ -53,7 +53,7 @@ import "mavon-editor/dist/markdown/github-markdown.min.css";
 import $ from "jquery";
 
 import blogApi from "@/api/blog";
-import { Avatar } from "iview";
+import { Avatar } from "view-design";
 export default {
   name: "blogDetail",
   components: {
@@ -64,7 +64,7 @@ export default {
     return {
       blogId: "",
       height: "",
-      baseAvatar: require("../assets/img/avatar.png"),
+      baseAvatar: require("@/assets/img/avatar.png"),
       title: "",
       content: "",
       date: "",
@@ -73,16 +73,16 @@ export default {
       tagsTitle: [],
       picture: "",
       imglist: [
-        require("../assets/img/0.jpg"),
-        require("../assets/img/1.jpg"),
-        require("../assets/img/2.jpg"),
-        require("../assets/img/3.jpg"),
-        require("../assets/img/4.jpg"),
-        require("../assets/img/5.png"),
-        require("../assets/img/6.jpg"),
-        require("../assets/img/7.jpg"),
-        require("../assets/img/8.jpg"),
-        require("../assets/img/9.jpg")
+        require("@/assets/img/0.jpg"),
+        require("@/assets/img/1.jpg"),
+        require("@/assets/img/2.jpg"),
+        require("@/assets/img/3.jpg"),
+        require("@/assets/img/4.jpg"),
+        require("@/assets/img/5.png"),
+        require("@/assets/img/6.jpg"),
+        require("@/assets/img/7.jpg"),
+        require("@/assets/img/8.jpg"),
+        require("@/assets/img/9.jpg")
       ]
     };
   },
@@ -90,8 +90,8 @@ export default {
     let blogId = this.$route.query.id;
     if (blogId) {
       blogApi.getDetail(blogId).then(response => {
+        let data = response.data;
         this.blogId = blogId;
-        let data = response.data.data;
         this.title = data.title;
         this.content = data.content;
         this.date = data.releaseDate;
@@ -118,7 +118,7 @@ export default {
 <style lang="sass" scoped>
 
 
-    @import '../assets/style/custom.scss'
+    @import '../../assets/style/custom.scss'
 
     @import "node_modules/bootstrap/scss/bootstrap";
 
@@ -127,5 +127,5 @@ export default {
 
 
 <style scoped>
-@import "../assets/style/blog.css";
+@import "../../assets/style/blog.css";
 </style>

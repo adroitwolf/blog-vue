@@ -6,7 +6,7 @@
           <Input type="text" v-model="keyword"></Input>
         </FormItem>
 
-        <FormItem label="文章状态:">
+        <FormItem label="文件类型:">
           <Select v-model="status" style="width:200px">
             <Option value="PUBLISHED">已发布</Option>
             <Option value="RECYCLE">回收站</Option>
@@ -16,6 +16,7 @@
           <Button type="primary" @click="handleList()">查询</Button>
         </FormItem>
       </Form>
+      <Button type="primary" @click="toPage('写文章')"><Icon type="md-add" />写文章</Button>
     </Card>
     <Card class="b-card" style="margin:20px 0">
       <Table
@@ -30,9 +31,10 @@
           <div v-if="row.status === 'PUBLISHED'">
             <Badge status="success" text="已发布" />
           </div>
-          <div v-else-if='row.status === "RECYCLE"'>
+          <div v-else-if="row.status === 'RECYCLE'">
             <Badge status="error" text="回收站" />
           </div>
+          
         </div>
         <div slot-scope="{row}" slot="tagsTitle">
           <Tag color="error" v-for="(item,index) in row.tagsTitle" :key="index">{{item}}</Tag>
@@ -45,7 +47,7 @@
               <Button type="error">回收站</Button>
             </Poptip>
           </div>
-          <div v-else-if='row.status === "RECYCLE"'>
+          <div v-else-if="row.status === 'RECYCLE' ">
             <Button type="primary" style="margin-right: 5px" @click="totrash(row,'PUBLISHED')">还原</Button>
 
             <Poptip confirm title="确定要删除这篇文章么?" @on-ok="deleteArticle(row)">
@@ -85,7 +87,7 @@ import {
   FormItem,
   Select,
   Option
-} from "iview";
+} from "view-design";
 import { mapGetters, mapActions } from "vuex";
 import router from "@/router";
 import articleApi from "@/api/article";
@@ -138,7 +140,8 @@ export default {
     },
     eidtArticle(row) {
       articleApi.getDetail(row.id).then(response => {
-        var article = response.data.data;
+        const data = response.data;
+        var article = data;
         this.$router.push({
           name: "写文章",
           params: article
@@ -181,14 +184,14 @@ export default {
       this.loading = true;
       //实时获取当前需要显示的条数
       this.queryArticleList();
+    },
+    // 去往某个页面
+    toPage(n){
+      this.$router.push({name:n})
     }
   },
   computed: {
-    ...mapGetters({
-      total: "getTotal",
-      managerColumns: "getManagerColumns",
-      articleData: "getArticleData"
-    })
+    ...mapGetters(["total", "managerColumns", "articleData"])
   },
   mounted() {
     this.queryArticleList();
@@ -204,9 +207,6 @@ export default {
 .ivu-table-wrapper {
   position: static !important;
 }
-
-
-
 </style>
 
 <style>

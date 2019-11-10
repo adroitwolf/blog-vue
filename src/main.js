@@ -2,10 +2,14 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
 
-import { Button, Input, Icon, Card, Message, Row, Col, LoadingBar } from 'iview'
-import 'iview/dist/styles/iview.css';
+// 修改动态路由
+import router from './router'
+import store from './store/'
+
+
+import { Button, Input, Icon, Card, Message, Row, Col, LoadingBar } from 'view-design'
+import 'view-design/dist/styles/iview.css';
 Vue.component('Button', Button)
 Vue.component("Input", Input)
 Vue.component('Icon', Icon)
@@ -21,22 +25,9 @@ Vue.use(VueAxios, axios)
 
 
 
-
-
-import store from './store/'
-
-
-
 Vue.config.productionTip = false
 
-// md在线预览组件 npm install mavon-editor --save
-// import mavonEditor from 'mavon-editor'
-// import 'mavon-editor/dist/css/index.css'
-// // use
-// Vue.use(mavonEditor)
 
-
-/* eslint-disable no-new */
 new Vue({
     el: '#app',
     router,
@@ -45,16 +36,6 @@ new Vue({
 })
 
 
-// 进度条展示
-
-router.beforeEach((to, from, next) => {
-    LoadingBar.start();
-    next();
-});
-
-router.afterEach(route => {
-    LoadingBar.finish();
-});
 
 // 全局变量
 import Global from '@/util/Global'

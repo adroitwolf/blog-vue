@@ -5,7 +5,6 @@
       <div class="menu">
         <MenuItem v-for="(menu,index) in menus" :key="index" :name="menu.id" :to="menu.to">
           <Icon :type="menu.icon" />
-
           {{menu.name}}
         </MenuItem>
       </div>
@@ -44,7 +43,7 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu
-} from "iview";
+} from "view-design";
 import { mapGetters, mapActions } from "vuex";
 import router from "@/router";
 
@@ -80,10 +79,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      menus: "menus",
-      avatarId: "getAvatarId"
-    })
+    ...mapGetters(["menus", "avatarId"])
   }
 };
 </script>

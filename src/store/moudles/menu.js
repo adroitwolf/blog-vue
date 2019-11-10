@@ -40,14 +40,14 @@ const state = {
 
 }
 
-const getters = {
-    menus: state => state.menu,
-    column: state => state.column,
-    status: state => state.status
-}
+// const getters = {
+//     menus: state => state.menu,
+//     column: state => state.column,
+//     status: state => state.status
+// }
 
 const mutations = {
-    setArticleCount(state, data) {
+    SET_COUNT(state, data) {
         state.status.title = '文章总数';
         state.status.link = "/admin/index.html/articleManager";
         state.status.value = data;
@@ -59,9 +59,9 @@ const actions = {
         return new Promise((resolve, reject) => {
             articleApi.countArticle().then(response => {
 
-                const value = response.data.data
-                commit("setArticleCount", value);
-                resolve(response)
+                const value = response.data;
+                commit("SET_COUNT", value);
+                resolve(value)
             }).catch(error => {
                 reject(error)
             })
@@ -70,4 +70,4 @@ const actions = {
 }
 
 
-export default { state, getters, mutations, actions }
+export default { state, mutations, actions }

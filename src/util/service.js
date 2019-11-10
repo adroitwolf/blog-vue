@@ -1,7 +1,8 @@
 import axios from 'axios'
+import { getToken } from '@/util/auth'
 import qs from "qs"
-import store from '../store';
-import { Message } from 'iview';
+import store from '@/store'
+import { Message } from 'view-design'
 import router from '@/router'
 
 // axios相应的封装
@@ -14,8 +15,8 @@ const service = axios.create({
 
 service.interceptors.request.use(
     config => {
-        const token = store.getters.getToken ? store.getters.getToken : localStorage.getItem('token');
-
+        const token = store.getters.token ? store.getters.token : getToken();
+        console.log(store.getters.token);
         if (token) {
             config.headers["Authentication"] = token
         }
@@ -43,19 +44,16 @@ service.interceptors.request.use(
 )
 
 service.interceptors.response.use(
+
     response => {
-        return response;
-    },
-    error => {
-
-        const errorData = error.response.data ? error.response.data : null;
-        if (error.message.includes('timeout')) { // 判断请求异常信息中是否含有超时timeout字符串
-            Message.error("网络连接超时");
-            //return Promise.reject(error); // reject这个错误信息
-        } else if (errorData.status === 401) {
-
-            // 验证当前地址 如果当前的是主页的登陆，则不退到登陆窗口
-
+        const res = response;
+        console.log(res);
+        const data = res ? res.data : null;
+        const status = data ? data.status : -1;
+        if (status === 200) {
+            return data;
+        }
+        if (status === 401 || status === 403) { // 验证当前地址 如果当前的是主页的登陆，则不退到登陆窗口
             let href = window.location.href;
             let post = window.location.port;
             let url = href.split(post + "/");
@@ -64,17 +62,28 @@ service.interceptors.response.use(
             var re = /^index.html.*?/;
 
             if (re.test(url[1])) {
-
+                return response;
             } else {
                 Message.error("您还未登陆，请先登录");
                 router.push({ name: 'Login' });
             }
-
-        } else if (errorData.message) {
-            Message.warning(errorData.message);
-        } else {
+            Message.error(data.message);
+        } else if (status === 400) {
+            Message.warning(data.message);
+        } else if (status === 500) {
             Message.error("服务异常！");
+        }
+        return Promise.reject(response);
+    },
+    error => {
+        console.log(error.response)
+        const res = error.response
+        const status = res ? res.status : -1;
+        const data = res ? res.data : null;
+        if (error.message.includes('timeout')) { // 判断请求异常信息中是否含有超时timeout字符串
+            Message.error("网络连接超时");
 
+            //return Promise.reject(error); // reject这个错误信息
         }
         return Promise.reject(error);
     }

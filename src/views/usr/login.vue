@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-import { Form, FormItem, Message } from "iview";
+import { Form, FormItem, Message } from "view-design";
 import { mapActions } from "vuex";
 import router from "@/router";
 export default {
@@ -65,7 +65,7 @@ export default {
 .body {
   margin: 0;
   padding: 0;
-  background: url(../assets/img/bg.png) no-repeat;
+  background: url(../../assets/img/bg.png) no-repeat;
   background-size: cover;
   /* width: 100%;
   height: 100%; */
