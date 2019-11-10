@@ -14,7 +14,8 @@ const getters = {
     managerColumns: state => state.article.managerColumns,
     articleData: state => state.article.articleData,
     total: state => state.article.total,
-    addRouters: state => state.permission.addRouters
+    addRouters: state => state.permission.addRouters,
+
 }
 
 

@@ -58,7 +58,7 @@
     <Drawer title="详细信息" :closable="false" width="30" v-model="infoStatus">
       <Form label-position="top">
         <FormItem label="图片名称">
-          <Input v-model="info.title"></Input>
+          <Input v-model="info.title" :disabled='info.title === "用户头像"? true:false'></Input>
         </FormItem>
         <FormItem label="媒体类型">
           <Input v-model="info.mediaType" disabled></Input>
@@ -80,7 +80,7 @@
         </FormItem>
         
       </Form>
-      <div class="drawer-footer">
+      <div class="drawer-footer" v-if='info.title !="用户头像"'>
         <Row :gutter="16">
           <Col span="6">
           <Button type="error" @click="delPic(info.id)">删除附件</Button>

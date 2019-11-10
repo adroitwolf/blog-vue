@@ -17,8 +17,8 @@ const mutations = {
     SET_PROFILE: (state, profile) => {
         state.username = profile.username;
         var re = /^[ ]*$/;
-        if (profile.avatarId != null && !re.test(profile.avatarId)) {
-            state.avatarId = Global.baseUrl + "/" + profile.avatarId;
+        if (profile.avatar != null && !re.test(profile.avatar)) {
+            state.avatarId = Global.baseUrl + "/" + profile.avatar;
         }
         state.phone = profile.phone;
         state.email = profile.email;
@@ -28,8 +28,8 @@ const mutations = {
     UPDATE_PROFILE: (state, profile) => {
         state.username = profile.username;
         var re = /^[ ]*$/;
-        if (profile.avatarId != null && !re.test(profile.avatarId)) {
-            state.avatarId = Global.baseUrl + "/" + profile.avatarId;
+        if (profile.avatar != null && !re.test(profile.avatar)) {
+            state.avatarId = Global.baseUrl + "/" + profile.avatar;
         }
 
         state.phone = profile.phone;
