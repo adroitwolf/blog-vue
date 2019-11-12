@@ -8,7 +8,10 @@ import router from './router'
 import store from './store/'
 
 
-import { Button, Input, Icon, Card, Message, Row, Col, LoadingBar } from 'view-design'
+
+import './permission'
+
+import { Button, Input, Icon, Card, Message, Row, Col } from 'view-design'
 import 'view-design/dist/styles/iview.css';
 Vue.component('Button', Button)
 Vue.component("Input", Input)
@@ -16,7 +19,7 @@ Vue.component('Icon', Icon)
 Vue.component('Card', Card)
 Vue.component('Row', Row)
 Vue.component('Col', Col)
-Vue.component('LoadingBar', LoadingBar)
+
 
 
 import axios from 'axios'
@@ -34,8 +37,6 @@ new Vue({
     store,
     render: h => h(App)
 })
-
-
 
 // 全局变量
 import Global from '@/util/Global'

@@ -7,9 +7,8 @@
         </FormItem>
 
         <FormItem label="图片类型:">
-          <Select v-model="status" style="width:200px">
-            <Option value="PUBLISHED">image/jpeg</Option>
-            <Option value="RECYCLE">回收站</Option>
+          <Select v-model="status" @click.native="getAllMediaType()" :loading='loading' :loading-text='loading_text'  style="width:200px">
+            <Option  v-for="(mediaType,index) in mediaTypes"  :key="index" :value="mediaType" >{{mediaType}}</Option>
           </Select>
         </FormItem>
         <FormItem>
@@ -23,8 +22,7 @@
     </Card>
 
     <Card class="mt">
-
-      <Row :gutter="16" v-if='datasources'>
+      <Row :gutter="16" v-if="datasources">
         <div v-for="(item,index) in datasources" :key="index" @click="checkInfo(item.id)">
           <Col span="6">
             <Card :bordered="true">
@@ -58,7 +56,7 @@
     <Drawer title="详细信息" :closable="false" width="30" v-model="infoStatus">
       <Form label-position="top">
         <FormItem label="图片名称">
-          <Input v-model="info.title" :disabled='info.title === "用户头像"? true:false'></Input>
+          <Input v-model="info.title" :disabled="info.title === '用户头像'? true:false"></Input>
         </FormItem>
         <FormItem label="媒体类型">
           <Input v-model="info.mediaType" disabled></Input>
@@ -78,15 +76,14 @@
         <FormItem label="图片高度">
           <Input v-model="info.height" disabled></Input>
         </FormItem>
-        
       </Form>
-      <div class="drawer-footer" v-if='info.title !="用户头像"'>
+      <div class="drawer-footer" v-if="info.title !='用户头像'">
         <Row :gutter="16">
           <Col span="6">
-          <Button type="error" @click="delPic(info.id)">删除附件</Button>
+            <Button type="error" @click="delPic(info.id)">删除附件</Button>
           </Col>
           <Col span="6">
-          <Button type="primary" @click="updateInfo(info.title,info.id)">修改名称</Button>
+            <Button type="primary" @click="updateInfo(info.title,info.id)">修改名称</Button>
           </Col>
         </Row>
       </div>
@@ -111,6 +108,7 @@ import {
 } from "view-design";
 import attachmentApi from "@/api/attachment";
 import Global from "@/util/Global";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Photo",
@@ -128,7 +126,18 @@ export default {
     Drawer,
     Message
   },
+  computed: { ...mapGetters(["mediaTypes"]) },
   methods: {
+    ...mapActions(['listAllMediaType']),
+    getAllMediaType(){
+      this.loading = true;
+      this.listAllMediaType().then(response =>{
+        
+      }).catch(error=>{
+
+      })
+      this.loading = false;
+    },
     getList() {
       attachmentApi
         .getAttachmentList(this.pageSize, this.pageNum)
@@ -171,27 +180,24 @@ export default {
       this.getList();
     },
     //更新图片名称
-    updateInfo(title,id){
-      attachmentApi.updateAttachmentInfo(title,id).then(response =>{
+    updateInfo(title, id) {
+      attachmentApi.updateAttachmentInfo(title, id).then(response => {
         Message.success("更新图片成功！");
         this.infoStatus = false;
         this.getList();
-      })
+      });
     },
     //条件查询
 
-    handleList(){
-      
-    },
+    handleList() {},
     //删除附件
-    delPic(id){
-      attachmentApi.deletePic(id).then(response=>{
+    delPic(id) {
+      attachmentApi.deletePic(id).then(response => {
         Message.success("删除图片成功！");
         this.infoStatus = false;
         this.getList();
-      })
+      });
     }
-
   },
   created() {
     this.getList();
@@ -200,6 +206,9 @@ export default {
     return {
       pageSize: 10,
       pageNum: 1,
+      status:'',
+      loading:true,
+      loading_text:'正在查询服务器',
       keyword: "",
       datasources: {},
       total: 0,
@@ -255,5 +264,4 @@ export default {
   text-align: right;
   background: #fff;
 }
-
 </style>

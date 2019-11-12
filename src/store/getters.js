@@ -15,7 +15,7 @@ const getters = {
     articleData: state => state.article.articleData,
     total: state => state.article.total,
     addRouters: state => state.permission.addRouters,
-
+    mediaTypes: state => state.attachment.mediaTypes
 }
 
 
