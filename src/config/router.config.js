@@ -39,6 +39,12 @@ export const asyncUserRouterMap = [{
         component: () =>
             import ("@/views/manage/components/manager-photo")
     }],
+}, {
+    path: '*',
+    meta: { title: '404-战术小队', requiresAuth: false },
+    name: '404',
+    component: () =>
+        import ('@/views/exception/404')
 }]
 
 
@@ -89,11 +95,5 @@ export const constantRouterMap = [{
         meta: { title: "注册", requiresAuth: false },
         component: () =>
             import ("@/views/usr/register")
-    }, {
-        path: '*',
-        meta: { title: '404-战术小队', requiresAuth: false },
-        name: '404',
-        component: () =>
-            import ('@/views/exception/404')
-    },
+    }
 ]

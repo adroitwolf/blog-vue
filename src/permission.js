@@ -1,7 +1,11 @@
 import router from './router'
-
-
+import store from './store'
+import Vue from 'vue'
 // const whiteList = ['/register.html', '/index.html', '/admin/login.html', ];
+
+import { LoadingBar } from 'view-design'
+Vue.component('LoadingBar', LoadingBar)
+
 
 import {
     constantRouterMap
@@ -49,6 +53,6 @@ router.beforeEach((to, from, next) => {
     }
 });
 
-router.afterEach(route => {
+router.afterEach(() => {
     LoadingBar.finish();
 });

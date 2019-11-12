@@ -55,4 +55,13 @@ attachmentApi.deletePic = (id) => {
     })
 }
 
+
+
+attachmentApi.listAllMediaType = () => {
+    return service({
+        url: `${baseUrl}/list_media`,
+        method: 'get'
+    })
+}
+
 export default attachmentApi
