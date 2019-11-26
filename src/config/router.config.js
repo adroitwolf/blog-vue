@@ -50,6 +50,9 @@ export const asyncUserRouterMap = [{
 
 /*基础路由 */
 export const constantRouterMap = [{
+        path: '/',
+        redirect: '/index.html'
+    }, {
         path: '/admin/login.html',
         meta: { title: '登陆', requiresAuth: false },
         name: 'Login',
@@ -85,9 +88,6 @@ export const constantRouterMap = [{
             component: () =>
                 import ("@/views/Reception/blog-search")
         }]
-    }, {
-        path: '/',
-        redirect: '/index.html'
     },
     {
         path: '/register.html',

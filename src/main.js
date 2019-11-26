@@ -11,21 +11,14 @@ import store from './store/'
 
 import './permission'
 
-import { Button, Input, Icon, Card, Message, Row, Col } from 'view-design'
 import 'view-design/dist/styles/iview.css';
-Vue.component('Button', Button)
-Vue.component("Input", Input)
-Vue.component('Icon', Icon)
-Vue.component('Card', Card)
-Vue.component('Row', Row)
-Vue.component('Col', Col)
-
-
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload)
 
 
 Vue.config.productionTip = false

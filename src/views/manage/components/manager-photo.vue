@@ -3,12 +3,22 @@
     <Card>
       <Form @submit.native.prevent label-postion="left" inline :label-width="100">
         <FormItem label="图片名称:">
-          <Input type="text" v-model="keyword"></Input>
+          <Input type="text" v-model="queryParams.keywords"></Input>
         </FormItem>
 
         <FormItem label="图片类型:">
-          <Select v-model="status" @click.native="getAllMediaType()" :loading='loading' :loading-text='loading_text'  style="width:200px">
-            <Option  v-for="(mediaType,index) in mediaTypes"  :key="index" :value="mediaType" >{{mediaType}}</Option>
+          <Select
+            v-model="queryParams.mediaType"
+            @click.native="getAllMediaType()"
+            :loading="loading"
+            :loading-text="loading_text"
+            style="width:200px"
+          >
+            <Option
+              v-for="(mediaType,index) in mediaTypes"
+              :key="index"
+              :value="mediaType"
+            >{{mediaType}}</Option>
           </Select>
         </FormItem>
         <FormItem>
@@ -22,7 +32,7 @@
     </Card>
 
     <Card class="mt">
-      <Row :gutter="16" v-if="datasources">
+      <Row :gutter="16" v-if="datasources.length>0">
         <div v-for="(item,index) in datasources" :key="index" @click="checkInfo(item.id)">
           <Col span="6">
             <Card :bordered="true">
@@ -104,7 +114,12 @@ import {
   Modal,
   Upload,
   Drawer,
-  Message
+  Message,
+  Button,
+  Input,
+  Icon,
+  Row,
+  Col
 } from "view-design";
 import attachmentApi from "@/api/attachment";
 import Global from "@/util/Global";
@@ -124,23 +139,26 @@ export default {
     Modal,
     Upload,
     Drawer,
-    Message
+    Message,
+    Button,
+    Input,
+    Icon,
+    Row,
+    Col
   },
   computed: { ...mapGetters(["mediaTypes"]) },
   methods: {
-    ...mapActions(['listAllMediaType']),
-    getAllMediaType(){
+    ...mapActions(["listAllMediaType"]),
+    getAllMediaType() {
       this.loading = true;
-      this.listAllMediaType().then(response =>{
-        
-      }).catch(error=>{
-
-      })
+      this.listAllMediaType()
+        .then(response => {})
+        .catch(error => {});
       this.loading = false;
     },
     getList() {
       attachmentApi
-        .getAttachmentList(this.pageSize, this.pageNum)
+        .getAttachmentList(this.pageSize, this.pageNum, this.queryParams)
         .then(response => {
           console.log(response.data);
           this.datasources = response.data.rows;
@@ -189,7 +207,9 @@ export default {
     },
     //条件查询
 
-    handleList() {},
+    handleList() {
+      this.getList();
+    },
     //删除附件
     delPic(id) {
       attachmentApi.deletePic(id).then(response => {
@@ -206,17 +226,19 @@ export default {
     return {
       pageSize: 10,
       pageNum: 1,
-      status:'',
-      loading:true,
-      loading_text:'正在查询服务器',
-      keyword: "",
+      loading: true,
+      loading_text: "正在查询服务器",
       datasources: {},
       total: 0,
       uploadModoal: false,
       idBefore: null,
       file: null,
       info: {},
-      infoStatus: false
+      infoStatus: false,
+      queryParams: {
+        mediaType: "",
+        keywords: ""
+      }
     };
   }
 };

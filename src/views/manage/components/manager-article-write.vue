@@ -108,7 +108,12 @@ import {
   Tag,
   Upload,
   Modal,
-  Page
+  Page,
+  Button,
+  Input,
+  Icon,
+  Row,
+  Col
 } from "view-design";
 import "mavon-editor/dist/css/index.css";
 import { mapActions } from "vuex";
@@ -128,7 +133,12 @@ export default {
     Tag,
     Upload,
     Modal,
-    Page
+    Page,
+    Button,
+    Input,
+    Icon,
+    Row,
+    Col
   },
   mounted() {
     let row = this.$route.params;
@@ -139,10 +149,11 @@ export default {
       this.content = row.content;
       this.contentMd = row.contentMd;
       this.id = row.id;
-      this.picture= row.picture;
+      this.picture = row.picture;
     }
+    const queryParams = {}
     attachmentApi
-      .getAttachmentList(this.pageSize, this.pageNum)
+      .getAttachmentList(this.pageSize, this.pageNum,queryParams)
       .then(response => {
         console.log(response.data);
         this.attachmentList = response.data.rows;
@@ -234,7 +245,7 @@ export default {
             this.DrawerStatus = false;
           })
           .catch(error => {
-            console.log(error)
+            console.log(error);
             Message.error("文章更新失败！");
           });
         return;

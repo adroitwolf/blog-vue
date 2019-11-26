@@ -1,6 +1,6 @@
 <script>
 
-    const baseUrl = 'http://localhost:8099'
+    const baseUrl = 'http://localhost/server'
     export default {
         name: 'Global',
         baseUrl

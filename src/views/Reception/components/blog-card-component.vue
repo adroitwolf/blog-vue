@@ -36,7 +36,7 @@
       <div class="article-img">
         <div class="img-box">
           <img
-            :src="article.picture?Global.baseUrl + '/' + article.picture:imglist[index%pageSize]"
+            v-lazy="article.picture?Global.baseUrl + '/' + article.picture:imglist[index%pageSize]"
             alt
           />
         </div>
@@ -47,8 +47,12 @@
 </template>
 
 <script>
+import {Icon} from 'view-design'
 export default {
   name: "BlogCard",
+  components:{
+    Icon
+  },
   props: ["article", "index", "pageSize"],
   methods: {
     searchTag(tag) {

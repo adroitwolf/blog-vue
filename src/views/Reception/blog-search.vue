@@ -54,7 +54,7 @@
 <script>
 import blogApi from "@/api/blog";
 import $ from "jquery";
-import { Page } from "view-design";
+import { Page, Icon } from "view-design";
 import Global from "@/util/Global";
 import BlogCard from "./components/blog-card-component";
 
@@ -78,8 +78,7 @@ export default {
     };
   },
   mounted() {
-
-    console.log(this.$route)
+    console.log(this.$route);
     if (this.$route.params.keyword) {
       this.keyword = this.$route.params.keyword;
     }
@@ -129,7 +128,7 @@ export default {
         blogApi
           .searchTag(this.pageSize, this.pageNum, this.tag)
           .then(response => {
-            const data  = response.data;
+            const data = response.data;
             this.total = data.total;
             this.articleLists = data.rows;
             // 转换日期
@@ -175,7 +174,8 @@ export default {
   },
   components: {
     Page,
-    BlogCard
+    BlogCard,
+    Icon
   }
 };
 </script>
