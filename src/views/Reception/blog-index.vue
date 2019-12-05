@@ -47,13 +47,6 @@
               <div class="user-info">
                 <!-- 修改用户头像卡片 -->
                 <div class="py-2">
-                  <!-- <div v-if="avatarId" class="col-md-4">
-                                    <Avatar  :src='avatarId' size="large"  />
-                                    </div>
-                                    <div v-else class="col-md-4">
-                                    <Avatar  :src='baseAvatar' size="large"  />
-                  </div>-->
-
                   <img
                     @click="toStatus"
                     :src="!avatarId?baseAvatar:avatarId"
@@ -103,7 +96,7 @@
           </div>
 
           <!-- 最新文章 -->
-          <asideCard class="animated fadeInUp mb-4"></asideCard>
+          <asideCard :datasource="top"  name="最热文章" class="animated fadeInUp mb-4"></asideCard>
         </div>
       </div>
     </div>
@@ -116,17 +109,16 @@ import $ from "jquery";
 import { Page, Avatar, Notice, Message, Icon } from "view-design";
 import blogApi from "@/api/blog";
 import { mapGetters, mapActions } from "vuex";
-import Global from "@/util/Global";
 import BlogCard from "./components/blog-card-component";
 import asideCard from "./components/aside-card-component";
 
 export default {
   name: "blogIndex",
   computed: {
-    ...mapGetters(["username", "avatarId", "addRouters"])
+    ...mapGetters(["username", "avatarId", "addRouters","topPosts"])
   },
   methods: {
-    ...mapActions(["getProfile", "login", "generateRoutes"]),
+    ...mapActions(["getProfile", "login", "generateRoutes",'getTopPosts']),
     handleSearch() {
       if (!this.keyword) {
         $("#keyword").addClass("shake");
@@ -207,10 +199,23 @@ export default {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
       });
+    },
+    getTopPost(){
+      if(this.topPosts.length <=0){
+        this.getTopPosts().then(response=>{
+          console.log(response.data);
+          this.top = response.data;
+        })
+      }else{
+        console.log(12);
+        this.top = this.topPosts;
+      }
     }
   },
   created() {
     this.getArticleList();
+    this.getTopPost();
+
     // this.getProfile();
   },
   components: {
@@ -233,7 +238,8 @@ export default {
       password: "",
       keyword: "",
       tag: "",
-      key: ""
+      key: "",
+      top:[]
     };
   }
 };

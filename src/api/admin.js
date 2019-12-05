@@ -1,4 +1,4 @@
-import service from '@/util/service'
+import service from '@/config/service'
 
 import md5 from 'js-md5'
 

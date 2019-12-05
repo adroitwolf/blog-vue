@@ -45,7 +45,7 @@
           <FormItem label="文章缩略图">
             <div style="width:350px;height:200px">
               <img
-                :src="picture?Global.baseUrl+'/'+picture:uploadImgUrl"
+                :src="picture?baseUrl+'/'+picture:uploadImgUrl"
                 alt
                 style="width:100%;height:200px;"
                 @click="uploadImgStatus = !uploadImgStatus"
@@ -68,7 +68,7 @@
             <img
               @click="picChoose(item)"
               style="width:100%;height:100%;"
-              :src="Global.baseUrl+'/'+item.path"
+              :src="baseUrl+'/'+item.path"
               :alt="item.id"
             />
           </Col>
@@ -119,12 +119,11 @@ import "mavon-editor/dist/css/index.css";
 import { mapActions } from "vuex";
 import articleApi from "@/api/article";
 import attachmentApi from "@/api/attachment";
-import Global from "@/util/Global";
+import {BASE_URL} from '@/config/global.var'
 
 export default {
   name: "articleWrite",
   components: {
-    Global,
     FormItem,
     Form,
     Drawer,
@@ -278,6 +277,7 @@ export default {
   computed: {},
   data() {
     return {
+      baseUrl:BASE_URL,
       total: 0,
       attachmentList: [],
       idBefore: null,

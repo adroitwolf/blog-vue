@@ -38,7 +38,7 @@
             <Card :bordered="true">
               <div>
                 <div class="attach-thumb">
-                  <img :src="Global.baseUrl+'/'+ item.path" />
+                  <img :src="baseUrl+'/'+ item.path" />
                 </div>
                 <span class="attachment-span">{{item.title}}</span>
               </div>
@@ -122,13 +122,12 @@ import {
   Col
 } from "view-design";
 import attachmentApi from "@/api/attachment";
-import Global from "@/util/Global";
+import { BASE_URL } from "@/config/global.var";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Photo",
   components: {
-    Global,
     Form,
     FormItem,
     Card,
@@ -224,6 +223,7 @@ export default {
   },
   data() {
     return {
+      baseUrl:BASE_URL,
       pageSize: 10,
       pageNum: 1,
       loading: true,

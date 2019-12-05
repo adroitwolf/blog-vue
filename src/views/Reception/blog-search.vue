@@ -55,7 +55,6 @@
 import blogApi from "@/api/blog";
 import $ from "jquery";
 import { Page, Icon } from "view-design";
-import Global from "@/util/Global";
 import BlogCard from "./components/blog-card-component";
 
 export default {

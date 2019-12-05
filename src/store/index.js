@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+
+
 import getters from './getters'
 
 
@@ -9,6 +11,7 @@ import menus from './moudles/menu'
 import article from './moudles/article'
 import permission from './moudles/permission'
 import attachment from './moudles/attachment'
+import topPosts from './moudles/topPosts'
 
 Vue.use(Vuex)
 
@@ -19,7 +22,8 @@ export default new Vuex.Store({
         article,
         admin,
         permission,
-        attachment
+        attachment,
+        topPosts
     },
     getters
 });
