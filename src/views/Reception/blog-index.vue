@@ -212,6 +212,11 @@ export default {
       }
     }
   },
+  mounted(){
+    // this.observer = new intersectionObserver();
+    // this.observer.observe(document.querySelector("#article-list"))
+
+  },
   created() {
     this.getArticleList();
     this.getTopPost();
@@ -239,7 +244,8 @@ export default {
       keyword: "",
       tag: "",
       key: "",
-      top:[]
+      top:[],
+      observer:null
     };
   }
 };

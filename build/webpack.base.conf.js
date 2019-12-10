@@ -3,6 +3,8 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const ImageminPlugin = require('imagemin-webpack-plugin').default
+const imageminMozjpeg = require('imagemin-mozjpeg');
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir)
@@ -20,6 +22,18 @@ const createLintingRule = () => ({
 })
 
 module.exports = {
+    plugins: [
+        // 图片渐进式
+        new ImageminPlugin({
+            disable: process.env.NODE_ENV !== 'production', // Disable during development
+            plugins: [
+                imageminMozjpeg({
+                    quality: 100,
+                    progressive: true
+                })
+            ]
+        })
+    ],
     externals: {
         'vue': 'Vue',
         'vue-router': 'VueRouter',

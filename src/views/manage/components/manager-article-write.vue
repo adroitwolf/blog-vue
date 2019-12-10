@@ -85,7 +85,7 @@
       <Upload multiple type="drag" :before-upload="handleUpload" action>
         <div style="padding: 20px 0" id="upload-box">
           <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-          <p>Click or drag files here to upload</p>
+          <p>在此上传附件</p>
         </div>
         <div style="padding:20px 0" id="file-box" class="hidden">
           <img style="height:auto;max-width:100%" :src="idBefore" alt />
@@ -150,17 +150,22 @@ export default {
       this.id = row.id;
       this.picture = row.picture;
     }
-    const queryParams = {}
-    attachmentApi
-      .getAttachmentList(this.pageSize, this.pageNum,queryParams)
-      .then(response => {
-        console.log(response.data);
-        this.attachmentList = response.data.rows;
-        this.total = response.data.total;
-      });
+    this.getAttachmentLists();
   },
   methods: {
     ...mapActions(["postArticle"]),
+    getAttachmentLists(){
+      const queryParams = {}
+      queryParams.keywords = null;
+      queryParams.mediaType = null;
+      attachmentApi
+        .getAttachmentList(this.pageSize, this.pageNum,queryParams)
+        .then(response => {
+          console.log(response.data);
+          this.attachmentList = response.data.rows;
+          this.total = response.data.total;
+        });
+    },
     picChoose(item) {
       this.uploadImgStatus = !this.uploadImgStatus;
       this.picture = item.path;
@@ -179,14 +184,9 @@ export default {
         Message.error("请先上传文件！");
         return;
       }
+      // 开始上传
       attachmentApi.uploadFile(this.file).then(response => {
-        attachmentApi
-          .getAttachmentList(this.pageSize, this.pageNum)
-          .then(response => {
-            const data = response.data;
-            this.attachmentList = data.rows;
-            this.total = data.total;
-          });
+        this.getAttachmentLists();
       });
     },
     /*上传结束*/
@@ -266,6 +266,7 @@ export default {
           this.content = "";
           this.contentMd = "";
           this.DrawerStatus = false;
+          this.picture = null;
         })
         .catch(error => {
           Message.error("文章发布失败！");

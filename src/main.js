@@ -21,6 +21,17 @@ Vue.use(VueLazyload)
 
 Vue.config.productionTip = false
 
+
+// // 渐进式加载图片
+
+// import progressive from 'progressive-image/dist/vue';
+
+// Vue.use(progressive, {
+//     removePreview: true,
+//     scale: true
+// })
+
+
 new Vue({
     el: '#app',
     router,

@@ -40,9 +40,8 @@
 }
 .list-group-item{
     background:rgba(255, 255, 255,.1);
-    border:1px solid rgba(0, 0, 0, 0.521);
+    border: 1px solid rgba(0, 0, 0, 0.521);
     padding:10px;
-    margin:0 0 10px;
     display: inline-block;
     transition: all .3s ease;
     cursor: pointer;

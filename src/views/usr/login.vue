@@ -68,7 +68,7 @@ export default {
 .body {
   margin: 0;
   padding: 0;
-  background: url(../../assets/img/bg.png) no-repeat;
+  background: url(../../assets/img/bg.jpg) no-repeat;
   background-size: cover;
   /* width: 100%;
   height: 100%; */

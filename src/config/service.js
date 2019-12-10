@@ -11,7 +11,6 @@ import { BASE_URL } from '@/config/global.var'
 const service = axios.create({
     timeout: 5000,
     baseURL: BASE_URL
-        // baseURL: "http://192.168.3.137:8848"
 });
 
 
@@ -76,6 +75,8 @@ service.interceptors.response.use(
             Message.warning(data.message);
         } else if (status === 500) {
             Message.error("服务异常！");
+        } else if (status === 404) { //资源错误
+
         }
         return Promise.reject(response);
     },
