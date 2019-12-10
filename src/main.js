@@ -1,5 +1,3 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
 
@@ -11,24 +9,27 @@ import store from './store/'
 
 import './permission'
 
-import { Button, Input, Icon, Card, Message, Row, Col } from 'view-design'
 import 'view-design/dist/styles/iview.css';
-Vue.component('Button', Button)
-Vue.component("Input", Input)
-Vue.component('Icon', Icon)
-Vue.component('Card', Card)
-Vue.component('Row', Row)
-Vue.component('Col', Col)
-
-
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload)
 
 
 Vue.config.productionTip = false
+
+
+// // 渐进式加载图片
+
+// import progressive from 'progressive-image/dist/vue';
+
+// Vue.use(progressive, {
+//     removePreview: true,
+//     scale: true
+// })
 
 
 new Vue({
@@ -36,9 +37,4 @@ new Vue({
     router,
     store,
     render: h => h(App)
-})
-
-// 全局变量
-import Global from '@/util/Global'
-
-Vue.prototype.Global = Global
+});

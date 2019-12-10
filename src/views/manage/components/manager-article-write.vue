@@ -45,7 +45,7 @@
           <FormItem label="文章缩略图">
             <div style="width:350px;height:200px">
               <img
-                :src="picture?Global.baseUrl+'/'+picture:uploadImgUrl"
+                :src="picture?baseUrl+'/'+picture:uploadImgUrl"
                 alt
                 style="width:100%;height:200px;"
                 @click="uploadImgStatus = !uploadImgStatus"
@@ -68,7 +68,7 @@
             <img
               @click="picChoose(item)"
               style="width:100%;height:100%;"
-              :src="Global.baseUrl+'/'+item.path"
+              :src="baseUrl+'/'+item.path"
               :alt="item.id"
             />
           </Col>
@@ -85,7 +85,7 @@
       <Upload multiple type="drag" :before-upload="handleUpload" action>
         <div style="padding: 20px 0" id="upload-box">
           <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-          <p>Click or drag files here to upload</p>
+          <p>在此上传附件</p>
         </div>
         <div style="padding:20px 0" id="file-box" class="hidden">
           <img style="height:auto;max-width:100%" :src="idBefore" alt />
@@ -108,18 +108,22 @@ import {
   Tag,
   Upload,
   Modal,
-  Page
+  Page,
+  Button,
+  Input,
+  Icon,
+  Row,
+  Col
 } from "view-design";
 import "mavon-editor/dist/css/index.css";
 import { mapActions } from "vuex";
 import articleApi from "@/api/article";
 import attachmentApi from "@/api/attachment";
-import Global from "@/util/Global";
+import {BASE_URL} from '@/config/global.var'
 
 export default {
   name: "articleWrite",
   components: {
-    Global,
     FormItem,
     Form,
     Drawer,
@@ -128,7 +132,12 @@ export default {
     Tag,
     Upload,
     Modal,
-    Page
+    Page,
+    Button,
+    Input,
+    Icon,
+    Row,
+    Col
   },
   mounted() {
     let row = this.$route.params;
@@ -139,18 +148,24 @@ export default {
       this.content = row.content;
       this.contentMd = row.contentMd;
       this.id = row.id;
-      this.picture= row.picture;
+      this.picture = row.picture;
     }
-    attachmentApi
-      .getAttachmentList(this.pageSize, this.pageNum)
-      .then(response => {
-        console.log(response.data);
-        this.attachmentList = response.data.rows;
-        this.total = response.data.total;
-      });
+    this.getAttachmentLists();
   },
   methods: {
     ...mapActions(["postArticle"]),
+    getAttachmentLists(){
+      const queryParams = {}
+      queryParams.keywords = null;
+      queryParams.mediaType = null;
+      attachmentApi
+        .getAttachmentList(this.pageSize, this.pageNum,queryParams)
+        .then(response => {
+          console.log(response.data);
+          this.attachmentList = response.data.rows;
+          this.total = response.data.total;
+        });
+    },
     picChoose(item) {
       this.uploadImgStatus = !this.uploadImgStatus;
       this.picture = item.path;
@@ -169,14 +184,9 @@ export default {
         Message.error("请先上传文件！");
         return;
       }
+      // 开始上传
       attachmentApi.uploadFile(this.file).then(response => {
-        attachmentApi
-          .getAttachmentList(this.pageSize, this.pageNum)
-          .then(response => {
-            const data = response.data;
-            this.attachmentList = data.rows;
-            this.total = data.total;
-          });
+        this.getAttachmentLists();
       });
     },
     /*上传结束*/
@@ -234,7 +244,7 @@ export default {
             this.DrawerStatus = false;
           })
           .catch(error => {
-            console.log(error)
+            console.log(error);
             Message.error("文章更新失败！");
           });
         return;
@@ -256,6 +266,7 @@ export default {
           this.content = "";
           this.contentMd = "";
           this.DrawerStatus = false;
+          this.picture = null;
         })
         .catch(error => {
           Message.error("文章发布失败！");
@@ -267,6 +278,7 @@ export default {
   computed: {},
   data() {
     return {
+      baseUrl:BASE_URL,
       total: 0,
       attachmentList: [],
       idBefore: null,

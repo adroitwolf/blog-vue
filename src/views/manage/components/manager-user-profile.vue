@@ -144,7 +144,13 @@ import {
   Message,
   Notice,
   Upload,
-  Modal
+  Modal,
+  Button,
+  Input,
+  Icon,
+  Card,
+  Row,
+  Col
 } from "view-design";
 
 export default {
@@ -176,7 +182,13 @@ export default {
     FormItem,
     Message,
     Upload,
-    Modal
+    Modal,
+    Button,
+    Input,
+    Icon,
+    Card,
+    Row,
+    Col
   },
   computed: {
     ...mapGetters({

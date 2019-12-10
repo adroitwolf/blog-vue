@@ -42,7 +42,8 @@ import {
   Avatar,
   Dropdown,
   DropdownItem,
-  DropdownMenu
+  DropdownMenu,
+  Icon
 } from "view-design";
 import { mapGetters, mapActions } from "vuex";
 import router from "@/router";
@@ -64,7 +65,8 @@ export default {
     Dropdown,
     DropdownItem,
     DropdownMenu,
-    Message
+    Message,
+    Icon
   },
   methods: {
     ...mapActions(["logout"]),

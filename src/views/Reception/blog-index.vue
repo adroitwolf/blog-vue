@@ -41,19 +41,12 @@
           <!-- 搜索方法结束 -->
 
           <!-- 登陆表单 -->
-          <div class="blog-card animated fadeInUp">
+          <div class="blog-card mb-4 animated fadeInUp">
             <div v-if="username">
               <div class="form-title text-center slide_username">{{username}}</div>
               <div class="user-info">
                 <!-- 修改用户头像卡片 -->
                 <div class="py-2">
-                  <!-- <div v-if="avatarId" class="col-md-4">
-                                    <Avatar  :src='avatarId' size="large"  />
-                                    </div>
-                                    <div v-else class="col-md-4">
-                                    <Avatar  :src='baseAvatar' size="large"  />
-                  </div>-->
-
                   <img
                     @click="toStatus"
                     :src="!avatarId?baseAvatar:avatarId"
@@ -101,6 +94,9 @@
               </div>
             </div>
           </div>
+
+          <!-- 最新文章 -->
+          <asideCard :datasource="top"  name="最热文章" class="animated fadeInUp mb-4"></asideCard>
         </div>
       </div>
     </div>
@@ -110,19 +106,19 @@
 <script>
 import animate from "animate.css";
 import $ from "jquery";
-import { Page, Avatar, Notice, Message } from "view-design";
+import { Page, Avatar, Notice, Message, Icon } from "view-design";
 import blogApi from "@/api/blog";
 import { mapGetters, mapActions } from "vuex";
-import Global from "@/util/Global";
 import BlogCard from "./components/blog-card-component";
+import asideCard from "./components/aside-card-component";
 
 export default {
   name: "blogIndex",
   computed: {
-    ...mapGetters(["username", "avatarId","addRouters"])
+    ...mapGetters(["username", "avatarId", "addRouters","topPosts"])
   },
   methods: {
-    ...mapActions(["getProfile", "login","generateRoutes"]),
+    ...mapActions(["getProfile", "login", "generateRoutes",'getTopPosts']),
     handleSearch() {
       if (!this.keyword) {
         $("#keyword").addClass("shake");
@@ -158,11 +154,11 @@ export default {
           Notice.success({
             title: "登陆成功"
           });
-          this.getProfile().then(data=>{
-            this.generateRoutes( data.roles)
+          this.getProfile().then(data => {
+            this.generateRoutes(data.roles);
             console.log(this.addRouters);
             that.$router.addRoutes(this.addRouters);
-          })
+          });
         }
       );
     },
@@ -203,10 +199,28 @@ export default {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
       });
+    },
+    getTopPost(){
+      if(this.topPosts.length <=0){
+        this.getTopPosts().then(response=>{
+          console.log(response.data);
+          this.top = response.data;
+        })
+      }else{
+        console.log(12);
+        this.top = this.topPosts;
+      }
     }
+  },
+  mounted(){
+    // this.observer = new intersectionObserver();
+    // this.observer.observe(document.querySelector("#article-list"))
+
   },
   created() {
     this.getArticleList();
+    this.getTopPost();
+
     // this.getProfile();
   },
   components: {
@@ -214,7 +228,9 @@ export default {
     Avatar,
     Notice,
     Message,
-    BlogCard
+    BlogCard,
+    asideCard,
+    Icon
   },
   data() {
     return {
@@ -227,7 +243,9 @@ export default {
       password: "",
       keyword: "",
       tag: "",
-      key: ""
+      key: "",
+      top:[],
+      observer:null
     };
   }
 };

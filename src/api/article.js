@@ -1,4 +1,4 @@
-import service from '@/util/service'
+import service from '@/config/service'
 
 const baseUrl = '/api/blog'
 const articleApi = {}

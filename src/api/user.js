@@ -1,4 +1,4 @@
-import service from '@/util/service'
+import service from '@/config/service'
 // md5加密
 import md5 from 'js-md5'
 import qs from 'qs'

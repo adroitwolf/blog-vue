@@ -1,5 +1,5 @@
 import userApi from '@/api/user'
-import Global from '@/util/Global'
+import { BASE_URL } from '@/config/global.var'
 const state = {
     username: '',
     avatarId: '',
@@ -18,7 +18,7 @@ const mutations = {
         state.username = profile.username;
         var re = /^[ ]*$/;
         if (profile.avatar != null && !re.test(profile.avatar)) {
-            state.avatarId = Global.baseUrl + "/" + profile.avatar;
+            state.avatarId = BASE_URL + "/" + profile.avatar;
         }
         state.phone = profile.phone;
         state.email = profile.email;
@@ -29,7 +29,7 @@ const mutations = {
         state.username = profile.username;
         var re = /^[ ]*$/;
         if (profile.avatar != null && !re.test(profile.avatar)) {
-            state.avatarId = Global.baseUrl + "/" + profile.avatar;
+            state.avatarId = BASE_URL + "/" + profile.avatar;
         }
 
         state.phone = profile.phone;
@@ -39,7 +39,7 @@ const mutations = {
     UPDATE_AVATAR: (state, avatar) => {
         var re = /^[ ]*$/;
         if (avatar != null && !re.test(avatar)) {
-            state.avatarId = Global.baseUrl + "/" + avatar;
+            state.avatarId = BASE_URL + "/" + avatar;
         }
     }
 };

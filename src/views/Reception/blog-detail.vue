@@ -8,7 +8,7 @@
 
             <div class="auth-box my-2">
               <div class="avatar">
-                <Avatar :src="avatarId?avatarId:baseAvatar" size="large" />
+                <Avatar  :src="avatarId?avatarId:baseAvatar" size="large" />
               </div>
 
               <div class="post-info ml-2">
@@ -36,7 +36,7 @@
               </div>
             </div>
             <div class="article-img">
-              <img :src="picture?Global.baseUrl + '/' +picture:imglist[blogId%imglist.length]" alt />
+              <img v-lazy="picture?this.baseUrl + '/' +picture:imglist[blogId%imglist.length]" alt />
             </div>
             <div class="blog-html-content my-2 markdown-body" v-html="content"></div>
           </div>
@@ -51,17 +51,19 @@
 import "mavon-editor/dist/css/index.css";
 import "mavon-editor/dist/markdown/github-markdown.min.css";
 import $ from "jquery";
-
+import {BASE_URL} from '@/config/global.var'
 import blogApi from "@/api/blog";
-import { Avatar } from "view-design";
+import { Avatar, Icon } from "view-design";
 export default {
   name: "blogDetail",
   components: {
-    Avatar
+    Avatar,
+    Icon
   },
 
   data() {
     return {
+      baseUrl:BASE_URL,
       blogId: "",
       height: "",
       baseAvatar: require("@/assets/img/avatar.png"),
@@ -100,8 +102,8 @@ export default {
         this.picture = data.picture;
         console.log(data.avatarId);
         var re = /^[ ]*$/;
-        if (null != data.avatarId &&!re.test(data.avatarId)) {
-          this.avatarId = this.Global.baseUrl + "/" + data.avatarId;
+        if (null != data.avatarId && !re.test(data.avatarId)) {
+          this.avatarId = this.baseUrl + "/" + data.avatarId;
         }
       });
     }

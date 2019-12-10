@@ -28,7 +28,7 @@
 
 <script>
 import md5 from "js-md5";
-import { Content, Card, Table, LoadingBar } from "view-design";
+import { Content, Card, Table, LoadingBar, Icon, Row, Col } from "view-design";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -43,7 +43,10 @@ export default {
     Content,
     Card,
     Table,
-    LoadingBar
+    LoadingBar,
+    Icon,
+    Row,
+    Col
   },
   methods: {
     ...mapActions(["getArticleList", "getArticleCount"])

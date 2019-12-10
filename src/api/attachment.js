@@ -1,16 +1,18 @@
-import service from '@/util/service'
+import service from '@/config/service'
 
 const baseUrl = '/api/admin/attachment'
 
 const attachmentApi = {}
 
-attachmentApi.getAttachmentList = (pageSize, pageNum) => {
+attachmentApi.getAttachmentList = (pageSize, pageNum, queryParams) => {
     return service({
         method: 'get',
         url: `${baseUrl}/list`,
         params: {
             pageSize: pageSize,
-            pageNum: pageNum
+            pageNum: pageNum,
+            mediaType: queryParams.mediaType,
+            keywords: queryParams.keywords
         }
     })
 }

@@ -1,4 +1,6 @@
 'use strict'
 module.exports = {
-  NODE_ENV: '"production"'
+    BASE_URL: '"http://localhost:8066/server"', //配置后端url
+    NODE_ENV: '"production"',
+
 }

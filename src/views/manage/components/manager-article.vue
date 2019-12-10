@@ -16,7 +16,9 @@
           <Button type="primary" @click="handleList()">查询</Button>
         </FormItem>
       </Form>
-      <Button type="primary" @click="toPage('写文章')"><Icon type="md-add" />写文章</Button>
+      <Button type="primary" @click="toPage('写文章')">
+        <Icon type="md-add" />写文章
+      </Button>
     </Card>
     <Card class="b-card" style="margin:20px 0">
       <Table
@@ -34,7 +36,6 @@
           <div v-else-if="row.status === 'RECYCLE'">
             <Badge status="error" text="回收站" />
           </div>
-          
         </div>
         <div slot-scope="{row}" slot="tagsTitle">
           <Tag color="error" v-for="(item,index) in row.tagsTitle" :key="index">{{item}}</Tag>
@@ -84,9 +85,13 @@ import {
   Notice,
   Tag,
   Form,
+  Message,
   FormItem,
   Select,
-  Option
+  Option,
+  Button,
+  Input,
+  Icon
 } from "view-design";
 import { mapGetters, mapActions } from "vuex";
 import router from "@/router";
@@ -104,7 +109,10 @@ export default {
     Form,
     FormItem,
     Select,
-    Option
+    Option,
+    Button,
+    Input,
+    Icon
   },
   data() {
     return {
@@ -186,8 +194,8 @@ export default {
       this.queryArticleList();
     },
     // 去往某个页面
-    toPage(n){
-      this.$router.push({name:n})
+    toPage(n) {
+      this.$router.push({ name: n });
     }
   },
   computed: {

@@ -1,6 +1,6 @@
-import service from '@/util/service'
+import service from '@/config/service'
 
-const baseUrl = "/post"
+const baseUrl = "/api/post"
 
 const blogApi = {}
 
@@ -48,6 +48,14 @@ blogApi.searchTag = (pageSize, pageNum, tag) => {
             pageSize: pageSize,
             tag: tag
         }
+    })
+}
+
+
+blogApi.getTopPosts = () => {
+    return new service({
+        url: `${baseUrl}/top`,
+        method: 'get',
     })
 }
 

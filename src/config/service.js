@@ -4,12 +4,13 @@ import qs from "qs"
 import store from '@/store'
 import { Message } from 'view-design'
 import router from '@/router'
+import { BASE_URL } from '@/config/global.var'
+
 
 // axios相应的封装
 const service = axios.create({
     timeout: 5000,
-    baseURL: "http://localhost:8099"
-        // baseURL: "http://192.168.3.137:8848"
+    baseURL: BASE_URL
 });
 
 
@@ -53,7 +54,9 @@ service.interceptors.response.use(
         if (status === 200) {
             return data;
         }
-        if (status === 401 || status === 403) { // 验证当前地址 如果当前的是主页的登陆，则不退到登陆窗口
+        if (status === 401 || status === 403) { // 验证当前地址 消除缓存 如果当前的是主页的登陆，则不退到登陆窗口
+
+            store.dispatch("logout");
             let href = window.location.href;
             let post = window.location.port;
             let url = href.split(post + "/");
@@ -72,6 +75,8 @@ service.interceptors.response.use(
             Message.warning(data.message);
         } else if (status === 500) {
             Message.error("服务异常！");
+        } else if (status === 404) { //资源错误
+
         }
         return Promise.reject(response);
     },

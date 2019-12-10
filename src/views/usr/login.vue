@@ -22,14 +22,17 @@
   </div>
 </template>
 <script>
-import { Form, FormItem, Message } from "view-design";
+import { Form, FormItem, Message, Button, Input, Icon } from "view-design";
 import { mapActions } from "vuex";
 import router from "@/router";
 export default {
   name: "login",
   components: {
     Form,
-    FormItem
+    FormItem,
+    Button,
+    Input,
+    Icon
   },
   data() {
     return {
@@ -65,7 +68,7 @@ export default {
 .body {
   margin: 0;
   padding: 0;
-  background: url(../../assets/img/bg.png) no-repeat;
+  background: url(../../assets/img/bg.jpg) no-repeat;
   background-size: cover;
   /* width: 100%;
   height: 100%; */
