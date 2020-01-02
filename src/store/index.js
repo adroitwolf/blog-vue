@@ -7,7 +7,7 @@ import getters from './getters'
 
 import admin from './moudles/admin'
 import user from './moudles/user'
-import menus from './moudles/menu'
+import config from './moudles/config'
 import article from './moudles/article'
 import permission from './moudles/permission'
 import attachment from './moudles/attachment'
@@ -18,7 +18,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     modules: {
         user,
-        menus,
+        config,
         article,
         admin,
         permission,

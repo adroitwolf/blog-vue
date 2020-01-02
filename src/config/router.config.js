@@ -5,43 +5,44 @@ export const asyncAdminRouterMap = []
 export const asyncUserRouterMap = [{
     path: '/admin/index.html',
     name: 'index',
-    meta: { title: '后台管理', role: ["admin", "user"] },
+    meta: { title: '后台管理', hideInMenu: false },
     component: () =>
         import ('@/views/manage/index'),
     redirect: '/admin/index.html/status',
     children: [{
         path: 'status',
         name: '状态面板',
-        meta: { Bread: ["主页", "状态面板"], title: "后台管理", role: ["admin", "user"] },
+        meta: { Bread: ["主页", "状态面板"], icon: 'md-desktop', title: "后台管理" },
         component: () =>
             import ('@/views/manage/components/manager-status')
     }, {
         path: 'articleManager',
-        meta: { Bread: ["主页", "文章", "文章管理"], title: "后台管理", role: ["admin", "user"] },
+        meta: { Bread: ["主页", "文章", "文章管理"], icon: 'ios-chatboxes', title: "后台管理" },
         name: '文章管理',
         component: () =>
             import ('@/views/manage/components/manager-article')
     }, {
-        path: 'userProfile',
-        meta: { Bread: ["主页", "用户", "个人资料"], title: "后台管理", role: ["admin", "user"] },
-        name: '个人资料',
-        component: () =>
-            import ('@/views/manage/components/manager-user-profile')
-    }, {
         path: 'writeArticle',
-        meta: { Bread: ["主页", "文章", "写文章"], title: "后台管理", role: ["admin", "user"] },
+        meta: { Bread: ["主页", "文章", "写文章"], icon: 'md-clipboard', title: "后台管理" },
         name: '写文章',
         component: () =>
             import ("@/views/manage/components/manager-article-write")
     }, {
         path: 'photo',
-        meta: { Bread: ["主页", "附件", "图片"], title: "后台管理", role: ["admin", "user"] },
+        name: '图片',
+        meta: { Bread: ["主页", "附件", "图片"], title: "后台管理", icon: 'ios-albums-outline' },
         component: () =>
             import ("@/views/manage/components/manager-photo")
+    }, {
+        path: 'userProfile',
+        meta: { Bread: ["主页", "用户", "个人资料"], title: "后台管理", icon: 'ios-person-outline' },
+        name: '个人资料',
+        component: () =>
+            import ('@/views/manage/components/manager-user-profile')
     }],
 }, {
     path: '*',
-    meta: { title: '404-战术小队', requiresAuth: false },
+    meta: { title: '404-战术小队', requiresAuth: false, hideInMenu: true },
     name: '404',
     component: () =>
         import ('@/views/exception/404')
@@ -61,6 +62,7 @@ export const constantRouterMap = [{
     },
     {
         path: '/admin',
+        meta: { hideInMenu: true },
         redirect: '/admin/index.html'
     }, {
         path: '/index.html',

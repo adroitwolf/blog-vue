@@ -26,7 +26,6 @@ const mutations = {
 
 const actions = {
     login({ commit }, { username, password }) {
-        let that = this;
         return new Promise((resolve, reject) => {
             adminApi.login(username, password)
                 .then(response => {

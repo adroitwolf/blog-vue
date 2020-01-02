@@ -3,8 +3,8 @@
     <Menu mode="horizontal" :theme="theme1" class="header">
       <!-- 用户操作的菜单模块 -->
       <div class="menu">
-        <MenuItem v-for="(menu,index) in menus" :key="index" :name="menu.id" :to="menu.to">
-          <Icon :type="menu.icon" />
+        <MenuItem v-for="(menu,index) in menus" :key="index" :name="index" :to="menu.path">
+          <Icon :type="menu.meta.icon" />
           {{menu.name}}
         </MenuItem>
       </div>
@@ -79,6 +79,9 @@ export default {
       }
       this.$router.push({ name: name });
     }
+  },
+  mounted(){
+    console.log(this.menus);
   },
   computed: {
     ...mapGetters(["menus", "avatarId"])
