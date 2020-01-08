@@ -1,8 +1,30 @@
 /* 动态路由 */
 
-export const asyncAdminRouterMap = []
+// export const asyncAdminRouterMap = [{
+//     path: '/admin/index.html',
+//     name: 'index',
+//     meta: { title: '后台管理', hideInMenu: false },
+//     redirect: '/admin/index.html/usrManager',
+//     component: () =>
+//         import ('@/views/manage/index'),
+//     children: []
+// }, {
+//     path: '*',
+//     meta: { title: '404-战术小队', requiresAuth: false, hideInMenu: true },
+//     name: '404',
+//     component: () =>
+//         import ('@/views/exception/404')
+// }]
 
-export const asyncUserRouterMap = [{
+const component = {
+    template: `
+    <div class="component">
+      <router-view></router-view>
+    </div>
+  `
+}
+
+export const asyncRouterMap = [{
     path: '/admin/index.html',
     name: 'index',
     meta: { title: '后台管理', hideInMenu: false },
@@ -12,31 +34,50 @@ export const asyncUserRouterMap = [{
     children: [{
         path: 'status',
         name: '状态面板',
-        meta: { Bread: ["主页", "状态面板"], icon: 'md-desktop', title: "后台管理" },
+        meta: { Bread: ["主页", "状态面板"], icon: 'md-desktop', title: "后台管理", role: 'USER' },
         component: () =>
             import ('@/views/manage/components/manager-status')
+    }, { //管理员菜单
+        path: 'check',
+        name: '审核',
+        meta: { Bread: ["主页", "审核"], title: '后台管理', role: 'ADMIN', icon: 'md-people' },
+        component: component,
+        children: [{
+            path: 'user',
+            meta: { Bread: ["主页", "审核", '用户管理'], title: '后台管理' },
+            name: '用户管理',
+            component: () =>
+                import ('@/views/manage/components/manager-user')
+        }],
+
     }, {
-        path: 'articleManager',
-        meta: { Bread: ["主页", "文章", "文章管理"], icon: 'ios-chatboxes', title: "后台管理" },
-        name: '文章管理',
-        component: () =>
-            import ('@/views/manage/components/manager-article')
-    }, {
-        path: 'writeArticle',
-        meta: { Bread: ["主页", "文章", "写文章"], icon: 'md-clipboard', title: "后台管理" },
-        name: '写文章',
-        component: () =>
-            import ("@/views/manage/components/manager-article-write")
+        path: 'article',
+        meta: { Bread: ["主页", "文章"], icon: 'ios-chatboxes', title: "后台管理", role: 'USER' },
+        name: '文章',
+        component: component,
+        children: [{
+            path: 'manager',
+            name: '所有文章',
+            meta: { Bread: ["主页", "文章", '所有文章'], title: "后台管理" },
+            component: () =>
+                import ('@/views/manage/components/manager-article')
+        }, {
+            path: 'write',
+            meta: { Bread: ["主页", "文章", "写文章"], title: "后台管理" },
+            name: '写文章',
+            component: () =>
+                import ("@/views/manage/components/manager-article-write")
+        }],
     }, {
         path: 'photo',
-        name: '图片',
-        meta: { Bread: ["主页", "附件", "图片"], title: "后台管理", icon: 'ios-albums-outline' },
+        name: '附件',
+        meta: { Bread: ["主页", "附件"], title: "后台管理", icon: 'ios-albums-outline', role: 'USER' },
         component: () =>
             import ("@/views/manage/components/manager-photo")
     }, {
         path: 'userProfile',
-        meta: { Bread: ["主页", "用户", "个人资料"], title: "后台管理", icon: 'ios-person-outline' },
-        name: '个人资料',
+        name: '个性管理',
+        meta: { Bread: ["主页", "用户", "个人资料"], title: "后台管理", icon: 'ios-person-outline', role: 'USER' },
         component: () =>
             import ('@/views/manage/components/manager-user-profile')
     }],

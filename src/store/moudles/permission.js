@@ -1,4 +1,4 @@
-import { asyncUserRouterMap, asyncAdminRouterMap, constantRouterMap } from "@/config/router.config"
+import { asyncRouterMap, constantRouterMap } from "@/config/router.config"
 const state = {
     menu: [],
     addRouters: [],
@@ -18,15 +18,30 @@ const mutations = {
 
 
 const actions = {
-    generateRoutes({ commit }, roles) {
+    generateRoutes({ commit }, roles) { //roles = ['管理员','用户'。。。]
         let accessRouters = [];
-        // 动态添加路由表
-        if (roles.indexOf('ADMIN') >= 0) {
-            accessRouters = asyncAdminRouterMap;
+        for (var i = 0; i < asyncRouterMap.length; i++) {
+            if (asyncRouterMap[i].hasOwnProperty('children')) { //判断是否有children
+                //判断用户角色属性
+                let asyncRouter = asyncRouterMap[i];
+                let origin = asyncRouterMap[i].children;
+                let children = [];
+
+                origin.forEach(router => {
+                    if (roles.indexOf(router.meta.role) >= 0) {
+                        children.push(router);
+                    }
+                });
+
+                asyncRouter.children = children;
+                accessRouters.push(asyncRouter);
+            } else {
+                accessRouters.push(asyncRouterMap[i]);
+            }
         }
-        if (roles.indexOf('USER') >= 0) {
-            accessRouters = asyncUserRouterMap;
-        }
+        console.log("==============");
+        console.log(JSON.stringify(accessRouters));
+        console.log("==============");
         commit('SET_ROUTES', accessRouters)
 
     },
@@ -42,8 +57,20 @@ const actions = {
         head.children.forEach(router => {
             let item = router;
             item.path = head.path + '/' + router.path;
+            if (router.children) {
+                let childrenMenu = [];
+                router.children.forEach(subRouter => {
+                    let childRouter = subRouter;
+                    childRouter.path = item.path + '/' + subRouter.path;
+                    childrenMenu.push(childRouter);
+                })
+                item.children = childrenMenu;
+            }
             menu.push(item);
         });
+        console.log("+++++++++++++++");
+        console.log(JSON.stringify(menu));
+        console.log("+++++++++++++++");
         commit('SET_MENUS', menu);
     }
 
