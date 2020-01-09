@@ -7,7 +7,7 @@
         </FormItem>
 
         <FormItem label="文件类型:">
-          <Select v-model="status" style="width:200px">
+          <Select clearable v-model="status" style="width:200px">
             <Option value="PUBLISHED">已发布</Option>
             <Option value="RECYCLE">回收站</Option>
           </Select>

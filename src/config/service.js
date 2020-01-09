@@ -71,8 +71,8 @@ service.interceptors.response.use(
                 router.push({ name: 'Login' });
             }
             Message.error(data.message);
-        } else if (status === 400) {
-            Message.warning(data.message);
+        } else if (status === 400 || status === 503) {
+            Message.error(data.message);
         } else if (status === 500) {
             Message.error("服务异常！");
         } else if (status === 404) { //资源错误

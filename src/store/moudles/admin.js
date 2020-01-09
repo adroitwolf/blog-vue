@@ -66,7 +66,7 @@ const actions = {
     },
     logout({ commit }) {
 
-        removeToken();
+        removeToken(); //删除cookie
         commit("SET_TOKEN", '');
 
         // return new Promise((resolve, reject) => {

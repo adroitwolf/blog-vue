@@ -51,6 +51,12 @@ export const asyncRouterMap = [{
         }],
 
     }, {
+        path: 'sys',
+        name: '系统设置',
+        meta: { Bread: ['主页', '系统设置'], title: '后台管理', role: 'ADMIN', icon: 'md-settings' },
+        component: () =>
+            import ('@/views/manage/components/manager-system')
+    }, {
         path: 'article',
         meta: { Bread: ["主页", "文章"], icon: 'ios-chatboxes', title: "后台管理", role: 'USER' },
         name: '文章',
