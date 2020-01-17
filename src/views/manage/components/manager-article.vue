@@ -10,6 +10,7 @@
           <Select clearable v-model="status" style="width:200px">
             <Option value="PUBLISHED">已发布</Option>
             <Option value="RECYCLE">回收站</Option>
+            <Option value="CHECK">审核中</Option>
           </Select>
         </FormItem>
         <FormItem>
@@ -36,14 +37,19 @@
           <div v-else-if="row.status === 'RECYCLE'">
             <Badge status="error" text="回收站" />
           </div>
+          <div v-else-if="row.status === 'CHECK'">
+            <Badge status="warning" text="审核中" />
+          </div>
+          <div v-else-if="row.status === 'NO'">
+            <Badge color="yellow" text="审核失败" />
+          </div>
         </div>
         <div slot-scope="{row}" slot="tagsTitle">
           <Tag color="error" v-for="(item,index) in row.tagsTitle" :key="index">{{item}}</Tag>
         </div>
         <div slot-scope="{ row, index}" slot="action">
-          <div v-if="row.status === 'PUBLISHED'">
+          <div v-if="row.status === 'PUBLISHED' || row.status=== 'CHECK'">
             <Button type="primary" style="margin-right: 5px" @click="eidtArticle(row)">编辑</Button>
-
             <Poptip confirm title="确定要讲这篇文章放入回收站么?" @on-ok="totrash(row,'RECYCLE')">
               <Button type="error">回收站</Button>
             </Poptip>
@@ -91,7 +97,8 @@ import {
   Option,
   Button,
   Input,
-  Icon
+  Icon,
+  Modal
 } from "view-design";
 import { mapGetters, mapActions } from "vuex";
 import router from "@/router";
@@ -112,7 +119,8 @@ export default {
     Option,
     Button,
     Input,
-    Icon
+    Icon,
+    Modal
   },
   data() {
     return {
@@ -147,13 +155,19 @@ export default {
       });
     },
     eidtArticle(row) {
-      articleApi.getDetail(row.id).then(response => {
-        const data = response.data;
-        var article = data;
-        this.$router.push({
-          name: "写文章",
-          params: article
-        });
+      Modal.confirm({
+        title: "警告！",
+        content: "您确定要更新文章？此操作会导致已发布文章变成审核状态！",
+        onOk: () => {
+          articleApi.getDetail(row.id).then(response => {
+            const data = response.data;
+            var article = data;
+            this.$router.push({
+              name: "写文章",
+              params: article
+            });
+          });
+        }
       });
     },
     handleList() {

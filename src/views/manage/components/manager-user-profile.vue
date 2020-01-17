@@ -158,7 +158,6 @@ export default {
       cpassword: "",
       aboutMex: "",
       usernamex: "",
-      avatarId: "",
       phonex: "",
       emailx: "",
       avatarUrl: require("@/assets/img/avatar.png"),

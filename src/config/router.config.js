@@ -48,6 +48,12 @@ export const asyncRouterMap = [{
             name: '用户管理',
             component: () =>
                 import ('@/views/manage/components/manager-user')
+        }, {
+            path: 'post',
+            meta: { Bread: ["主页", "审核", '文章审核'], title: '后台管理' },
+            name: '文章审核',
+            component: () =>
+                import ('@/views/manage/components/manager-check-article')
         }],
 
     }, {

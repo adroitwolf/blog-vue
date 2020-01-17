@@ -59,6 +59,7 @@
                 >
                   <span>用户状态:</span>
                   <i-switch
+                    size="large"
                     :value="item.isEnabled"
                     true-color="#13ce66"
                     false-color="#ff4949"
@@ -66,7 +67,10 @@
                     false-value="NO"
                     :before-change="()=>handleBeforeChangeUserStatus(item.id,item.isEnabled)"
                     style="margin-left:10px;"
-                  />
+                  >
+                    <span slot="open">使用</span>
+                    <span slot="close">禁用</span>
+                  </i-switch>
                 </div>
               </div>
             </Card>

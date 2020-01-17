@@ -1,6 +1,6 @@
 <template>
   <Footer class="Footer">
-    <p>2019-2020 &copy; WHOAMI</p>
+    <p>2019-2020 &copy; WHOAMI 鲁ICP备19063758号</p>
   </Footer>
 </template>
 
