@@ -11,6 +11,7 @@
             <Option value="PUBLISHED">已发布</Option>
             <Option value="RECYCLE">回收站</Option>
             <Option value="CHECK">审核中</Option>
+            <Option value="NO">审核失败</Option>
           </Select>
         </FormItem>
         <FormItem>

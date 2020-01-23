@@ -11,6 +11,7 @@
             <Option value="PUBLISHED">已发布</Option>
             <Option value="RECYCLE">回收站</Option>
             <Option value="CHECK">审核中</Option>
+            <Option value="NO">审核失败</Option>
           </Select>
         </FormItem>
         <FormItem>
@@ -48,18 +49,30 @@
           <Tag color="error" v-for="(item,index) in row.tagsTitle" :key="index">{{item}}</Tag>
         </div>
         <div slot-scope="{ row, index}" slot="action">
-          <div v-if="row.status === 'PUBLISHED' || row.status=== 'CHECK'">
-            <Button type="primary" style="margin-right: 5px" @click="eidtArticle(row)">编辑</Button>
-            <Poptip confirm title="确定要讲这篇文章放入回收站么?" @on-ok="totrash(row,'RECYCLE')">
-              <Button type="error">回收站</Button>
+          <!-- 文章发布状态 -->
+          <div v-if="row.status === 'PUBLISHED'">
+            <Button type="primary" style="margin-right: 5px" @click="eidtArticle(row)">编辑</Button>              
+            <Poptip confirm title="确定要讲这篇文章放入回收站么?" @on-ok="editPostStatus(row,'RECYCLE')">
+              <Button type="warning">回收站</Button>
             </Poptip>
-          </div>
-          <div v-else-if="row.status === 'RECYCLE' ">
-            <Button type="primary" style="margin-right: 5px" @click="totrash(row,'PUBLISHED')">还原</Button>
-
             <Poptip confirm title="确定要删除这篇文章么?" @on-ok="deleteArticle(row)">
               <Button type="error">删除</Button>
             </Poptip>
+          </div>
+          <div v-else-if="row.status === 'RECYCLE' ">
+            <Button type="primary" style="margin-right: 5px" @click="editPostStatus(row,'PUBLISHED')">还原</Button>
+            <Poptip confirm title="确定要删除这篇文章么?" @on-ok="deleteArticle(row)">
+              <Button type="error">删除</Button>
+            </Poptip>
+          </div>
+          <div v-else-if="row.status === 'CHECK'">
+
+            <Button type="primary" style="margin-right: 5px" @click="eidtArticle(row)">编辑</Button>
+            <Button type="warning" disabled>回收站</Button>
+          </div>
+          <div v-else-if="row.status === 'NO'">
+            <Button type="primary" style="margin-right: 5px" @click="eidtArticle(row)">编辑</Button> 
+            <Button style="margin-right: 5px" type="error" @click="deleteArticle(row)">删除</Button>
           </div>
         </div>
       </Table>
@@ -144,7 +157,7 @@ export default {
         this.queryArticleList();
       });
     },
-    totrash(row, status) {
+    editPostStatus(row, status) {
       this.loading = true;
       this.updateArticleStatus({
         index: row._index,

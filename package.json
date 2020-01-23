@@ -1,7 +1,7 @@
 {
     "name": "app",
     "version": "1.0.0",
-    "description": "A Vue.js project",
+    "description": "博客前端",
     "author": "whoami <1363531458@qq.com>",
     "private": true,
     "scripts": {
