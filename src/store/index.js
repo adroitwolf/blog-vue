@@ -5,7 +5,6 @@ import Vuex from 'vuex'
 import getters from './getters'
 
 
-import admin from './moudles/admin'
 import user from './moudles/user'
 import config from './moudles/config'
 import article from './moudles/article'
@@ -20,7 +19,6 @@ export default new Vuex.Store({
         user,
         config,
         article,
-        admin,
         permission,
         attachment,
         topPosts

@@ -13,7 +13,7 @@
           </Row>
           <Row type="flex" justify="center" align="middle">
             <Col span="12" push="3">
-              <h1>{{username}}</h1>
+              <h1>{{nickname}}</h1>
             </Col>
           </Row>
           <Row type="flex" justify="center" align="middle" class-name="profile-detail">
@@ -53,7 +53,7 @@
             <TabPane label="基本资料" name="name1">
               <Form label-position="top">
                 <FormItem label="用户名">
-                  <Input v-model="usernamex"></Input>
+                  <Input v-model="nicknamex"></Input>
                 </FormItem>
                 <FormItem label="手机号">
                   <Input v-model="phonex" placeholder="试着填写一下手机号吧"></Input>
@@ -157,7 +157,7 @@ export default {
       password: "",
       cpassword: "",
       aboutMex: "",
-      usernamex: "",
+      nicknamex: "",
       phonex: "",
       emailx: "",
       avatarUrl: require("@/assets/img/avatar.png"),
@@ -184,7 +184,7 @@ export default {
     Col
   },
   computed: {
-    ...mapGetters(["username", "avatarId", "phone", "email", "aboutMe"])
+    ...mapGetters(["nickname", "avatarId", "phone", "email", "aboutMe"])
   },
   created() {
     this.getArticleCount().then(value => {
@@ -193,7 +193,7 @@ export default {
   },
   mounted() {
     // 初始化修改个人配置信息信息项
-    this.usernamex = this.username;
+    this.nicknamex = this.nickname;
     this.phonex = this.phone;
     this.emailx = this.email;
 
@@ -251,7 +251,7 @@ export default {
     },
     updateUserProfile() {
       this.updateProfile({
-        username: this.usernamex,
+        nickname: this.nicknamex,
         phone: this.phonex,
         email: this.emailx,
         aboutMe: this.aboutMex

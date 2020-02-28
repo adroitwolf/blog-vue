@@ -9,6 +9,19 @@ const state = {
         title: '时间',
         key: 'releaseDate'
     }],
+    imgList: [
+        require("@/assets/img/0.jpg"),
+        require("@/assets/img/1.jpg"),
+        require("@/assets/img/2.jpg"),
+        require("@/assets/img/3.jpg"),
+        require("@/assets/img/4.jpg"),
+        require("@/assets/img/5.png"),
+        require("@/assets/img/6.jpg"),
+        require("@/assets/img/7.jpg"),
+        require("@/assets/img/8.jpg"),
+        require("@/assets/img/9.jpg")
+    ],
+    baseAvatar: require("@/assets/img/avatar.png")
 
 }
 const mutations = {

@@ -68,9 +68,9 @@ const actions = {
             }
             menu.push(item);
         });
-        console.log("+++++++++++++++");
-        console.log(JSON.stringify(menu));
-        console.log("+++++++++++++++");
+        // console.log("+++++++++++++++");
+        // console.log(JSON.stringify(menu));
+        // console.log("+++++++++++++++");
         commit('SET_MENUS', menu);
     }
 

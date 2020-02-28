@@ -413,7 +413,19 @@ input {
     text-align: center;
     font-size: 20px;
     color: whitesmoke;
+    text-transform: uppercase;
 }
 
 
 /* 用户头像卡片结束 */
+
+
+/* 用户方正头像 */
+
+.avatar_sequare {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #eee;
+    margin-right: 10px;
+}

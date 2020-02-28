@@ -34,7 +34,8 @@ router.beforeEach((to, from, next) => {
                     store.dispatch('generateMenu', addRouters);
                     //渲染页面
                     next({...to, replace: true });
-                }).catch(error => {
+                }).catch(error => { //可能登陆凭证失效
+                    store.dispatch('logout');
                     console.log(error)
                     return;
                 })

@@ -42,6 +42,9 @@
             <Badge color="yellow" text="审核失败" />
           </div>
         </div>
+        <div slot-scope="{row}" slot="nickname">
+        {{row.author.nickname}}
+        </div>
         <div slot-scope="{row}" slot="tagsTitle">
           <Tag color="error" v-for="(item,index) in row.tagsTitle" :key="index">{{item}}</Tag>
         </div>
@@ -150,7 +153,7 @@ export default {
         },
         {
           title: "用户账号",
-          key: "username"
+          slot: "nickname"
         },
         {
           title: "标签",

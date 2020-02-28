@@ -33,7 +33,7 @@
         <Dropdown @on-click="checkProfile">
           <div class="profile">
             <!-- 判断用户是否有头像 -->
-            <Avatar :src="avatarId?avatarId:avatarUrl" size="large" />
+            <Avatar :src="avatar?avatar:avatarUrl" size="large" />
           </div>
           <DropdownMenu slot="list">
             <DropdownItem name="个人资料">
@@ -100,7 +100,7 @@ export default {
     console.log(this.menus);
   },
   computed: {
-    ...mapGetters(["menus", "avatarId"])
+    ...mapGetters(["menus", "avatar"])
   }
 };
 </script>

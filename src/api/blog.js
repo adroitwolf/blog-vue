@@ -59,4 +59,20 @@ blogApi.getTopPosts = () => {
     })
 }
 
+blogApi.pushComment = (comment) => {
+    return service({
+        url: `${baseUrl}/comments`,
+        method: 'post',
+        data: comment
+    })
+}
+
+blogApi.getCommentsList = (id, params) => {
+    return service({
+        url: `${baseUrl}/${id}/comments`,
+        method: 'get',
+        params: params
+    })
+}
+
 export default blogApi

@@ -36,7 +36,7 @@
       <div class="article-img">
         <div class="img-box">
           <img
-            v-lazy="article.picture? baseUrl + '/' + article.picture:imglist[index%pageSize]"
+            v-lazy="article.picture? article.picture:imgList[article.id/3%imgList.length]"
             alt
           />
         </div>
@@ -49,10 +49,14 @@
 <script>
 import { Icon } from "view-design";
 import { BASE_URL } from '@/config/global.var';
+import { mapGetters } from "vuex";
 export default {
   name: "BlogCard",
   components: {
     Icon
+  },
+  computed: {
+    ...mapGetters(["imgList"])
   },
   props: ["article", "index", "pageSize"],
   methods: {
@@ -63,18 +67,6 @@ export default {
   data() {
     return {
       baseUrl:BASE_URL,
-      imglist: [
-        require("@/assets/img/0.jpg"),
-        require("@/assets/img/1.jpg"),
-        require("@/assets/img/2.jpg"),
-        require("@/assets/img/3.jpg"),
-        require("@/assets/img/4.jpg"),
-        require("@/assets/img/5.png"),
-        require("@/assets/img/6.jpg"),
-        require("@/assets/img/7.jpg"),
-        require("@/assets/img/8.jpg"),
-        require("@/assets/img/9.jpg")
-      ]
     };
   }
 };

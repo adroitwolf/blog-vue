@@ -9,7 +9,6 @@ const state = {
     managerColumns: [{
             title: '标题',
             key: 'title',
-
         },
         {
             title: '状态',

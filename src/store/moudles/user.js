@@ -1,47 +1,114 @@
 import userApi from '@/api/user'
-import { BASE_URL } from '@/config/global.var'
+import adminApi from '@/api/admin'
+import { getToken, setToken, removeToken } from '@/util/auth'
 const state = {
-    username: '',
-    avatarId: '',
+    nickname: '',
+    avatar: '',
     phone: '',
     email: '',
     aboutMe: '',
     roles: [],
+    username: '',
+    password: '',
+    token: null
 };
 
 
 
 const mutations = {
     SET_PROFILE: (state, profile) => {
-        state.username = profile.username;
-        var re = /^[ ]*$/;
-        if (profile.avatar != null && !re.test(profile.avatar)) {
-            state.avatarId = BASE_URL + "/" + profile.avatar;
-        }
+        state.nickname = profile.nickname;
+        state.avatar = profile.avatar;
         state.phone = profile.phone;
         state.email = profile.email;
         state.aboutMe = profile.aboutMe;
         state.roles = profile.roles;
     },
     UPDATE_PROFILE: (state, profile) => {
-        state.username = profile.username;
+        state.nickname = profile.nickname;
         state.phone = profile.phone;
         state.email = profile.email;
         state.aboutMe = profile.aboutMe;
-        // var re = /^[ ]*$/;
-        // if (profile.avatar != null && !re.test(profile.avatar)) {
-        //     state.avatarId = BASE_URL + "/" + profile.avatar;
-        // }
     },
     UPDATE_AVATAR: (state, avatar) => {
-        var re = /^[ ]*$/;
-        if (avatar != null && !re.test(avatar)) {
-            state.avatarId = BASE_URL + "/" + avatar;
-        }
-    }
+        state.avatar = avatar;
+    },
+    SET_TOKEN: (state, token) => {
+        setToken(token);
+        state.token = token
+    },
 };
 
 const actions = {
+    login({ commit }, { username, password }) {
+        return new Promise((resolve, reject) => {
+            adminApi.login(username, password)
+                .then(response => {
+                    const token = response.data;
+                    // const token = data.token;
+                    // const roles = data.user.roles;
+                    // console.log(roles);
+
+
+                    commit('SET_TOKEN', token);
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+        })
+    },
+    changePassword({ commit }, { opassword, password }) {
+        return new Promise((resolve, reject) => {
+            adminApi.changePassword(opassword, password).then(response => {
+                const msg = response.message;
+                resolve(msg);
+            }).catch(error => {
+                reject(error);
+            })
+        })
+    },
+    register(commit, userInfo) {
+        return new Promise((resolve, reject) => {
+            console.log(userInfo);
+            adminApi.register(userInfo).then(response => {
+                const msg = response.message;
+                resolve(msg);
+            }).catch(error => {
+                reject(error);
+            })
+        })
+    },
+    logout({ commit }) {
+
+        removeToken(); //删除cookie
+        commit("SET_TOKEN", '');
+
+        // return new Promise((resolve, reject) => {
+        //     userApi.logout().then(response => {
+        //         localStorage.removeItem("token");
+        //         commit("SET_TOKEN", null);
+        //         resolve(reject);
+        //     }).catch(error => {
+        //         reject(error);
+        //     })
+        // })
+    },
+    refreshToken({ commit }, refreshToken) { //刷新token
+        return new Promise((resolve, reject) => {
+            adminApi.refresh(refreshToken).then(response => {
+                    const token = response.data;
+                    // const token = data.token;
+                    // const roles = data.user.roles;
+                    // console.log(roles);
+                    commit('SET_TOKEN', token);
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+        })
+    },
     getProfile({ commit }) {
         return new Promise((resolve, reject) => {
             userApi.getProfile().then(response => {

@@ -33,7 +33,7 @@
               <div>
                 <div>
                   <img
-                    :src="item.avatar?baseUrl+'/'+item.avatar:avatarUrl"
+                    :src="item.avatar?item.avatar:avatarUrl"
                     :alt="item.nickname"
                     style="width: 70px;height: 70px;"
                   />
