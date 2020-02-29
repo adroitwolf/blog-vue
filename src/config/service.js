@@ -33,31 +33,38 @@ let requests = []
 function reRequest(config) { //重试请求
     setTokenToHeader(config);
 
-    const res = axios.request(config);
-
-    return res;
+    return axios.request(config).then(response => response.data);
 
 }
 
 
-function refreshToken(error) {
+function refreshToken(res) {
 
     const refreshToken = store.getters.token.refresh_token;
-
-    store.dispatch("refreshToken", refreshToken).then(res => {
-        if (res.data && res.data.status === 403) { //这时候说明需要重新登陆了
-            Message.error("登陆凭证失效，请重新登录");
-            router.push({ name: 'Login' });
-        } else { //正常情况下刷新成功
-            requests.forEach(cb => cb(1));
+    return new Promise((resolve, reject) => {
+        store.dispatch("refreshToken", refreshToken).then(response => {
+            if (response.data && response.data.status === 403) { //这时候说明需要重新登陆了
+                Message.error("登陆凭证失效，请重新登录");
+                router.push({ name: 'Login' });
+            } else { //正常情况下刷新成功
+                requests.forEach(cb => cb(1));
+                requests = [];
+                // return reRequest(res.config).then(data => data);
+                reRequest(res.config).then(data => {
+                    console.log(data);
+                    resolve(data);
+                })
+            }
+        }).catch(err => {
+            console.log(err)
+        }).finally(() => { //重置flag
+            isRefreshing = false;
             requests = [];
-        }
-    }).catch(err => {
-        console.log(err)
-    }).finally(() => { //重置flag
-        isRefreshing = true;
-        requests = [];
-    })
+        });
+    });
+
+
+
 
     // try {
     //     if (refreshTask === null) {
@@ -71,7 +78,7 @@ function refreshToken(error) {
     // } finally {
     //     refreshTask = null;
     // }
-    return reRequest(error.response.config);
+
 }
 
 service.interceptors.request.use(
@@ -115,11 +122,26 @@ service.interceptors.response.use(
             if (store.getters.token && store.getters.token.access_token === data.data) { //先查看是否有token
                 if (!isRefreshing) { //判断当前是否有请求在刷新
                     isRefreshing = true;
-                    return refreshToken(error);
+                    // return new Promise((resolve, reject) => {
+                    //         // refreshToken(response).then(data => {
+                    //         //     console.log(data);
+                    //         //     resolve(data);
+                    //         // })
+                    //         resolve(refreshToken(response));
+                    //     })
+                    // return refreshToken(response).then(data => {
+                    //     return data;
+                    // }).finally(() => { //重置flag
+                    //     isRefreshing = false;
+                    //     requests = [];
+                    // });
+
+                    return refreshToken(response).then(res => res);
                 } else { // 正在刷新token，将返回一个未执行resolve的promise
                     return new Promise((resolve) => {
                         requests.push((flag) => {
                             resolve(reRequest(config));
+                            // reRequest(config);
                         })
                     });
                     // const res = refreshToken(error);
