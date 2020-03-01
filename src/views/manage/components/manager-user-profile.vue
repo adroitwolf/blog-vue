@@ -7,13 +7,13 @@
             <Col span="12">
               <div class="profile">
                 <!-- 判断用户是否有头像 -->
-                <img :src="avatarIdx?avatarIdx:avatarUrl" />
+                <img :src="avatarId?avatarId:avatarUrl" />
               </div>
             </Col>
           </Row>
           <Row type="flex" justify="center" align="middle">
             <Col span="12" push="3">
-              <h1>{{usernamex}}</h1>
+              <h1>{{nickname}}</h1>
             </Col>
           </Row>
           <Row type="flex" justify="center" align="middle" class-name="profile-detail">
@@ -23,7 +23,7 @@
               </h1>
             </Col>
             <Col span="12">
-              <h1>{{phonex?phonex:"暂无"}}</h1>
+              <h1>{{phone?phone:"暂无"}}</h1>
             </Col>
           </Row>
           <Row type="flex" justify="center" align="middle" class-name="profile-detail">
@@ -34,7 +34,7 @@
             </Col>
             <Col span="12">
               <h1>
-                <a href="#">{{emailx?emailx:"暂无"}}</a>
+                <a href="#">{{email?email:"暂无"}}</a>
               </h1>
             </Col>
           </Row>
@@ -53,22 +53,16 @@
             <TabPane label="基本资料" name="name1">
               <Form label-position="top">
                 <FormItem label="用户名">
-                  <Input :value="usernamex" @on-blur="changeUsername"></Input>
+                  <Input v-model="nicknamex"></Input>
                 </FormItem>
                 <FormItem label="手机号">
-                  <Input :value="phonex" @on-blur="changePhone" placeholder="试着填写一下手机号吧"></Input>
+                  <Input v-model="phonex" placeholder="试着填写一下手机号吧"></Input>
                 </FormItem>
                 <FormItem label="邮箱">
-                  <Input :value="emailx" @on-blur="changeEmail" placeholder="试着填写一下邮箱呢"></Input>
+                  <Input v-model="emailx" placeholder="试着填写一下邮箱呢"></Input>
                 </FormItem>
                 <FormItem label="个人说明">
-                  <Input
-                    :value="aboutMex"
-                    @on-blur="changeAboutMe"
-                    type="textarea"
-                    :rows="4"
-                    placeholder="试着介绍一下自己"
-                  />
+                  <Input v-model="aboutMex" type="textarea" :rows="4" placeholder="试着介绍一下自己" />
                 </FormItem>
 
                 <FormItem>
@@ -162,11 +156,10 @@ export default {
       opassword: "",
       password: "",
       cpassword: "",
-      aboutMe: "",
-      username: "",
-      avatarId: "",
-      phone: "",
-      email: "",
+      aboutMex: "",
+      nicknamex: "",
+      phonex: "",
+      emailx: "",
       avatarUrl: require("@/assets/img/avatar.png"),
       articleCount: 0,
       cropper: "",
@@ -191,13 +184,7 @@ export default {
     Col
   },
   computed: {
-    ...mapGetters({
-      usernamex: "username",
-      avatarIdx: "avatarId",
-      phonex: "phone",
-      emailx: "email",
-      aboutMex: "aboutMe"
-    })
+    ...mapGetters(["nickname", "avatarId", "phone", "email", "aboutMe"])
   },
   created() {
     this.getArticleCount().then(value => {
@@ -205,6 +192,11 @@ export default {
     });
   },
   mounted() {
+    // 初始化修改个人配置信息信息项
+    this.nicknamex = this.nickname;
+    this.phonex = this.phone;
+    this.emailx = this.email;
+
     let that = this;
     let image = document.getElementById("avatar");
     this.cropper = new Cropper(image, {
@@ -257,26 +249,12 @@ export default {
 
       return false;
     },
-    changeUsername(e) {
-      console.log(e);
-      this.username = e.target.value;
-    },
-    changePhone(e) {
-      this.phone = e.target.value;
-    },
-    changeEmail(e) {
-      this.email = e.target.value;
-    },
-    changeAboutMe(e) {
-      this.aboutMe = e.target.value;
-    },
-
     updateUserProfile() {
       this.updateProfile({
-        username: this.username,
-        phone: this.phone,
-        email: this.email,
-        aboutMe: this.aboutMe
+        nickname: this.nicknamex,
+        phone: this.phonex,
+        email: this.emailx,
+        aboutMe: this.aboutMex
       }).then(response => {
         Notice.success({
           title: "更新个人资料成功"
@@ -309,7 +287,6 @@ export default {
 </script>
 
 <style scoped>
-/* @import "https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.5/cropper.min.css"; */
 * {
   font-size: 16px;
 }

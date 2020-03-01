@@ -9,7 +9,6 @@ const state = {
     managerColumns: [{
             title: '标题',
             key: 'title',
-
         },
         {
             title: '状态',
@@ -74,6 +73,7 @@ const actions = {
     getArticleList({ commit }, { pageNum, pageSize, postParams }) {
         return new Promise((resolve, reject) => {
             articleApi.getList(pageNum, pageSize, postParams).then(response => {
+                console.log(response);
                 const data = response.data;
                 commit("SET_DATA", data.rows)
                 commit("SET_TOTAL", data.total)

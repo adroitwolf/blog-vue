@@ -11,6 +11,7 @@
             v-model="queryParams.mediaType"
             @click.native="getAllMediaType()"
             :loading="loading"
+            clearable
             :loading-text="loading_text"
             style="width:200px"
           >

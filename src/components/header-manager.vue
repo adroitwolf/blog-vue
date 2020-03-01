@@ -3,10 +3,26 @@
     <Menu mode="horizontal" :theme="theme1" class="header">
       <!-- 用户操作的菜单模块 -->
       <div class="menu">
-        <MenuItem v-for="(menu,index) in menus" :key="index" :name="menu.id" :to="menu.to">
-          <Icon :type="menu.icon" />
-          {{menu.name}}
-        </MenuItem>
+        <template v-for="(menu,index) in menus" >
+          <MenuItem  v-if="!menu.children" :key="index" :name="index" :to="menu.path">
+            <Icon :type="menu.meta.icon" />
+            {{menu.name}}
+          </MenuItem>
+          <Submenu v-if="menu.children" :key="index" :name="index">
+            <template slot="title">
+              <Icon :type="menu.meta.icon" />
+              <span v-text="menu.name"></span>
+            </template>
+            <Menu-Item v-for="thirdMenu in menu.children"
+                       :name="thirdMenu.name"
+                       :key="thirdMenu.name"
+                       :to="thirdMenu.path"
+                       >
+                       {{thirdMenu.name}}
+            </Menu-Item>
+          </Submenu>
+        </template>
+        
       </div>
       <div>
         <div class="accessory">
@@ -17,7 +33,7 @@
         <Dropdown @on-click="checkProfile">
           <div class="profile">
             <!-- 判断用户是否有头像 -->
-            <Avatar :src="avatarId?avatarId:avatarUrl" size="large" />
+            <Avatar :src="avatar?avatar:avatarUrl" size="large" />
           </div>
           <DropdownMenu slot="list">
             <DropdownItem name="个人资料">
@@ -80,8 +96,11 @@ export default {
       this.$router.push({ name: name });
     }
   },
+  mounted(){
+    console.log(this.menus);
+  },
   computed: {
-    ...mapGetters(["menus", "avatarId"])
+    ...mapGetters(["menus", "avatar"])
   }
 };
 </script>

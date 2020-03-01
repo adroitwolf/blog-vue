@@ -7,9 +7,7 @@ import { LoadingBar } from 'view-design'
 Vue.component('LoadingBar', LoadingBar)
 
 
-import {
-    constantRouterMap
-} from "@/config/router.config"
+
 
 router.beforeEach((to, from, next) => {
     LoadingBar.start();
@@ -20,20 +18,24 @@ router.beforeEach((to, from, next) => {
             return;
         } else {
             const hasRoles = store.getters.roles && store.getters.roles.length > 0;
-            if (hasRoles) {
+            const hasMenu = store.getters.menus.length;
+            if (hasRoles && hasMenu) {
                 next();
                 return;
             } else {
                 //尝试获取当前用户信息
                 // try {
                 store.dispatch('getProfile').then(data => {
-                    console.log(data);
+                    //生成路由信息
                     store.dispatch('generateRoutes', data.roles);
                     const addRouters = store.getters.addRouters;
-                    console.log(addRouters);
                     router.addRoutes(addRouters);
+                    // 生成后台菜单
+                    store.dispatch('generateMenu', addRouters);
+                    //渲染页面
                     next({...to, replace: true });
-                }).catch(error => {
+                }).catch(error => { //可能登陆凭证失效
+                    store.dispatch('logout');
                     console.log(error)
                     return;
                 })

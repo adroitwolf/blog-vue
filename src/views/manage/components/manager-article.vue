@@ -7,9 +7,11 @@
         </FormItem>
 
         <FormItem label="文件类型:">
-          <Select v-model="status" style="width:200px">
+          <Select clearable v-model="status" style="width:200px">
             <Option value="PUBLISHED">已发布</Option>
             <Option value="RECYCLE">回收站</Option>
+            <Option value="CHECK">审核中</Option>
+            <Option value="NO">审核失败</Option>
           </Select>
         </FormItem>
         <FormItem>
@@ -36,24 +38,41 @@
           <div v-else-if="row.status === 'RECYCLE'">
             <Badge status="error" text="回收站" />
           </div>
+          <div v-else-if="row.status === 'CHECK'">
+            <Badge status="warning" text="审核中" />
+          </div>
+          <div v-else-if="row.status === 'NO'">
+            <Badge color="yellow" text="审核失败" />
+          </div>
         </div>
         <div slot-scope="{row}" slot="tagsTitle">
           <Tag color="error" v-for="(item,index) in row.tagsTitle" :key="index">{{item}}</Tag>
         </div>
         <div slot-scope="{ row, index}" slot="action">
+          <!-- 文章发布状态 -->
           <div v-if="row.status === 'PUBLISHED'">
-            <Button type="primary" style="margin-right: 5px" @click="eidtArticle(row)">编辑</Button>
-
-            <Poptip confirm title="确定要讲这篇文章放入回收站么?" @on-ok="totrash(row,'RECYCLE')">
-              <Button type="error">回收站</Button>
+            <Button type="primary" style="margin-right: 5px" @click="eidtArticle(row)">编辑</Button>              
+            <Poptip confirm title="确定要讲这篇文章放入回收站么?" @on-ok="editPostStatus(row,'RECYCLE')">
+              <Button type="warning">回收站</Button>
             </Poptip>
-          </div>
-          <div v-else-if="row.status === 'RECYCLE' ">
-            <Button type="primary" style="margin-right: 5px" @click="totrash(row,'PUBLISHED')">还原</Button>
-
             <Poptip confirm title="确定要删除这篇文章么?" @on-ok="deleteArticle(row)">
               <Button type="error">删除</Button>
             </Poptip>
+          </div>
+          <div v-else-if="row.status === 'RECYCLE' ">
+            <Button type="primary" style="margin-right: 5px" @click="editPostStatus(row,'PUBLISHED')">还原</Button>
+            <Poptip confirm title="确定要删除这篇文章么?" @on-ok="deleteArticle(row)">
+              <Button type="error">删除</Button>
+            </Poptip>
+          </div>
+          <div v-else-if="row.status === 'CHECK'">
+
+            <Button type="primary" style="margin-right: 5px" @click="eidtArticle(row)">编辑</Button>
+            <Button type="warning" disabled>回收站</Button>
+          </div>
+          <div v-else-if="row.status === 'NO'">
+            <Button type="primary" style="margin-right: 5px" @click="eidtArticle(row)">编辑</Button> 
+            <Button style="margin-right: 5px" type="error" @click="deleteArticle(row)">删除</Button>
           </div>
         </div>
       </Table>
@@ -91,7 +110,8 @@ import {
   Option,
   Button,
   Input,
-  Icon
+  Icon,
+  Modal
 } from "view-design";
 import { mapGetters, mapActions } from "vuex";
 import router from "@/router";
@@ -112,7 +132,8 @@ export default {
     Option,
     Button,
     Input,
-    Icon
+    Icon,
+    Modal
   },
   data() {
     return {
@@ -136,7 +157,7 @@ export default {
         this.queryArticleList();
       });
     },
-    totrash(row, status) {
+    editPostStatus(row, status) {
       this.loading = true;
       this.updateArticleStatus({
         index: row._index,
@@ -147,13 +168,19 @@ export default {
       });
     },
     eidtArticle(row) {
-      articleApi.getDetail(row.id).then(response => {
-        const data = response.data;
-        var article = data;
-        this.$router.push({
-          name: "写文章",
-          params: article
-        });
+      Modal.confirm({
+        title: "警告！",
+        content: "您确定要更新文章？此操作会导致已发布文章变成审核状态！",
+        onOk: () => {
+          articleApi.getDetail(row.id).then(response => {
+            const data = response.data;
+            var article = data;
+            this.$router.push({
+              name: "写文章",
+              params: article
+            });
+          });
+        }
       });
     },
     handleList() {

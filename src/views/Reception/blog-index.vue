@@ -42,14 +42,14 @@
 
           <!-- 登陆表单 -->
           <div class="blog-card mb-4 animated fadeInUp">
-            <div v-if="username">
-              <div class="form-title text-center slide_username">{{username}}</div>
+            <div v-if="nickname">
+              <div class="form-title text-center slide_username">{{nickname}}</div>
               <div class="user-info">
                 <!-- 修改用户头像卡片 -->
                 <div class="py-2">
                   <img
                     @click="toStatus"
-                    :src="!avatarId?baseAvatar:avatarId"
+                    :src="avatar?avatar:baseAvatar"
                     alt
                     class="slide_avatar"
                   />
@@ -115,7 +115,7 @@ import asideCard from "./components/aside-card-component";
 export default {
   name: "blogIndex",
   computed: {
-    ...mapGetters(["username", "avatarId", "addRouters","topPosts"])
+    ...mapGetters(["nickname", "avatar", "addRouters","topPosts"])
   },
   methods: {
     ...mapActions(["getProfile", "login", "generateRoutes",'getTopPosts']),
@@ -154,9 +154,8 @@ export default {
           Notice.success({
             title: "登陆成功"
           });
-          this.getProfile().then(data => {
-            this.generateRoutes(data.roles);
-            console.log(this.addRouters);
+          this.getProfile().then(user => {
+            this.generateRoutes(user.roles);
             that.$router.addRoutes(this.addRouters);
           });
         }
@@ -234,7 +233,6 @@ export default {
   },
   data() {
     return {
-      baseAvatar: require("@/assets/img/avatar.png"),
       articleLists: [],
       pageSize: 2,
       pageNum: 1,

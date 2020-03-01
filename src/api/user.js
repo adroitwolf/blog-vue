@@ -21,13 +21,13 @@ userApi.getProfile = () => {
 userApi.updateProfile = (username, phone, email, aboutMe) => {
     return service({
         url: `${baseUrl}/profile`,
+        method: 'put',
         data: {
             username: username,
             phone: phone,
             email: email,
             aboutMe: aboutMe,
-        },
-        method: 'put'
+        }
     })
 }
 

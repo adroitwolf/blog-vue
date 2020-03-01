@@ -20,6 +20,13 @@ adminApi.login = (username, password) => {
 }
 
 
+adminApi.refresh = (refreshToken) => {
+    return service({
+        url: `${adminUrl}/refresh/${refreshToken}`,
+        method: "get"
+    })
+}
+
 adminApi.changePassword = (opassword, password) => {
     return service({
         url: `${adminUrl}/changePassword`,
