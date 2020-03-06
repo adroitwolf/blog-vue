@@ -33,7 +33,7 @@
         <Dropdown @on-click="checkProfile">
           <div class="profile">
             <!-- 判断用户是否有头像 -->
-            <Avatar :src="avatar?avatar:avatarUrl" size="large" />
+            <Avatar :src="avatar?avatar:baseAvatar" size="large" />
           </div>
           <DropdownMenu slot="list">
             <DropdownItem name="个人资料">
@@ -69,7 +69,7 @@ export default {
   data() {
     return {
       theme1: "dark",
-      avatarUrl: require("@/assets/img/avatar.png")
+      // avatarUrl: require("@/assets/img/avatar.png")
     };
   },
   components: {
@@ -100,7 +100,7 @@ export default {
     console.log(this.menus);
   },
   computed: {
-    ...mapGetters(["menus", "avatar"])
+    ...mapGetters(["menus", "avatar","baseAvatar"])
   }
 };
 </script>

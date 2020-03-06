@@ -60,9 +60,9 @@ const mutations = {
 
 
 const actions = {
-    postArticle({ commit }, { title, tagList, picture, summary, content, contentMd }) {
+    postArticle({ commit }, { title, tagList, pictureId, summary, content, contentMd }) {
         return new Promise((resolve, reject) => {
-            articleApi.submit(title, tagList, picture, summary, content, contentMd).then(response => {
+            articleApi.submit(title, tagList, pictureId, summary, content, contentMd).then(response => {
                 const msg = response.message;
                 resolve(msg);
             }).catch(error => {

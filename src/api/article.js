@@ -3,7 +3,7 @@ import service from '@/config/service'
 const baseUrl = '/api/blog'
 const articleApi = {}
 
-articleApi.submit = (title, tagList, picture, summary, content, contentMd) => {
+articleApi.submit = (title, tagList, pictureId, summary, content, contentMd) => {
     return service({
         url: `${baseUrl}/submit`,
         method: 'post',
@@ -13,7 +13,7 @@ articleApi.submit = (title, tagList, picture, summary, content, contentMd) => {
             summary: summary,
             content: content,
             contentMd: contentMd,
-            picture: picture
+            pictureId: pictureId
         }
     })
 }
@@ -50,7 +50,7 @@ articleApi.updateArticle = (id, postParams) => {
             summary: postParams.summary,
             content: postParams.content,
             contentMd: postParams.contentMd,
-            picture: postParams.picture
+            pictureId: postParams.pictureId
         }
     })
 }

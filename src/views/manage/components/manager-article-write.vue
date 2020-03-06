@@ -44,8 +44,8 @@
           <Divider />
           <FormItem label="文章缩略图">
             <div style="width:350px;height:200px">
-              <img
-                :src="picture?baseUrl+'/'+picture:uploadImgUrl"
+              <img 
+                :src="picture.path?picture.path:uploadImgUrl"
                 alt
                 style="width:100%;height:200px;"
                 @click="uploadImgStatus = !uploadImgStatus"
@@ -68,7 +68,7 @@
             <img
               @click="picChoose(item)"
               style="width:100%;height:100%;"
-              :src="baseUrl+'/'+item.path"
+              :src="item.path"
               :alt="item.id"
             />
           </Col>
@@ -143,12 +143,16 @@ export default {
     let row = this.$route.params;
     if (row) {
       this.title = row.title;
-      this.tagList = row.tagsTitle == null ? [] : row.tagsTitle;
+      
       this.summary = row.summary;
       this.content = row.content;
       this.contentMd = row.contentMd;
       this.id = row.id;
-      this.picture = row.picture;
+      let picture = {};
+      picture.path = row.picture;
+      picture.id = row.pictureId;
+      this.picture= picture;
+      this.tagList = row.tagsTitle == null ? [] : row.tagsTitle;
     }
     this.getAttachmentLists();
   },
@@ -168,7 +172,7 @@ export default {
     },
     picChoose(item) {
       this.uploadImgStatus = !this.uploadImgStatus;
-      this.picture = item.path;
+      this.picture = item;
     },
     /*上传文章缩略图*/
 
@@ -234,7 +238,7 @@ export default {
         articleParams.summary = this.summary;
         articleParams.content = this.content;
         articleParams.contentMd = this.contentMd;
-        articleParams.picture = this.picture;
+        articleParams.pictureId = this.picture.id;
         articleApi
           .updateArticle(this.id, articleParams)
           .then(response => {
@@ -252,11 +256,10 @@ export default {
       this.postArticle({
         title: this.title,
         tagList: this.tagList,
-        picture: this.picture,
+        pictureId: this.picture.id,
         summary: this.summary,
         content: this.content,
-        contentMd: this.contentMd,
-        id: this.id
+        contentMd: this.contentMd
       })
         .then(response => {
           Message.success("发布文章成功！");
@@ -266,7 +269,8 @@ export default {
           this.content = "";
           this.contentMd = "";
           this.DrawerStatus = false;
-          this.picture = null;
+          this.picture.id= null;
+          this.picture.path = "";
         })
         .catch(error => {
           Message.error("文章发布失败！");
@@ -278,7 +282,6 @@ export default {
   computed: {},
   data() {
     return {
-      baseUrl:BASE_URL,
       total: 0,
       attachmentList: [],
       idBefore: null,
@@ -291,7 +294,10 @@ export default {
       id: "",
       title: "",
       tag: "",
-      picture: "",
+      picture: {
+        id: null,
+        path:""
+      },
       tagList: [],
       addTag: true,
       summary: "",
