@@ -115,7 +115,7 @@ import asideCard from "./components/aside-card-component";
 export default {
   name: "blogIndex",
   computed: {
-    ...mapGetters(["nickname", "avatar", "addRouters","topPosts"])
+    ...mapGetters(["nickname", "avatar", "addRouters","topPosts","baseAvatar"])
   },
   methods: {
     ...mapActions(["getProfile", "login", "generateRoutes",'getTopPosts']),
@@ -234,7 +234,7 @@ export default {
   data() {
     return {
       articleLists: [],
-      pageSize: 2,
+      pageSize: 5,
       pageNum: 1,
       total: 0,
       account: "",

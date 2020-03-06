@@ -9,7 +9,7 @@ import { BASE_URL } from '@/config/global.var'
 
 // axios相应的封装
 const service = axios.create({
-    timeout: 5000,
+    timeout: 10000,
     baseURL: BASE_URL
 });
 

@@ -39,7 +39,7 @@
             <Card :bordered="true">
               <div>
                 <div class="attach-thumb">
-                  <img :src="baseUrl+'/'+ item.path" />
+                  <img :src="item.path" />
                 </div>
                 <span class="attachment-span">{{item.title}}</span>
               </div>
@@ -55,7 +55,7 @@
       <Upload multiple type="drag" :before-upload="handleUpload" action>
         <div style="padding: 20px 0" id="upload-box">
           <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-          <p>Click or drag files here to upload</p>
+          <p>点击此处上传附件</p>
         </div>
         <div style="padding:20px 0" id="file-box" class="hidden">
           <img style="height:auto;max-width:100%" :src="idBefore" alt />
@@ -224,7 +224,6 @@ export default {
   },
   data() {
     return {
-      baseUrl:BASE_URL,
       pageSize: 10,
       pageNum: 1,
       loading: true,
