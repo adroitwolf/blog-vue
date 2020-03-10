@@ -7,7 +7,7 @@
             <Col span="12">
               <div class="profile">
                 <!-- 判断用户是否有头像 -->
-                <img :src="avatarId?avatarId:avatarUrl" />
+                <img :src="avatar?avatar:baseAvatar" />
               </div>
             </Col>
           </Row>
@@ -16,7 +16,7 @@
               <h1>{{nickname}}</h1>
             </Col>
           </Row>
-          <Row type="flex" justify="center" align="middle" class-name="profile-detail">
+          <!-- <Row type="flex" justify="center" align="middle" class-name="profile-detail">
             <Col span="6">
               <h1>
                 <Icon type="ios-call-outline" size="24" />:
@@ -25,8 +25,8 @@
             <Col span="12">
               <h1>{{phone?phone:"暂无"}}</h1>
             </Col>
-          </Row>
-          <Row type="flex" justify="center" align="middle" class-name="profile-detail">
+          </Row> -->
+          <!-- <Row type="flex" justify="center" align="middle" class-name="profile-detail">
             <Col span="6">
               <h1>
                 <Icon type="ios-mail-outline" size="24" />:
@@ -37,7 +37,7 @@
                 <a href="#">{{email?email:"暂无"}}</a>
               </h1>
             </Col>
-          </Row>
+          </Row> -->
           <Divider />
           <Row type="flex" justify="start" class-name="profile-detail">
             <Col span="12" offset="3">
@@ -55,12 +55,12 @@
                 <FormItem label="用户名">
                   <Input v-model="nicknamex"></Input>
                 </FormItem>
-                <FormItem label="手机号">
+                <!-- <FormItem label="手机号">
                   <Input v-model="phonex" placeholder="试着填写一下手机号吧"></Input>
                 </FormItem>
                 <FormItem label="邮箱">
                   <Input v-model="emailx" placeholder="试着填写一下邮箱呢"></Input>
-                </FormItem>
+                </FormItem> -->
                 <FormItem label="个人说明">
                   <Input v-model="aboutMex" type="textarea" :rows="4" placeholder="试着介绍一下自己" />
                 </FormItem>
@@ -92,7 +92,6 @@
                 accept="image/jpg, image/jpeg, image/png, image/bmp"
                 type="drag"
                 :before-upload="handleUpload"
-                action="xxx"
               >
                 <div style="padding: 20px 0" id="upload-box">
                   <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
@@ -152,15 +151,12 @@ export default {
   data() {
     return {
       idBefore: "",
-      avatar: null,
+      avatarx: null,
       opassword: "",
       password: "",
       cpassword: "",
       aboutMex: "",
       nicknamex: "",
-      phonex: "",
-      emailx: "",
-      avatarUrl: require("@/assets/img/avatar.png"),
       articleCount: 0,
       cropper: "",
       open: false
@@ -184,7 +180,7 @@ export default {
     Col
   },
   computed: {
-    ...mapGetters(["nickname", "avatarId", "phone", "email", "aboutMe"])
+    ...mapGetters(["nickname", "avatar", "aboutMe","baseAvatar"])
   },
   created() {
     this.getArticleCount().then(value => {
@@ -194,8 +190,6 @@ export default {
   mounted() {
     // 初始化修改个人配置信息信息项
     this.nicknamex = this.nickname;
-    this.phonex = this.phone;
-    this.emailx = this.email;
 
     let that = this;
     let image = document.getElementById("avatar");
@@ -220,24 +214,24 @@ export default {
       const canvas = this.cropper.getCroppedCanvas();
       this.idBefore = canvas.toDataURL("image/png");
       canvas.toBlob(function(blob) {
-        that.avatar = blob;
+        that.avatarx = blob;
       });
     },
     uploadAvatar() {
-      if (this.avatar == null) {
+      if (this.avatarx == null) {
         Message.error("请先上传图片！");
         return false;
       }
 
-      this.uploadAvatarId({ file: this.avatar }).then(response => {
+      this.uploadAvatarId({ file: this.avatarx }).then(response => {
         Notice.success({
           title: "更新个人头像成功"
         });
       });
     },
     handleUpload(file) {
-      this.avatar = file;
-      this.idBefore = window.URL.createObjectURL(this.avatar);
+      this.avatarx = file;
+      this.idBefore = window.URL.createObjectURL(this.avatarx);
 
       $("#upload-box").addClass("hidden");
       $("#avatar-box").removeClass("hidden");
@@ -252,8 +246,6 @@ export default {
     updateUserProfile() {
       this.updateProfile({
         nickname: this.nicknamex,
-        phone: this.phonex,
-        email: this.emailx,
         aboutMe: this.aboutMex
       }).then(response => {
         Notice.success({

@@ -18,14 +18,12 @@ userApi.getProfile = () => {
 
 
 
-userApi.updateProfile = (username, phone, email, aboutMe) => {
+userApi.updateProfile = (nickname, aboutMe) => {
     return service({
         url: `${baseUrl}/profile`,
         method: 'put',
         data: {
-            username: username,
-            phone: phone,
-            email: email,
+            nickname: nickname,
             aboutMe: aboutMe,
         }
     })

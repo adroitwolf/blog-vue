@@ -32,6 +32,11 @@ Vue.config.productionTip = false
 // })
 
 
+import preview from 'vue-photo-preview'
+import 'vue-photo-preview/dist/skin.css'
+Vue.use(preview)
+
+
 new Vue({
     el: '#app',
     router,

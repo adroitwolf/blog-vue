@@ -52,12 +52,19 @@ adminApi.register = (userInfo) => {
         url: `${adminUrl}/register`,
         method: 'post',
         data: {
-            account: userInfo.account,
-            phone: userInfo.phone,
+            username: userInfo.nickname,
             email: userInfo.email,
+            code: userInfo.code,
             password: md5(userInfo.password)
         }
     })
 }
 
+
+adminApi.verCode = (email) => {
+    return service({
+        url: `${adminUrl}/getMailCode/${email}`,
+        method: 'get'
+    })
+}
 export default adminApi

@@ -90,7 +90,7 @@ export default {
       if (name === "logout") {
         this.logout().then(response => {
           Message.success("退出成功！");
-          this.$router.push({ name: "Login" });
+          this.$router.push({ name: "博客" });
         });
       }
       this.$router.push({ name: name });

@@ -194,47 +194,7 @@ export default {
         sortName:"create_time",
         sortOrder:"desc"
       },
-      comments:[
-            {
-                "id": "420937361245863936",
-                "pushStatus":false,
-                "content": "很实用！！！！",
-                "createTime": "2020-02-01 10:55:53",
-                "user": {
-                    "id": "412727960840175616",
-                    "nickname": "whoami",
-                    "avatar": "http://localhost:8099\\ac6d4be6eaa14ac0927d4601f61e0934.jpg"
-                },
-                "children_count": 0,
-                "children": []
-            },
-            {
-                "id": "420958787709435904",
-                "content": "给个赞",
-                "pushStatus":false,
-                "createTime": "2020-02-01 12:21:02",
-                "user": {
-                    "id": "412727960840175616",
-                    "nickname": "whoami",
-                    "avatar": "http://localhost:8099\\ac6d4be6eaa14ac0927d4601f61e0934.jpg"
-                },
-                "children_count": 0,
-                "children": []
-            },
-            {
-                "id": "421082621863264256",
-                "content": "太顶了啊",
-                "pushStatus":false,
-                "createTime": "2020-02-01 20:33:06",
-                "user": {
-                    "id": "412727960840175616",
-                    "nickname": "whoami",
-                    "avatar": "http://localhost:8099\\ac6d4be6eaa14ac0927d4601f61e0934.jpg"
-                },
-                "children_count": 0,
-                "children": []
-            }
-        ]
+      comments:[]
     };
   },
   mounted() {
