@@ -4,12 +4,8 @@ import { getToken, setToken, removeToken } from '@/util/auth'
 const state = {
     nickname: '',
     avatar: '',
-    phone: '',
-    email: '',
     aboutMe: '',
     roles: [],
-    username: '',
-    password: '',
     token: null
 };
 
@@ -19,15 +15,11 @@ const mutations = {
     SET_PROFILE: (state, profile) => {
         state.nickname = profile.nickname;
         state.avatar = profile.avatar;
-        state.phone = profile.phone;
-        state.email = profile.email;
         state.aboutMe = profile.aboutMe;
         state.roles = profile.roles;
     },
     UPDATE_PROFILE: (state, profile) => {
         state.nickname = profile.nickname;
-        state.phone = profile.phone;
-        state.email = profile.email;
         state.aboutMe = profile.aboutMe;
     },
     UPDATE_AVATAR: (state, avatar) => {
@@ -35,8 +27,14 @@ const mutations = {
     },
     SET_TOKEN: (state, token) => {
         setToken(token);
-        state.token = token
+        state.token = token;
     },
+    CLEAR_PROFILE: (state) => {
+        state.nickname = "";
+        state.avatar = "";
+        state.aboutMe = "";
+        state.roles = [];
+    }
 };
 
 const actions = {
@@ -80,19 +78,10 @@ const actions = {
         })
     },
     logout({ commit }) {
-
         removeToken(); //删除cookie
+        //清除用户信息
         commit("SET_TOKEN", '');
-
-        // return new Promise((resolve, reject) => {
-        //     userApi.logout().then(response => {
-        //         localStorage.removeItem("token");
-        //         commit("SET_TOKEN", null);
-        //         resolve(reject);
-        //     }).catch(error => {
-        //         reject(error);
-        //     })
-        // })
+        commit("CLEAR_PROFILE");
     },
     refreshToken({ commit }, refreshToken) { //刷新token
         return new Promise((resolve, reject) => {
@@ -120,22 +109,9 @@ const actions = {
             })
         })
     },
-    updateProfile({ commit }, { username, phone, email, aboutMe }) {
-        // if (!username) {
-        //     username = state.username;
-        // }
-        // if (!phone) {
-        //     phone = state.phone
-        // }
-        // if (!email) {
-        //     email = state.email
-        // }
-
-        // if (!aboutMe) {
-        //     aboutMe = state.aboutMe
-        // }
+    updateProfile({ commit }, { nickname, aboutMe }) {
         return new Promise((resolve, reject) => {
-            userApi.updateProfile(username, phone, email, aboutMe).then(response => {
+            userApi.updateProfile(nickname, aboutMe).then(response => {
                 const data = response.data;
                 console.log(data);
                 commit("UPDATE_PROFILE", data);
@@ -155,6 +131,12 @@ const actions = {
             }).catch(error => {
                 reject(error);
             })
+        })
+    },
+    verCode({ commit }, email) {
+        return new Promise((resolve, reject) => {
+            adminApi.verCode(email);
+            resolve("发送成功");
         })
     }
 
