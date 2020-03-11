@@ -18,10 +18,7 @@ function setTokenToHeader(config) {
     // set token
     const token = store.getters.token ? store.getters.token : getToken();
     if (token && token.access_token) {
-        console.log("已经进入")
         config.headers['Authentication'] = token.access_token;
-    } else {
-        console.log("没有进入")
     }
 }
 
