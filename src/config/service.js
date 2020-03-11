@@ -17,10 +17,11 @@ const service = axios.create({
 function setTokenToHeader(config) {
     // set token
     const token = store.getters.token ? store.getters.token : getToken();
-    // Vue.$log.debug('Got token from store', token)
     if (token && token.access_token) {
-        // if (token) {
+        console.log("已经进入")
         config.headers['Authentication'] = token.access_token;
+    } else {
+        console.log("没有进入")
     }
 }
 
@@ -40,7 +41,7 @@ function reRequest(config) { //重试请求
 
 function refreshToken(res) {
 
-    const refreshToken = store.getters.token.refresh_token;
+    const refreshToken = store.getters.token ? store.getters.token.refresh_token : getToken() ? getToken().refresh_token : null;
     return new Promise((resolve, reject) => {
         store.dispatch("refreshToken", refreshToken).then(response => {
             if (response.data && response.data.status === 403) { //这时候说明需要重新登陆了

@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 const TokenKey = 'Authentication'
 
 export function getToken() {
-    return Cookies.get(TokenKey)
+    return Cookies.get(TokenKey) ? JSON.parse(Cookies.get(TokenKey)) : null;
 }
 
 export function setToken(token) {

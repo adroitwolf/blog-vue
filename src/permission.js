@@ -2,7 +2,7 @@ import router from './router'
 import store from './store'
 import Vue from 'vue'
 // const whiteList = ['/register.html', '/index.html', '/admin/login.html', ];
-
+import { getToken } from '@/util/auth'
 import { LoadingBar } from 'view-design'
 Vue.component('LoadingBar', LoadingBar)
 
@@ -12,7 +12,8 @@ Vue.component('LoadingBar', LoadingBar)
 router.beforeEach((to, from, next) => {
     LoadingBar.start();
     document.title = to.meta.title;
-    if (store.getters.token) { //判断是否已经登陆
+    let token = store.getters.token ? store.getters.token : getToken();
+    if (token) { //判断是否已经登陆
         if (to.path === '/admin/login.html') {
             next({ path: '/admin' });
             return;
