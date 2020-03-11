@@ -85,10 +85,11 @@
       <Upload multiple type="drag" :before-upload="handleUpload" action>
         <div style="padding: 20px 0" id="upload-box">
           <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-          <p>在此上传附件</p>
+          <p>点击此处上传附件 </p>
+          <p>请上传2M以内的图片</p>
         </div>
         <div style="padding:20px 0" id="file-box" class="hidden">
-          <img style="height:auto;max-width:100%" :src="idBefore" alt />
+          <img style="height:auto;max-width:100%" :src="idBefore" id="upload" alt />
         </div>
       </Upload>
     </Modal>
@@ -177,10 +178,17 @@ export default {
     /*上传文章缩略图*/
 
     handleUpload(file) {
+      if(file.size >551639){
+              Message.error("文件大小不能超过2M");
+              return;
+            }
+
       this.file = file;
       this.idBefore = window.URL.createObjectURL(file);
+
       $("#upload-box").addClass("hidden");
       $("#file-box").removeClass("hidden");
+
       return false;
     },
     upload() {
