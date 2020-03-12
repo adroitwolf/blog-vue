@@ -73,7 +73,7 @@
                   <div class="form-group">
                     <div class="input-group">
                       <div class="form-group-icon">
-                        <Icon type="ios-person-outline" />
+                        <Icon type="ios-lock-outline" />
                       </div>
                       <input class="form-control form-input" type="password" v-model="password" />
                     </div>
