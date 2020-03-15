@@ -210,11 +210,13 @@ export default {
       });
     },
     queryArticleList() {
+      this.loading = true;
       articleAdmin
         .getList(this.pageInfo, this.queryParams)
         .then(response => {
           this.articleData = response.data.rows;
           this.pageInfo.total = response.data.total;
+          this.loading  = false;
         })
         .catch(error => {
           Message.error(error);
@@ -227,13 +229,11 @@ export default {
     },
     //点击，切换页面
     changepage(index) {
-      this.loading = true;
       this.pageInfo.pageNum = index;
       this.queryArticleList();
     },
     //每页显示的数据条数
     _nowPageSize(size) {
-      this.loading = true;
       this.pageInfo.pageSize = size;
       //实时获取当前需要显示的条数
       this.queryArticleList();

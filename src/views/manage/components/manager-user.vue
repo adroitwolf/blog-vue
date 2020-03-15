@@ -166,7 +166,9 @@ export default {
           title: "警告！",
           content: "您确定是否要封禁该用户？",
           onOk: () => {
-            let updatedStatus = status === "YES" ? status : "NO";
+            console.log(status);
+            let updatedStatus = status === "YES" ?  "NO":  "YES";
+            console.log(updatedStatus);
             userApi
               .updateUserStatus(id, updatedStatus)
               .then(response => {

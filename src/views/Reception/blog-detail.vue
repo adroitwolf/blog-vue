@@ -14,7 +14,7 @@
               <div class="post-info ml-2">
                 <div class="post-info-date">
                   <Icon type="ios-calendar-outline" size="12" />
-                  <span>POST ON:{{postDetail.date}}</span>
+                  <span>POST ON:{{postDetail.releaseDate}}</span>
                 </div>
                 <div class="post-info-auth">
                   <Icon type="ios-contact-outline" size="12" />
@@ -43,12 +43,13 @@
             </div>
             <div class="blog-html-content my-2 markdown-body" v-html="postDetail.content"></div>
           </div>
-          <div class="mb-5 blog-card">
+          <div class="py-2 mb-3 blog-card">
             <CommentText :comment="comment" v-on:pushComment="pushComment()"></CommentText>
-            <h3 class="ml-3">
-              <div class="flex_div">全部评论</div>
+            <h3 class="ml-3 mb-2">
+              <div class="flex_div"><span>全部评论</span>
+                <span class="commentTotal">{{commentTotal}}</span></div>
             </h3>
-            <div class="mb-5">
+            <div class="mb-3" >
               <div  v-for="(item,index) in comments" :key="index">
                 <Comment :comment="item" :id="item.id" v-on:disPlayCommentText="disPlayCommentText(index,item.id,'BLOG_COMMENT',item.user.id)"> </Comment>
                  <div v-if="item.children_count>0">
@@ -155,6 +156,7 @@ export default {
         return element;
       });
         this.comments = comments;
+        this.commentTotal = data.total;
       }).catch(error=>{
         console.log("失败");
       })
@@ -171,7 +173,7 @@ export default {
         id: "",
         title: "",
         content: "",
-        date: "",
+        releaseDate: "",
         tagsTitle: [],
         picture: "",
         author:{
@@ -194,7 +196,8 @@ export default {
         sortName:"create_time",
         sortOrder:"desc"
       },
-      comments:[]
+      comments:[],
+      commentTotal:0
     };
   },
   mounted() {
@@ -263,8 +266,8 @@ export default {
 }
 
 .flex_div{
-    display: flex;
-    justify-content: space-between;
+    /* display: flex;
+    justify-content: space-between; */
     align-items: center;
     margin-bottom: 16px;
     padding-left: 12px;
@@ -274,5 +277,11 @@ export default {
     height: 20px;
     line-height: 20px;
     color:#050505;
+}
+
+.commentTotal{
+  margin-left: 6px;
+  font-size: 14px;
+  font-weight: normal;
 }
 </style>

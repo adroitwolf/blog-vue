@@ -209,14 +209,12 @@ export default {
     },
     //点击，切换页面
     changepage(index) {
-      this.loading = true;
       this.pageNum = index;
       this.queryArticleList();
     },
 
     //每页显示的数据条数
     _nowPageSize(size) {
-      this.loading = true;
       //实时获取当前需要显示的条数
       this.queryArticleList();
     },

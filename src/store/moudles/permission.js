@@ -39,11 +39,7 @@ const actions = {
                 accessRouters.push(asyncRouterMap[i]);
             }
         }
-        console.log("==============");
-        console.log(JSON.stringify(accessRouters));
-        console.log("==============");
         commit('SET_ROUTES', accessRouters)
-
     },
     generateMenu({ commit }, asynRouter) {
         //  动态选择后台菜单
@@ -68,9 +64,6 @@ const actions = {
             }
             menu.push(item);
         });
-        // console.log("+++++++++++++++");
-        // console.log(JSON.stringify(menu));
-        // console.log("+++++++++++++++");
         commit('SET_MENUS', menu);
     }
 
