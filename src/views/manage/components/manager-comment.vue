@@ -5,7 +5,7 @@
         <div class="commentList">
           <div class="comment-item" v-for="(comment,index) in commentsList" :key="index">
             <div class="user-avatar">
-              <img :src="comment.self.user.avatar?comment.self.user.avatar:avatarUrl" />
+              <img :src="comment.self.user.avatar?comment.self.user.avatar:baseAvatar" />
             </div>
             <div class="article-wrap">
               <router-link class="pic" :to="{name:'博客内容', query:{id: comment.blog.id}}">
@@ -28,7 +28,7 @@
               <div class="ci-parent-reply" v-if="comment.parent" style="display:none;">
                 <div class="cipr-avatar" >
                   <!-- {{comment.parent.id}} -->
-                  <img :src="comment.parent.user.avatar?comment.parent.user.avatar:avatarUrl" />
+                  <img :src="comment.parent.user.avatar?comment.parent.user.avatar:baseAvatar" />
                 </div>
                 <div class="cipr-head">
                   <span>{{comment.parent.user.nickname}}</span>

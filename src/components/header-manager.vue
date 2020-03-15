@@ -36,7 +36,7 @@
             <Avatar :src="avatar?avatar:baseAvatar" size="large" />
           </div>
           <DropdownMenu slot="list">
-            <DropdownItem name="个人资料">
+            <DropdownItem name="个性管理">
               <Icon type="ios-person" />个人资料
             </DropdownItem>
             <DropdownItem name="logout">

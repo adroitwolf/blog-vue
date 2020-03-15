@@ -14,7 +14,7 @@
               <div class="post-info ml-2">
                 <div class="post-info-date">
                   <Icon type="ios-calendar-outline" size="12" />
-                  <span>POST ON:{{postDetail.date}}</span>
+                  <span>POST ON:{{postDetail.releaseDate}}</span>
                 </div>
                 <div class="post-info-auth">
                   <Icon type="ios-contact-outline" size="12" />
@@ -49,7 +49,7 @@
               <div class="flex_div"><span>全部评论</span>
                 <span class="commentTotal">{{commentTotal}}</span></div>
             </h3>
-            <div class="mb-3" v-if="comments.size>0">
+            <div class="mb-3" >
               <div  v-for="(item,index) in comments" :key="index">
                 <Comment :comment="item" :id="item.id" v-on:disPlayCommentText="disPlayCommentText(index,item.id,'BLOG_COMMENT',item.user.id)"> </Comment>
                  <div v-if="item.children_count>0">
@@ -173,7 +173,7 @@ export default {
         id: "",
         title: "",
         content: "",
-        date: "",
+        releaseDate: "",
         tagsTitle: [],
         picture: "",
         author:{

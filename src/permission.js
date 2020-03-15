@@ -12,7 +12,8 @@ Vue.component('LoadingBar', LoadingBar)
 router.beforeEach((to, from, next) => {
     LoadingBar.start();
     document.title = to.meta.title;
-    let token = store.getters.token ? store.getters.token : getToken();
+    // let token = store.getters.token ? store.getters.token : getToken();
+    let token = store.getters.token;
     if (token) { //判断是否已经登陆
         if (to.path === '/admin/login.html') {
             next({ path: '/admin' });

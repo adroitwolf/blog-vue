@@ -206,7 +206,6 @@ export default {
           this.top = response.data;
         })
       }else{
-        console.log(12);
         this.top = this.topPosts;
       }
     }
