@@ -78,24 +78,35 @@ const actions = {
         })
     },
     logout({ commit }) {
+        //     return new Promise((resolve, reject) => {
+        //         let autoToken = {};
+        //         autoToken.accessToken = state.accessToken;
+        //         autoToken.refreshToken = state.refreshToken;
+        //         adminApi.logout(autoToken).then(response => {
+        //             this.clear_Info();
+        //         }).catch(error => {
+        //             reject(error);
+        //         })
+        //     })
+        // },
+        // clear_Info({ commit }) {
         removeToken(); //删除cookie
         //清除用户信息
         commit("SET_TOKEN", '');
         commit("CLEAR_PROFILE");
     },
-    refreshToken({ commit }, refreshToken) { //刷新token
+    refreshToken({ commit }, refreshToken) { //刷新token,并且只能被service.js调用
+        console.log(refreshToken);
         return new Promise((resolve, reject) => {
             adminApi.refresh(refreshToken).then(response => {
-                    const token = response.data;
-                    // const token = data.token;
-                    // const roles = data.user.roles;
-                    // console.log(roles);
-                    commit('SET_TOKEN', token);
-                    resolve(response);
-                })
-                .catch(error => {
-                    reject(error);
-                })
+                let data = response.data;
+                let token = data.data ? data.data : null;
+                commit('SET_TOKEN', token);
+                resolve(data);
+            }).catch(error => {
+                alert(JSON.stringify(error));
+                reject(error);
+            })
         })
     },
     getProfile({ commit }) {

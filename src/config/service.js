@@ -43,8 +43,10 @@ function refreshToken(res) {
     const refreshToken = store.getters.token ? store.getters.token.refresh_token : null;
     return new Promise((resolve, reject) => {
         store.dispatch("refreshToken", refreshToken).then(response => {
-            if (response.data && response.data.status === 403) { //这时候说明需要重新登陆了
+            if (response && response.status === 401) { //这时候说明需要重新登陆了
+
                 Message.error("登陆凭证失效，请重新登录");
+                // store.dispatch("clear_info");
                 router.push({ name: 'Login' });
             } else { //正常情况下刷新成功
                 requests.forEach(cb => cb(1));
@@ -120,11 +122,10 @@ service.interceptors.response.use(
                     // }
                 }
             } else {
-                store.dispatch("logout");
+                store.dispatch("clear_info");
                 let href = window.location.href;
                 let post = window.location.port;
                 let url = href.split(post + "/");
-                console.log(url[1]);
 
                 var re = /^index.html.*?/;
 

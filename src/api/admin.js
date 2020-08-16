@@ -2,6 +2,10 @@ import service from '@/config/service'
 
 import md5 from 'js-md5'
 
+import axios from 'axios'
+
+import { BASE_URL } from '@/config/global.var'
+
 const adminUrl = '/api/admin'
 
 const adminApi = {}
@@ -20,11 +24,19 @@ adminApi.login = (username, password) => {
 }
 
 
-adminApi.refresh = (refreshToken) => {
-    return service({
-        url: `${adminUrl}/refresh/${refreshToken}`,
-        method: "get"
+adminApi.refresh = (refreshToken) => { //这里应该重新创建实例
+    //修改日期 2020-8-16 
+    //修改目的：axios不应该用service对象，可能会构成死循环
+    //修改人：张巨根
+    return axios({
+        method: 'get',
+        url: `${BASE_URL}/${adminUrl}/refresh/${refreshToken}`
     })
+
+    // return service({
+    //     url: `${adminUrl}/refresh/${refreshToken}`,
+    //     method: 'get'
+    // })
 }
 
 adminApi.changePassword = (opassword, password) => {
@@ -40,10 +52,11 @@ adminApi.changePassword = (opassword, password) => {
 }
 
 
-adminApi.logout = () => {
+adminApi.logout = (autoToken) => {
     return service({
         url: `${adminUrl}/logout`,
         method: 'post'
+            // data: autoToken
     })
 }
 

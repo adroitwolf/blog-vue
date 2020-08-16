@@ -2,7 +2,7 @@
   <div class="mt-5">
     <div class="container">
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8 col-xs-10">
           <div id="article-list">
             <div v-for="(article,index) in articleLists" :key="index">
               <BlogCard :article="article" :index="index" :pageSize="pageSize"></BlogCard>
@@ -18,7 +18,7 @@
             ></Page>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 d-none d-lg-block">
           <!-- 搜索方法 -->
 
           <div class="blog-card mb-4 search-block animated fadeInUp">
