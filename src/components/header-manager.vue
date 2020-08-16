@@ -27,7 +27,7 @@
       <div>
         <div class="accessory">
           <router-link to="/index.html">
-            <Icon type="ios-link-outline" size="20" />
+            <Icon type="ios-desktop-outline"  size="25"/>
           </router-link>
         </div>
         <Dropdown @on-click="checkProfile">
