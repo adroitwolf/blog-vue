@@ -36,7 +36,7 @@
       <div class="article-img">
         <div class="img-box">
           <img
-            v-lazy="article.picture? article.picture:imgList[article.id/3%imgList.length]"
+            v-lazy="article.picture? article.picture:imgList[article.id%imgList.length]"
             alt
           />
         </div>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        404 找不到
+        404 
     </div>
 </template>
 

@@ -37,6 +37,7 @@ router.beforeEach((to, from, next) => {
                     //渲染页面
                     next({...to, replace: true });
                 }).catch(error => { //可能登陆凭证失效
+                    // store.dispatch("clear_info");
                     store.dispatch('logout');
                     console.log(error)
                     return;
@@ -45,7 +46,7 @@ router.beforeEach((to, from, next) => {
             }
         }
 
-    } else {
+    } else { //如果没有token状态
         // 判断当前是否属于白名单
         if (to.matched.some(record => !record.meta.requiresAuth)) {
             next();

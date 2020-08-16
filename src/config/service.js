@@ -43,7 +43,8 @@ function refreshToken(res) {
     const refreshToken = store.getters.token ? store.getters.token.refresh_token : null;
     return new Promise((resolve, reject) => {
         store.dispatch("refreshToken", refreshToken).then(response => {
-            if (response.data && response.data.status === 403) { //这时候说明需要重新登陆了
+            if (response && response.status === 401) { //这时候说明需要重新登陆了
+
                 Message.error("登陆凭证失效，请重新登录");
                 router.push({ name: 'Login' });
             } else { //正常情况下刷新成功
@@ -100,6 +101,7 @@ service.interceptors.response.use(
         const data = res ? res.data : null;
         const status = data ? data.status : -1;
         if (status === 200) {
+            console.log("成功");
             return data;
         }
         if (status === 401) { // 验证当前地址 消除缓存 如果当前的是主页的登陆，则不退到登陆窗口
@@ -120,11 +122,10 @@ service.interceptors.response.use(
                     // }
                 }
             } else {
-                store.dispatch("logout");
+                store.dispatch("clear_info");
                 let href = window.location.href;
                 let post = window.location.port;
                 let url = href.split(post + "/");
-                console.log(url[1]);
 
                 var re = /^index.html.*?/;
 
