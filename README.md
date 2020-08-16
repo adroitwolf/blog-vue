@@ -31,7 +31,7 @@ UI框架： iview+BootStrap4.13
 ```bash
     npm install # 初始化项目
     npm run dev # 启动项目
-    npm run build # 编译前端文件 
+    npm run build # 编译前端文件
 ```
 
 
@@ -41,7 +41,6 @@ UI框架： iview+BootStrap4.13
 ### 2020-8-16 更新
 * 修正token刷新导致网站无法正常相应的bug
 * 修改首页随机banner算法
-
 
 ### 2020-3-16 更新
 * 暂时取消手机端和平板的登陆

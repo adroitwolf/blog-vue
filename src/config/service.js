@@ -46,7 +46,6 @@ function refreshToken(res) {
             if (response && response.status === 401) { //这时候说明需要重新登陆了
 
                 Message.error("登陆凭证失效，请重新登录");
-                // store.dispatch("clear_info");
                 router.push({ name: 'Login' });
             } else { //正常情况下刷新成功
                 requests.forEach(cb => cb(1));
@@ -102,6 +101,7 @@ service.interceptors.response.use(
         const data = res ? res.data : null;
         const status = data ? data.status : -1;
         if (status === 200) {
+            console.log("成功");
             return data;
         }
         if (status === 401) { // 验证当前地址 消除缓存 如果当前的是主页的登陆，则不退到登陆窗口
