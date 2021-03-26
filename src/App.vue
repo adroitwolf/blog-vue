@@ -11,11 +11,11 @@ export default {
     return {};
   },
   watch: {
-    $route: function(to, from) {
-      if (to.meta.title) {
-        document.title = to.meta.title;
-      }
-    }
+    // $route: function(to, from) {
+    //   if (to.meta.title) {
+    //     document.title = to.meta.title;
+    //   }
+    // }
   }
 };
 </script>

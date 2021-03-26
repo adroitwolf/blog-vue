@@ -13,17 +13,17 @@
 
               <div class="post-info ml-2">
                 <div class="post-info-date">
-                  <Icon type="ios-calendar-outline" size="12" />
+                  <i class="el-icon-date" size="12" />
                   <span>POST ON:{{postDetail.releaseDate}}</span>
                 </div>
                 <div class="post-info-auth">
-                  <Icon type="ios-contact-outline" size="12" />
+                  <i class="el-icon-user" size="12" />
                   <span >{{postDetail.author.nickname}}</span>
                   <span>&nbsp;|&nbsp;</span>
                 </div>
-                <!-- 新增 tag标签片段  8-24-19 WHOAMI-->
+                <!-- 新增 tag标签片段  8-24-19 ADROITWOLF-->
                 <div class="post-info-tags">
-                  <Icon type="ios-pricetag-outline" size="12" />
+                  <i class="el-icon-collection-tag" size="12" />
                   <span v-if="postDetail.tagsTitle.length >0">
                     <span v-for="(tag,index) in postDetail.tagsTitle" :key="index">
                       {{tag}}
@@ -74,6 +74,7 @@
 import "mavon-editor/dist/css/index.css";
 import "mavon-editor/dist/markdown/github-markdown.min.css";
 import $ from "jquery";
+import {Message} from 'element-ui'
 import { mapGetters } from "vuex";
 import blogApi from "@/api/blog";
 import CommentText from "./components/comment-text-card"
@@ -82,7 +83,8 @@ export default {
   name: "blogDetail",
   components: {
     CommentText,
-    Comment
+    Comment,
+	Message
   },
   computed: {
     ...mapGetters(["token", "avatar","imgList","baseAvatar"])

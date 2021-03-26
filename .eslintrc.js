@@ -13,8 +13,9 @@ module.exports = {
 	rules: {
 		'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
 		'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-		'no-mixed-spaces-and-tabs': 0,
-		'no-unused-vars': 'warn',
-		'vue/no-unused-vars': "off"
+		'no-mixed-spaces-and-tabs': "off",
+		'no-unused-vars': 'off',
+		'vue/no-unused-vars': "off",
+		'vue/no-unused-components':"off"
 	}
 }

@@ -9,13 +9,24 @@
 
 ## 技术选型
 
-基础框架 Vue全家桶
+基础框架:
+* Vue全家桶
+* Vue-cli3.x
 
-UI框架： Element UI+BootStrap4.13
+UI框架：
+* Element UI
+* BootStrap 4.13
 
 ## 本地搭建
 
 需要注意的是，用户可以在config/prod.env.js里面修改自己的上线状态的服务器地址(重要)
+
+
+```bash
+    npm install # 初始化项目
+    npm run serve # 启动项目
+    npm run build # 编译前端文件
+```
 
 ## 测试策略
 
@@ -26,22 +37,15 @@ UI框架： Element UI+BootStrap4.13
 ![](https://s2.ax1x.com/2019/12/10/QBaJQH.png)
 
 
-## 如何使用
-
-```bash
-    npm install # 初始化项目
-    npm run dev # 启动项目
-    npm run build # 编译前端文件
-```
-
-> 要保证vue-cli2 版本是2.9.6,如果是新版本脚手架可能会出现版本不兼容的情况。
-
 ## 待办事项
-[] LoadingBar没有使用
+[*] LoadingBar没有使用
 
 
 
 ## 项目更新记录
+
+### 2021-3-26 重大更新
+* 修改Vue脚手架为3.x版本
 
 ### 2020-8-16 更新
 * 修正token刷新导致网站无法正常相应的bug

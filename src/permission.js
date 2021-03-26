@@ -4,11 +4,11 @@ import Vue from 'vue'
 // const whiteList = ['/register.html', '/index.html', '/admin/login.html', ];
 import { getToken } from '@/util/auth'
 
-import { Loading } from 'element-ui';
-Vue.component('LoadingBar', LoadingBar)
+// import { Loading } from 'element-ui';
+// Vue.component('LoadingBar', LoadingBar)
 
 
-let LoadingBar = Loading.service()
+// let LoadingBar = Loading.service()
 
 router.beforeEach((to, from, next) => {
     // LoadingBar.start();

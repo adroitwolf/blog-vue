@@ -36,7 +36,7 @@
                   placeholder="试着搜索一下文章吧"
                 />
                 <button type="button" class="btn btn-danger" @click="handleSearch()">
-                  <Icon type="ios-search-outline" />
+                  <i class="el-icon-search" />
                 </button>
               </form>
             </div>
