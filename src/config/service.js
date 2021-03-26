@@ -2,7 +2,6 @@ import axios from 'axios'
 import { getToken } from '@/util/auth'
 import qs from "qs"
 import store from '@/store'
-import { Message } from 'view-design'
 import router from '@/router'
 import { BASE_URL } from '@/config/global.var'
 

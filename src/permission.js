@@ -3,14 +3,15 @@ import store from './store'
 import Vue from 'vue'
 // const whiteList = ['/register.html', '/index.html', '/admin/login.html', ];
 import { getToken } from '@/util/auth'
-import { LoadingBar } from 'view-design'
+
+import { Loading } from 'element-ui';
 Vue.component('LoadingBar', LoadingBar)
 
 
-
+let LoadingBar = Loading.service()
 
 router.beforeEach((to, from, next) => {
-    LoadingBar.start();
+    // LoadingBar.start();
     document.title = to.meta.title;
     // let token = store.getters.token ? store.getters.token : getToken();
     let token = store.getters.token;
@@ -59,5 +60,5 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach(() => {
-    LoadingBar.finish();
+    // LoadingBar.close()
 });

@@ -3,7 +3,6 @@ import {
 	Button,
 	Breadcrumb,
 	BreadcrumbItem,
-	Layout,
 	Container,
 	Pagination,
 	Card,
@@ -65,7 +64,6 @@ Vue.use(Avatar)
 Vue.use(Drawer)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
-Vue.use(Layout)
 Vue.use(Container)
 Vue.use(Pagination)
 Vue.use(Card)

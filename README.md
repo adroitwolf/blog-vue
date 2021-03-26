@@ -11,7 +11,7 @@
 
 基础框架 Vue全家桶
 
-UI框架： iview+BootStrap4.13
+UI框架： Element UI+BootStrap4.13
 
 ## 本地搭建
 
@@ -35,6 +35,9 @@ UI框架： iview+BootStrap4.13
 ```
 
 > 要保证vue-cli2 版本是2.9.6,如果是新版本脚手架可能会出现版本不兼容的情况。
+
+## 待办事项
+[] LoadingBar没有使用
 
 
 
