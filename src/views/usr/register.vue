@@ -63,7 +63,6 @@
 <script>
 import $ from "jquery";
 import Header from "@/components/header";
-import { Message, Notice, Steps, Step } from "view-design";
 import { mapActions } from "vuex";
 import { error } from "util";
 export default {
@@ -158,11 +157,6 @@ export default {
     };
   },
   components: {
-    Header,
-    Message,
-    Notice,
-    Steps,
-    Step
   }
 };
 </script>
@@ -174,7 +168,7 @@ export default {
 
     @import '../../assets/style/custom.scss'
 
-    @import "node_modules/bootstrap/scss/bootstrap";
+    @import "node_modules/bootstrap/scss/bootstrap"
 
 
 </style>

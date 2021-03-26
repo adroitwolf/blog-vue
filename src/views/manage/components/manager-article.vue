@@ -95,46 +95,12 @@
   </div>
 </template>
 <script>
-import {
-  Page,
-  Card,
-  Table,
-  Badge,
-  Poptip,
-  Notice,
-  Tag,
-  Form,
-  Message,
-  FormItem,
-  Select,
-  Option,
-  Button,
-  Input,
-  Icon,
-  Modal
-} from "view-design";
 import { mapGetters, mapActions } from "vuex";
 import router from "@/router";
 import articleApi from "@/api/article";
 
 export default {
   name: "articleManager",
-  components: {
-    Page,
-    Card,
-    Table,
-    Badge,
-    Poptip,
-    Tag,
-    Form,
-    FormItem,
-    Select,
-    Option,
-    Button,
-    Input,
-    Icon,
-    Modal
-  },
   data() {
     return {
       loading: false,

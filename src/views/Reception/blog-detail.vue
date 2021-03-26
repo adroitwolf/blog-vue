@@ -76,16 +76,11 @@ import "mavon-editor/dist/markdown/github-markdown.min.css";
 import $ from "jquery";
 import { mapGetters } from "vuex";
 import blogApi from "@/api/blog";
-import { Avatar, Icon,Message,Divider  } from "view-design";
 import CommentText from "./components/comment-text-card"
 import Comment from "./components/comment"
 export default {
   name: "blogDetail",
   components: {
-    Avatar,
-    Icon,
-    Message,
-    Divider,
     CommentText,
     Comment
   },
@@ -216,7 +211,7 @@ export default {
 
     @import '../../assets/style/custom.scss'
 
-    @import "node_modules/bootstrap/scss/bootstrap";
+    @import "node_modules/bootstrap/scss/bootstrap"
 
 
 </style>

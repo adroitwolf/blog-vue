@@ -1,13 +1,41 @@
 import Vue from 'vue'
-import App from './App.vue'
+import App from './App'
 import router from './router'
 import store from './store'
-import './registerServiceWorker'
+
+import './plugins/element.js'
+
+import './permission'
+
+// import axios from 'axios'
+// import VueAxios from 'vue-axios'
+// Vue.use(VueAxios, axios)
+
+// import VueLazyload from 'vue-lazyload'
+// Vue.use(VueLazyload)
+
 
 Vue.config.productionTip = false
 
+
+// // 渐进式加载图片
+
+// import progressive from 'progressive-image/dist/vue';
+
+// Vue.use(progressive, {
+//     removePreview: true,
+//     scale: true
+// })
+
+
+// import preview from 'vue-photo-preview'
+// import 'vue-photo-preview/dist/skin.css'
+// Vue.use(preview)
+
+
 new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+    el: '#app',
+    router,
+    store,
+    render: h => h(App)
+});

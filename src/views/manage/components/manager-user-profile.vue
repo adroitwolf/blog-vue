@@ -127,24 +127,7 @@ import Cropper from "cropperjs";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min";
 import { mapGetters, mapActions } from "vuex";
-import {
-  Avatar,
-  Divider,
-  Tabs,
-  TabPane,
-  Form,
-  FormItem,
-  Message,
-  Notice,
-  Upload,
-  Modal,
-  Button,
-  Input,
-  Icon,
-  Card,
-  Row,
-  Col
-} from "view-design";
+
 
 export default {
   name: "UserProfile",
@@ -163,21 +146,6 @@ export default {
     };
   },
   components: {
-    Avatar,
-    Divider,
-    Tabs,
-    TabPane,
-    Form,
-    FormItem,
-    Message,
-    Upload,
-    Modal,
-    Button,
-    Input,
-    Icon,
-    Card,
-    Row,
-    Col
   },
   computed: {
     ...mapGetters(["nickname", "avatar", "aboutMe","baseAvatar"])

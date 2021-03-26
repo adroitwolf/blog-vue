@@ -47,13 +47,11 @@
 </template>
 
 <script>
-import { Icon } from "view-design";
 import { BASE_URL } from '@/config/global.var';
 import { mapGetters } from "vuex";
 export default {
   name: "BlogCard",
   components: {
-    Icon
   },
   computed: {
     ...mapGetters(["imgList"])

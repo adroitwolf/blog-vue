@@ -28,7 +28,6 @@
 
 <script>
 import md5 from "js-md5";
-import { Content, Card, Table, LoadingBar, Icon, Row, Col } from "view-design";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -40,13 +39,7 @@ export default {
     ...mapGetters(["column", "articleData", "status"])
   },
   components: {
-    Content,
-    Card,
-    Table,
-    LoadingBar,
-    Icon,
-    Row,
-    Col
+
   },
   methods: {
     ...mapActions(["getArticleList", "getArticleCount"])

@@ -5,10 +5,8 @@
 </template>
 
 <script>
-    import {Switch } from "view-design";
     export default {
         components:{
-            Switch
         },
         name: 'sysManage',
         data() {

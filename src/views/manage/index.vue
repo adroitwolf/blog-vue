@@ -20,7 +20,7 @@
 import Header from "@/components/header-manager";
 import Foot from "@/components/footer";
 import { mapGetters, mapActions } from "vuex";
-import { Breadcrumb, BreadcrumbItem, Content, Layout } from "view-design";
+
 import axios from "axios";
 
 export default {
@@ -30,11 +30,7 @@ export default {
   },
   components: {
     Header,
-    Foot,
-    Layout,
-    Breadcrumb,
-    BreadcrumbItem,
-    Content
+    Foot
   },
   methods: {
     freshContent() {

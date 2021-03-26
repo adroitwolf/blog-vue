@@ -105,24 +105,6 @@
 
 <script>
 import $ from "jquery";
-import {
-  Form,
-  FormItem,
-  Card,
-  Select,
-  Option,
-  Page,
-  Divider,
-  Modal,
-  Upload,
-  Drawer,
-  Message,
-  Button,
-  Input,
-  Icon,
-  Row,
-  Col
-} from "view-design";
 import attachmentApi from "@/api/attachment";
 import { BASE_URL } from "@/config/global.var";
 import { mapGetters, mapActions } from "vuex";
@@ -130,22 +112,6 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Photo",
   components: {
-    Form,
-    FormItem,
-    Card,
-    Select,
-    Option,
-    Page,
-    Divider,
-    Modal,
-    Upload,
-    Drawer,
-    Message,
-    Button,
-    Input,
-    Icon,
-    Row,
-    Col
   },
   computed: { ...mapGetters(["mediaTypes"]) },
   methods: {

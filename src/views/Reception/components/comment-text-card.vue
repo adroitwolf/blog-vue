@@ -49,14 +49,14 @@ export default {
 
     @import '../../../assets/style/custom.scss'
 
-    @import "node_modules/bootstrap/scss/bootstrap";
+    @import "node_modules/bootstrap/scss/bootstrap"
 
 
 </style>
 
 
 <style scoped>
-@import "../../../assets/style/blog.css";
+@import "../../../assets/style/blog.css"
 .section {
   padding: 20px;
 }

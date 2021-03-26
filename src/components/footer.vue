@@ -1,11 +1,10 @@
 <template>
   <Footer class="Footer">
-    <p>2019-2020 &copy; WHOAMI 鲁ICP备19063758号</p>
+    <p>2019-2020 &copy; ADROITWOLF 鲁ICP备19063758号</p>
   </Footer>
 </template>
 
 <script>
-import { Footer } from "view-design";
 export default {
   name: "Foot"
 };

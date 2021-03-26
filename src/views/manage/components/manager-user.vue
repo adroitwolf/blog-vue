@@ -90,48 +90,13 @@
 </template>
 
 <script>
-import {
-  Form,
-  FormItem,
-  Card,
-  Select,
-  Option,
-  Page,
-  Divider,
-  Modal,
-  Upload,
-  Drawer,
-  Message,
-  Button,
-  Input,
-  Icon,
-  Row,
-  Col,
-  Switch
-} from "view-design";
+
 import { BASE_URL } from "@/config/global.var";
 import userApi from "@/api/usrAdmin";
 import { reject } from 'q';
 export default {
   name: "UserManager",
   components: {
-    Switch,
-    Form,
-    FormItem,
-    Card,
-    Select,
-    Option,
-    Page,
-    Divider,
-    Modal,
-    Upload,
-    Drawer,
-    Message,
-    Button,
-    Input,
-    Icon,
-    Row,
-    Col
   },
   data() {
     return {

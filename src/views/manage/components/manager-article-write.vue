@@ -99,23 +99,6 @@
 <script>
 import $ from "jquery";
 import { mavonEditor } from "mavon-editor";
-import {
-  Form,
-  FormItem,
-  Drawer,
-  Divider,
-  Message,
-  Notice,
-  Tag,
-  Upload,
-  Modal,
-  Page,
-  Button,
-  Input,
-  Icon,
-  Row,
-  Col
-} from "view-design";
 import "mavon-editor/dist/css/index.css";
 import { mapActions } from "vuex";
 import articleApi from "@/api/article";
@@ -125,20 +108,7 @@ import {BASE_URL} from '@/config/global.var'
 export default {
   name: "articleWrite",
   components: {
-    FormItem,
-    Form,
-    Drawer,
     mavonEditor,
-    Divider,
-    Tag,
-    Upload,
-    Modal,
-    Page,
-    Button,
-    Input,
-    Icon,
-    Row,
-    Col
   },
   mounted() {
     let row = this.$route.params;

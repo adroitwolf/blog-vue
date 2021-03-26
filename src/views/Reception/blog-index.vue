@@ -106,7 +106,6 @@
 <script>
 import animate from "animate.css";
 import $ from "jquery";
-import { Page, Avatar, Notice, Message, Icon } from "view-design";
 import blogApi from "@/api/blog";
 import { mapGetters, mapActions } from "vuex";
 import BlogCard from "./components/blog-card-component";
@@ -222,13 +221,8 @@ export default {
     // this.getProfile();
   },
   components: {
-    Page,
-    Avatar,
-    Notice,
-    Message,
     BlogCard,
     asideCard,
-    Icon
   },
   data() {
     return {
@@ -254,7 +248,7 @@ export default {
 
 @import '../../assets/style/custom.scss'
 
-@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/bootstrap/scss/bootstrap"
 
 
 </style>

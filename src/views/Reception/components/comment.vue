@@ -23,13 +23,11 @@
 </template>
 
 <script>
-    import {Icon} from 'view-design';
     import { mapGetters } from "vuex";
     export default {
         name: 'Comment',
         props: ["comment"],
         components:{
-            Icon
         },
         data() {
             return {
@@ -53,7 +51,7 @@
 
     @import '../../../assets/style/custom.scss'
 
-    @import "node_modules/bootstrap/scss/bootstrap";
+    @import "node_modules/bootstrap/scss/bootstrap"
 
 
 </style>

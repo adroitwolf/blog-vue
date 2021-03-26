@@ -88,41 +88,9 @@
 </template>
 
 <script>
-import {
-  Page,
-  Card,
-  Table,
-  Badge,
-  Divider,
-  Notice,
-  Tag,
-  Form,
-  Message,
-  FormItem,
-  Select,
-  Option,
-  Button,
-  Input,
-  Icon,
-  Modal
-} from "view-design";
 import articleAdmin from "@/api/articleAdmin";
 export default {
   components: {
-    Page,
-    Card,
-    Table,
-    Badge,
-    Divider,
-    Tag,
-    Form,
-    FormItem,
-    Select,
-    Option,
-    Button,
-    Input,
-    Icon,
-    Modal
   },
   name: "checkArticle",
   data() {

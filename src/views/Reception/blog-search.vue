@@ -54,7 +54,6 @@
 <script>
 import blogApi from "@/api/blog";
 import $ from "jquery";
-import { Page, Icon } from "view-design";
 import BlogCard from "./components/blog-card-component";
 
 export default {
@@ -172,9 +171,7 @@ export default {
     }
   },
   components: {
-    Page,
-    BlogCard,
-    Icon
+    BlogCard
   }
 };
 </script>
@@ -186,7 +183,7 @@ export default {
 
 @import '../../assets/style/custom.scss'
 
-@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/bootstrap/scss/bootstrap"
 
 
 </style>

@@ -22,17 +22,11 @@
   </div>
 </template>
 <script>
-import { Form, FormItem, Message, Button, Input, Icon } from "view-design";
 import { mapActions } from "vuex";
 import router from "@/router";
 export default {
   name: "login",
   components: {
-    Form,
-    FormItem,
-    Button,
-    Input,
-    Icon
   },
   data() {
     return {

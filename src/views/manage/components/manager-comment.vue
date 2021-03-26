@@ -67,14 +67,10 @@
 import $ from "jquery";
 import commentApi from "@/api/comment";
 import { mapGetters } from "vuex";
-import { Card, Page,Modal,Message } from "view-design";
 export default {
   name: "commentManage",
   components: {
-    Card,
-    Page,
-    Modal,
-    Message
+
   },
   data() {
     return {

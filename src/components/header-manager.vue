@@ -49,18 +49,7 @@
   </div>
 </template>
 <script>
-import {
-  Message,
-  Menu,
-  MenuItem,
-  Submenu,
-  MenuGroup,
-  Avatar,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  Icon
-} from "view-design";
+
 import { mapGetters, mapActions } from "vuex";
 import router from "@/router";
 
@@ -73,16 +62,6 @@ export default {
     };
   },
   components: {
-    Menu,
-    MenuItem,
-    MenuGroup,
-    Submenu,
-    Avatar,
-    Dropdown,
-    DropdownItem,
-    DropdownMenu,
-    Message,
-    Icon
   },
   methods: {
     ...mapActions(["logout"]),
