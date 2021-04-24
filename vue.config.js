@@ -1,5 +1,11 @@
 const webpack = require("webpack")
 module.exports = {
+  devServer:{
+    overlay:{
+      warnings: false,
+      errors: false
+    }
+  },
  configureWebpack: {
    plugins: [
      new webpack.ProvidePlugin({

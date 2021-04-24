@@ -58,7 +58,3 @@ router.beforeEach((to, from, next) => {
         }
     }
 });
-
-router.afterEach(() => {
-    // LoadingBar.close()
-});

@@ -44,7 +44,7 @@ function refreshToken(res) {
         store.dispatch("refreshToken", refreshToken).then(response => {
             if (response && response.status === 401) { //这时候说明需要重新登陆了
 
-                Message.error("登陆凭证失效，请重新登录");
+                this.$message.error("登陆凭证失效，请重新登录");
                 router.push({ name: 'Login' });
             } else { //正常情况下刷新成功
                 requests.forEach(cb => cb(1));
@@ -71,7 +71,7 @@ service.interceptors.request.use(
         if (config.method === 'post' || config.method === 'put') {
             // config.data = qs.stringify({...config.data });
             if (config.headers['Content-Type'] === 'multipart/form-data') {
-
+                    
             } else {
                 config.headers['Content-Type'] = 'application/json; charset=utf-8';
                 config.data = JSON.stringify({...config.data })
@@ -131,21 +131,21 @@ service.interceptors.response.use(
                 if (re.test(url[1])) {
                     return response;
                 } else {
-                    Message.error("您还未登陆，请先登录");
+                    this.$message.error("您还未登陆，请先登录");
                     router.push({ name: 'Login' });
                 }
-                Message.error(data.message);
+                this.$message.error(data.message);
             }
 
 
         } else if (status === 400 || status === 503) {
-            Message.error(data.message);
+            this.$message.error(data.message);
         } else if (status === 500) {
-            Message.error("服务异常！");
+            this.$message.error("服务异常！");
         } else if (status === 404) { //资源错误
 
         } else if (status === 403) {
-            Message.error("请不要尝试权限之外的事情");
+            this.$message.error("请不要尝试权限之外的事情");
         }
         return Promise.reject(response);
     },
@@ -155,7 +155,7 @@ service.interceptors.response.use(
         const status = res ? res.status : -1;
         const data = res ? res.data : null;
         if (error.message.includes('timeout')) { // 判断请求异常信息中是否含有超时timeout字符串
-            Message.error("网络连接超时");
+            this.$message.error("网络连接超时");
 
             //return Promise.reject(error); // reject这个错误信息
         }

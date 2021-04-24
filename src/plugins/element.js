@@ -4,6 +4,8 @@ import {
 	Breadcrumb,
 	BreadcrumbItem,
 	Container,
+	Main,
+	Header,
 	Pagination,
 	Card,
 	Table,
@@ -65,12 +67,14 @@ Vue.use(Drawer)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
 Vue.use(Container)
+Vue.use(Main)
+Vue.use(Header)
+Vue.use(Footer)
 Vue.use(Pagination)
 Vue.use(Card)
 Vue.use(Table)
 Vue.use(Badge)
 Vue.use(Popover)
-Vue.use(Notification)
 Vue.use(Tag)
 Vue.use(Form)
 Vue.use(FormItem)
@@ -78,5 +82,6 @@ Vue.use(Select)
 Vue.use(Option)
 Vue.use(Input)
 Vue.use(Icon)
-Vue.use(MessageBox)
-Vue.component(Message)
+Vue.prototype.$message = Message
+Vue.prototype.$notify = Notification;
+Vue.prototype.$msgbox = MessageBox;

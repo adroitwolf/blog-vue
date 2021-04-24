@@ -91,10 +91,6 @@
 		mapGetters,
 		mapActions
 	} from "vuex";
-	import {
-		Message,
-		Notification
-	} from 'element-ui'
 	import BlogCard from "./components/blog-card-component";
 	import asideCard from "./components/aside-card-component";
 
@@ -129,26 +125,26 @@
 			handleSubmit() {
 				let that = this;
 				if (!this.account) {
-					Message.warning("用户名不能为空！");
+					this.$message.warning("用户名不能为空！");
 					return;
 				}
 				if (!this.password) {
-					Message.warning("密码不能为空！");
+					this.$message.warning("密码不能为空！");
 					return;
 				}
-
 				this.login({
 					username: this.account,
 					password: this.password
 				}).then(
 					response => {
-						Notification.success({
+						this.$notify.success({
 							title: "登陆成功"
 						});
-						this.getProfile().then(user => {
-							this.generateRoutes(user.roles);
-							that.$router.addRoutes(this.addRouters);
-						});
+						this.getProfile();
+						// .then(user => {
+						// 	this.generateRoutes(user.roles);
+						// 	that.$router.addRoutes(this.addRouters);
+						// });
 					}
 				);
 			},
@@ -209,16 +205,14 @@
 
 		},
 		created() {
-			// this.getArticleList();
-			// this.getTopPost();
+			this.getArticleList();
+			this.getTopPost();
 
-			// this.getProfile();
+			this.getProfile();
 		},
 		components: {
 			BlogCard,
-			asideCard,
-			Message,
-			Notification
+			asideCard
 		},
 		data() {
 			return {

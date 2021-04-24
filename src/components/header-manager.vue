@@ -1,51 +1,53 @@
 <template>
   <div>
-    <Menu mode="horizontal" :theme="theme1" class="header">
+    <el-menu mode="horizontal" :theme="theme1" class="header" background-color="#545c64"
+  text-color="#fff"
+  active-text-color="#ffd04b">
       <!-- 用户操作的菜单模块 -->
       <div class="menu">
         <template v-for="(menu,index) in menus" >
-          <MenuItem  v-if="!menu.children" :key="index" :name="index" :to="menu.path">
-            <Icon :type="menu.meta.icon" />
+          <el-menu-item  v-if="!menu.children" :key="index" :index="index" :name="index" :to="menu.path">
+            <i :class="menu.meta.icon" />
             {{menu.name}}
-          </MenuItem>
-          <Submenu v-if="menu.children" :key="index" :name="index">
+          </el-menu-item>
+          <el-submenu v-if="menu.children" :index="index" :key="index" :name="index">
             <template slot="title">
-              <Icon :type="menu.meta.icon" />
+              <i :class="menu.meta.icon" />
               <span v-text="menu.name"></span>
             </template>
-            <Menu-Item v-for="thirdMenu in menu.children"
+            <el-menu-item v-for="thirdMenu in menu.children"
                        :name="thirdMenu.name"
                        :key="thirdMenu.name"
                        :to="thirdMenu.path"
                        >
                        {{thirdMenu.name}}
-            </Menu-Item>
-          </Submenu>
+            </el-menu-item>
+          </el-submenu>
         </template>
         
       </div>
       <div>
         <div class="accessory">
           <router-link to="/index.html">
-            <Icon type="ios-desktop-outline"  size="25"/>
+            <i class="ios-desktop-outline"  size="25"/>
           </router-link>
         </div>
-        <Dropdown @on-click="checkProfile">
+        <el-dropdown @on-click="checkProfile">
           <div class="profile">
             <!-- 判断用户是否有头像 -->
-            <Avatar :src="avatar?avatar:baseAvatar" size="large" />
+            <el-avatar :src="avatar?avatar:baseAvatar" size="large" ></el-avatar>
           </div>
-          <DropdownMenu slot="list">
-            <DropdownItem name="个性管理">
-              <Icon type="ios-person" />个人资料
-            </DropdownItem>
-            <DropdownItem name="logout">
-              <Icon type="ios-log-out" />退出登陆
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+          <el-dropdown-menu slot="list">
+            <el-dropdown-item name="个性管理">
+              <i class="ios-person" />个人资料
+            </el-dropdown-item>
+            <el-dropdown-item name="logout">
+              <i class="ios-log-out" />退出登陆
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </div>
-    </Menu>
+    </el-menu>
   </div>
 </template>
 <script>

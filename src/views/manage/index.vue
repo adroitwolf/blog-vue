@@ -1,17 +1,21 @@
 <template>
   <div class="layout">
-    <Layout>
-      <Header></Header>
-      <Content class="body" :style="{padding: '0 50px'}">
-        <Breadcrumb :style="{margin: '20px 0'}">
-          <BreadcrumbItem v-for="(item,index) in $route.meta.Bread" :key="index">{{item}}</BreadcrumbItem>
-        </Breadcrumb>
+    <el-container>
+      <el-header>
+        <Header></Header>
+      </el-header>
+      <el-main class="body" :style="{padding: '0 50px'}">
+        <el-breadcrumb separator="/" :style="{margin: '20px 0'}">
+          <el-breadcrumb-item v-for="(item,index) in $route.meta.Bread" :key="index">{{item}}</el-breadcrumb-item>
+        </el-breadcrumb>
         <div class="content">
           <router-view></router-view>
         </div>
-      </Content>
+      </el-main>
+      <el-footer>
       <Foot></Foot>
-    </Layout>
+      </el-footer>
+    </el-container>
   </div>
 </template>
 
