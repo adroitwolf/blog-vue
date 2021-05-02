@@ -11,6 +11,7 @@ import { BASE_URL } from '@/config/global.var'
 const service = axios.create({
     timeout: 10000,
     baseURL: BASE_URL
+
 });
 
 
@@ -29,7 +30,8 @@ let isRefreshing = false
     // 重试队列，每一项将是一个待执行的函数形式
 let requests = []
 
-function reRequest(config) { //重试请求
+//重试请求
+function reRequest(config) {
     setTokenToHeader(config);
 
     return axios.request(config).then(response => response.data);

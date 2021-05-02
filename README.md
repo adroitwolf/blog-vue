@@ -15,7 +15,7 @@ UI框架： iview+BootStrap4.13
 
 ## 本地搭建
 
-需要注意的是，用户可以在config/prod.env.js里面修改自己的上线状态的服务器地址(重要)
+需要注意的是，用户可以在.env.dev里面修改自己的上线状态的服务器地址(重要)
 
 ## 测试策略
 
@@ -29,16 +29,18 @@ UI框架： iview+BootStrap4.13
 ## 如何使用
 
 ```bash
-    npm install # 初始化项目
-    npm run dev # 启动项目
-    npm run build # 编译前端文件
+    yarn install # 初始化项目
+    yarn  dev # 启动项目
+    yarn  build # 编译前端文件
 ```
 
-> 要保证vue-cli2 版本是2.9.6,如果是新版本脚手架可能会出现版本不兼容的情况。
 
 
 
 ## 项目更新记录
+
+### 2021-5-2 更新
+* 项目脚手架升级为4.1,采用yarn安装
 
 ### 2020-8-16 更新
 * 修正token刷新导致网站无法正常相应的bug

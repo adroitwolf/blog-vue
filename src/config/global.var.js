@@ -1,5 +1,4 @@
-const BASE_URL = process.env.BASE_URL;
-
+const BASE_URL = process.env.VUE_APP_BASEURL;
 export {
     BASE_URL
 }
