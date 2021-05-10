@@ -118,8 +118,8 @@ import {
 } from "view-design";
 import "mavon-editor/dist/css/index.css";
 import { mapActions } from "vuex";
-import articleApi from "@/api/article";
-import attachmentApi from "@/api/attachment";
+import articleApi from "@/api/manage/article";
+import attachmentApi from "@/api/manage/attachment";
 import {BASE_URL} from '@/config/global.var'
 
 export default {

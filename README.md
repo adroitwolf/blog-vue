@@ -38,7 +38,9 @@ UI框架： iview+BootStrap4.13
 
 
 ## 项目更新记录
-
+### 2021-5-10 更新
+* 修复项目部分bug
+* 项目接口对接blog-cloud（dev分支不支持blog-springboot url路径）
 ### 2021-5-2 更新
 * 项目脚手架升级为4.1,采用yarn安装
 

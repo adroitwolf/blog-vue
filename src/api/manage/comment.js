@@ -1,11 +1,12 @@
 import service from '@/config/service'
 
-const baseUrl = "/api/comments"
+
+const baseUrl = "/iblog-blog/manage/comment"
 
 
-const commentApi = {}
+const commentManageApi = {}
 
-commentApi.manage = (pageInfo) => {
+commentManageApi.manage = (pageInfo) => {
     return new service({
         method: 'get',
         params: {
@@ -16,11 +17,11 @@ commentApi.manage = (pageInfo) => {
     })
 }
 
-commentApi.delete = (id) => {
+commentManageApi.delete = (id) => {
     return new service({
         method: 'delete',
         url: `${baseUrl}/${id}/del`
     })
 }
 
-export default commentApi;
+export default commentManageApi;

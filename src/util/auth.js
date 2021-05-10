@@ -3,10 +3,16 @@ import Cookies from 'js-cookie'
 const TokenKey = 'Authentication'
 
 export function getToken() {
-    return Cookies.get(TokenKey) ? JSON.parse(Cookies.get(TokenKey)) : null;
+    let token = Cookies.get(TokenKey);
+    if(token){
+        return JSON.parse(token);
+    }else{
+        return  localStorage.getItem(TokenKey) ?localStorage.getItem(TokenKey):null ;
+    }
 }
 
 export function setToken(token) {
+    localStorage.setItem(TokenKey,token)
     return Cookies.set(TokenKey, token)
 }
 

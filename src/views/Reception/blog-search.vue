@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import blogApi from "@/api/blog";
+import postApi from "@/api/protal/article";
 import $ from "jquery";
 import { Page, Icon } from "view-design";
 import BlogCard from "./components/blog-card-component";
@@ -124,7 +124,7 @@ export default {
     },
     getArticleList() {
       if (this.tag != "") {
-        blogApi
+        postApi
           .searchTag(this.pageSize, this.pageNum, this.tag)
           .then(response => {
             const data = response.data;
@@ -146,7 +146,7 @@ export default {
           });
         return;
       }
-      blogApi
+      postApi
         .queryListByExample(this.pageSize, this.pageNum, this.keyword)
         .then(response => {
           const data = response.data;

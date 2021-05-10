@@ -9,7 +9,7 @@
               <Icon type="ios-link" class="link" size="25" />
             </router-link>
           </div>
-          <h1>{{status.value}}</h1>
+          <h1><span>{{count}}</span></h1>
         </Card>
       </Col>
     </Row>
@@ -34,7 +34,9 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "status",
   data() {
-    return {};
+    return {
+      count: 0
+    };
   },
   computed: {
     ...mapGetters(["column", "articleData", "status"])
@@ -53,9 +55,12 @@ export default {
   },
   created() {
     LoadingBar.start();
+    let that = this;
     let postParams = {};
     this.getArticleList({ pageSize: 5, pageNum: 1, postParams: postParams });
-    this.getArticleCount();
+    this.getArticleCount().then(response=>{
+      that.count  = response;
+    })
     LoadingBar.finish();
   }
 };

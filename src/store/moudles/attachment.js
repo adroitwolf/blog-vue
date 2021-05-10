@@ -1,4 +1,4 @@
-import attachmentApi from '@/api/attachment'
+import attachmentApi from '@/api/manage/attachment'
 const state = {
     mediaTypes: [],
 }

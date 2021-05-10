@@ -1,6 +1,6 @@
 import service from '@/config/service'
 
-const baseUrl = '/api/admin/attachment'
+const baseUrl = '/iblog-attach/manage/attachment'
 
 const attachmentApi = {}
 
@@ -67,3 +67,4 @@ attachmentApi.listAllMediaType = () => {
 }
 
 export default attachmentApi
+

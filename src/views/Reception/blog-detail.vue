@@ -75,7 +75,8 @@ import "mavon-editor/dist/css/index.css";
 import "mavon-editor/dist/markdown/github-markdown.min.css";
 import $ from "jquery";
 import { mapGetters } from "vuex";
-import blogApi from "@/api/blog";
+import postApi from "@/api/protal/article";
+import commentApi from "@/api/protal/comment";
 import { Avatar, Icon,Message,Divider  } from "view-design";
 import CommentText from "./components/comment-text-card"
 import Comment from "./components/comment"
@@ -124,7 +125,7 @@ export default {
 
       this.comment.type = this.currentComment.type;
 
-      blogApi.pushComment(this.comment).then(response=>{
+      commentApi.pushComment(this.comment).then(response=>{
         this.comment.content = "";
 
         this.comment.pid = null;
@@ -139,7 +140,7 @@ export default {
       })
     },
     getPostDetail(blogId){
-      blogApi.getDetail(blogId).then(response => {
+      postApi.getDetail(blogId).then(response => {
         let data = response.data;
         this.postDetail = data;
         console.log(this.postDetail);
@@ -148,7 +149,7 @@ export default {
     getCommentsList(blogId,type){
       let params = this.pageInfo;
       params.type = type;
-      blogApi.getCommentsList(blogId,params).then(response=>{
+      commentApi.getCommentsList(blogId,params).then(response=>{
         var data = response.data;
         var comments = data.rows;
         comments = comments.map(element =>{
@@ -193,7 +194,7 @@ export default {
       pageInfo:{
         pageSize: 5,
         pageNum:1,
-        sortName:"create_time",
+        sortName:"createTime",
         sortOrder:"desc"
       },
       comments:[],

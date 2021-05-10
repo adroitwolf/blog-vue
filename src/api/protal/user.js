@@ -6,13 +6,13 @@ import axios from 'axios'
 
 import { BASE_URL } from '@/config/global.var'
 
-const adminUrl = '/api/admin'
+const adminUrl = 'iblog-user/api/user'
 
-const adminApi = {}
+const userApi = {}
 
 
 // 登陆函数
-adminApi.login = (username, password) => {
+userApi.login = (username, password) => {
     return service({
         url: `${adminUrl}/login`,
         data: {
@@ -24,10 +24,10 @@ adminApi.login = (username, password) => {
 }
 
 
-adminApi.refresh = (refreshToken) => { //这里应该重新创建实例
-    //修改日期 2020-8-16 
+userApi.refresh = (refreshToken) => { //这里应该重新创建实例
+    //修改日期 2020-8-16
     //修改目的：axios不应该用service对象，可能会构成死循环
-    //修改人：张巨根
+    //修改人：ADROITWOLF
     return axios({
         method: 'get',
         url: `${BASE_URL}/${adminUrl}/refresh/${refreshToken}`
@@ -39,7 +39,7 @@ adminApi.refresh = (refreshToken) => { //这里应该重新创建实例
     // })
 }
 
-adminApi.changePassword = (opassword, password) => {
+userApi.changePassword = (opassword, password) => {
     return service({
         url: `${adminUrl}/changePassword`,
         data: {
@@ -52,15 +52,15 @@ adminApi.changePassword = (opassword, password) => {
 }
 
 
-adminApi.logout = (autoToken) => {
+userApi.logout = (autoToken) => {
     return service({
         url: `${adminUrl}/logout`,
         method: 'post'
-            // data: autoToken
+        // data: autoToken
     })
 }
 
-adminApi.register = (userInfo) => {
+userApi.register = (userInfo) => {
     return service({
         url: `${adminUrl}/register`,
         method: 'post',
@@ -74,10 +74,22 @@ adminApi.register = (userInfo) => {
 }
 
 
-adminApi.verCode = (email) => {
+userApi.verCode = (email) => {
     return service({
         url: `${adminUrl}/getMailCode/${email}`,
         method: 'get'
     })
 }
-export default adminApi
+
+userApi.getProfile = () => {
+    return service({
+        url: `${adminUrl}/getUserDetail`,
+        method: 'get'
+    })
+}
+
+
+
+
+
+export default userApi
