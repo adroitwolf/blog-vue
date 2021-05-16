@@ -8,18 +8,19 @@
 
         <FormItem label="图片类型:">
           <Select
-            v-model="queryParams.mediaType"
-            @click.native="getAllMediaType()"
-            :loading="loading"
-            clearable
-            :loading-text="loading_text"
-            style="width:200px"
+              v-model="queryParams.mediaType"
+              @click.native="getAllMediaType()"
+              :loading="loading"
+              clearable
+              :loading-text="loading_text"
+              style="width:200px"
           >
             <Option
-              v-for="(mediaType,index) in mediaTypes"
-              :key="index"
-              :value="mediaType"
-            >{{mediaType}}</Option>
+                v-for="(mediaType,index) in mediaTypes"
+                :key="index"
+                :value="mediaType"
+            >{{ mediaType }}
+            </Option>
           </Select>
         </FormItem>
         <FormItem>
@@ -28,28 +29,27 @@
       </Form>
 
       <Button type="primary" @click="uploadModoal = !uploadModoal">
-        <Icon type="md-add" />上传
+        <Icon type="md-add"/>
+        上传
       </Button>
     </Card>
 
     <Card class="mt">
       <Row :gutter="16" v-if="datasources.length>0">
-        <div v-for="(item,index) in datasources" :key="index" @click="checkInfo(item.id)">
-          <Col span="6">
-            <Card :bordered="true">
-              <div>
-                <div class="attach-thumb">
-                  <img :src="item.path" />
-                </div>
-                <span class="attachment-span">{{item.title}}</span>
+        <Col span="6" v-for="(item,index) in datasources" :key="index">
+          <Card >
+            <div @click="checkInfo(item.id)">
+              <div class="attach-thumb">
+                <img :src="item.path"/>
               </div>
-            </Card>
-          </Col>
-        </div>
+              <span class="attachment-span">{{ item.title }}</span>
+            </div>
+          </Card>
+        </Col>
       </Row>
       <span v-else>暂无数据</span>
       <Divider class="mt"></Divider>
-      <Page @on-change="changePage" :total="total" show-elevator />
+      <Page @on-change="changePage" :total="total" show-elevator/>
     </Card>
     <Modal v-model="uploadModoal" title="上传附件" @on-ok="upload" width="500">
       <Upload multiple type="drag" :before-upload="handleUpload" action>
@@ -59,7 +59,7 @@
           <p>请上传2M以内的图片</p>
         </div>
         <div style="padding:20px 0" id="file-box" class="hidden">
-          <img style="height:auto;max-width:100%" id="upload" :src="idBefore" alt />
+          <img style="height:auto;max-width:100%" id="upload" :src="idBefore" alt/>
         </div>
       </Upload>
     </Modal>
@@ -123,9 +123,10 @@ import {
   Row,
   Col
 } from "view-design";
-import attachmentApi from "@/api/attachment";
-import { BASE_URL } from "@/config/global.var";
-import { mapGetters, mapActions } from "vuex";
+
+import attachmentApi from "@/api/manage/attachment";
+import {getImagePath} from "@/config/global.var";
+import {mapGetters, mapActions} from "vuex";
 
 export default {
   name: "Photo",
@@ -147,24 +148,37 @@ export default {
     Row,
     Col
   },
-  computed: { ...mapGetters(["mediaTypes"]) },
+  computed: {...mapGetters(["mediaTypes"])},
   methods: {
     ...mapActions(["listAllMediaType"]),
     getAllMediaType() {
       this.loading = true;
       this.listAllMediaType()
-        .then(response => {})
-        .catch(error => {});
+          .then(response => {
+          })
+          .catch(error => {
+          });
       this.loading = false;
     },
     getList() {
       attachmentApi
-        .getAttachmentList(this.pageSize, this.pageNum, this.queryParams)
-        .then(response => {
-          console.log(response.data);
-          this.datasources = response.data.rows;
-          this.total = response.data.total;
-        });
+          .getAttachmentList(this.pageSize, this.pageNum, this.queryParams)
+          .then(response => {
+            console.log(response.data);
+
+
+            /**
+             * 修改图片url
+             */
+            let data = [];
+            response.data.rows.forEach(x=>{
+              let item = x;
+              item.path = getImagePath(x.path);
+              data.push(item);
+            })
+            this.datasources = data;
+            this.total = response.data.total;
+          });
     },
     // 获取图片详细信息
     checkInfo(id) {
@@ -187,7 +201,7 @@ export default {
     /*上传结束*/
     handleUpload(file) {
       console.log(file.size)
-      if(file.size >551639){
+      if (file.size > 551639) {
         Message.error("文件大小不能超过2M");
         return;
       }
@@ -250,10 +264,11 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style scoped>
 .mt {
   margin-top: 20px;
 }
+
 .attach-thumb {
   width: 100%;
   margin: 0 auto;
@@ -278,6 +293,7 @@ export default {
   justify-content: center;
   color: #9b9ea0;
 }
+
 .hidden {
   display: none;
 }

@@ -65,7 +65,7 @@
 
 <script>
 import $ from "jquery";
-import commentApi from "@/api/comment";
+import commentManageApi from "@/api/manage/comment";
 import { mapGetters } from "vuex";
 import { Card, Page,Modal,Message } from "view-design";
 export default {
@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     getList() {
-      commentApi.manage(this.pageInfo).then(res => {
+      commentManageApi.manage(this.pageInfo).then(res => {
         let data = res.data;
         this.commentsList = data.rows;
         this.pageInfo.total = data.total;
@@ -117,7 +117,7 @@ export default {
               title: "是否删除该评论？",
               content: "该操作不可逆",
               onOk: () => {
-                commentApi.delete(id).then(res=>{
+                commentManageApi.delete(id).then(res=>{
                   that.pageInfo.PageSize = 5;
                   that.pageInfo.pageNum = 1;
                   Message.success("成功删除评论");

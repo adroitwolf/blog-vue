@@ -118,9 +118,9 @@ import {
 } from "view-design";
 import "mavon-editor/dist/css/index.css";
 import { mapActions } from "vuex";
-import articleApi from "@/api/article";
-import attachmentApi from "@/api/attachment";
-import {BASE_URL} from '@/config/global.var'
+import articleApi from "@/api/manage/article";
+import attachmentApi from "@/api/manage/attachment";
+import {getImagePath} from '@/config/global.var'
 
 export default {
   name: "articleWrite",
@@ -166,8 +166,16 @@ export default {
       attachmentApi
         .getAttachmentList(this.pageSize, this.pageNum,queryParams)
         .then(response => {
-          console.log(response.data);
-          this.attachmentList = response.data.rows;
+          /**
+           * 修改照片Url
+           */
+          let data = [];
+          response.data.rows.forEach(x=>{
+            let item = x;
+            item.path = getImagePath(x.path);
+            data.push(item);
+          })
+          this.attachmentList = data;
           this.total = response.data.total;
         });
     },

@@ -115,7 +115,7 @@ import {
 } from "view-design";
 import { mapGetters, mapActions } from "vuex";
 import router from "@/router";
-import articleApi from "@/api/article";
+import articleApi from "@/api/manage/article";
 
 export default {
   name: "articleManager",

@@ -1,11 +1,10 @@
 import service from '@/config/service'
+const baseUrl = "/iblog-blog/api/blog"
 
-const baseUrl = "/api/post"
-
-const blogApi = {}
+const postApi = {}
 
 
-blogApi.getAllList = (pageSize, pageNum) => {
+postApi.getAllList = (pageSize, pageNum) => {
     return new service({
         url: `${baseUrl}/list`,
         method: 'get',
@@ -17,16 +16,22 @@ blogApi.getAllList = (pageSize, pageNum) => {
 }
 
 
-
-blogApi.getDetail = (id) => {
+postApi.getDetail = (id) => {
     return new service({
         url: `${baseUrl}/detail/${id}`,
         method: 'get'
     })
 }
 
+postApi.getTopPosts = () => {
+    return new service({
+        url: `${baseUrl}/top`,
+        method: 'get',
+    })
+}
 
-blogApi.queryListByExample = (pageSize, pageNum, keyword) => {
+
+postApi.queryListByExample = (pageSize, pageNum, keyword) => {
     return new service({
         url: `${baseUrl}/query`,
         method: 'get',
@@ -39,7 +44,7 @@ blogApi.queryListByExample = (pageSize, pageNum, keyword) => {
 }
 
 
-blogApi.searchTag = (pageSize, pageNum, tag) => {
+postApi.searchTag = (pageSize, pageNum, tag) => {
     return new service({
         url: `${baseUrl}/tag`,
         method: 'get',
@@ -52,27 +57,4 @@ blogApi.searchTag = (pageSize, pageNum, tag) => {
 }
 
 
-blogApi.getTopPosts = () => {
-    return new service({
-        url: `${baseUrl}/top`,
-        method: 'get',
-    })
-}
-
-blogApi.pushComment = (comment) => {
-    return service({
-        url: `${baseUrl}/comments`,
-        method: 'post',
-        data: comment
-    })
-}
-
-blogApi.getCommentsList = (id, params) => {
-    return service({
-        url: `${baseUrl}/${id}/comments`,
-        method: 'get',
-        params: params
-    })
-}
-
-export default blogApi
+export  default postApi

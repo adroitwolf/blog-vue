@@ -106,7 +106,7 @@ import {
   Icon,
   Modal
 } from "view-design";
-import articleAdmin from "@/api/articleAdmin";
+import articleAdmin from "@/api/manage/article";
 export default {
   components: {
     Page,

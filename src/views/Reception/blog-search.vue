@@ -52,10 +52,11 @@
 </template>
 
 <script>
-import blogApi from "@/api/blog";
+import postApi from "@/api/protal/article";
 import $ from "jquery";
 import { Page, Icon } from "view-design";
 import BlogCard from "./components/blog-card-component";
+import {getImagePath} from "../../config/global.var";
 
 export default {
   name: "blogSearch",
@@ -124,7 +125,7 @@ export default {
     },
     getArticleList() {
       if (this.tag != "") {
-        blogApi
+        postApi
           .searchTag(this.pageSize, this.pageNum, this.tag)
           .then(response => {
             const data = response.data;
@@ -142,11 +143,12 @@ export default {
               month = parseInt(month).toString() + "月";
               this.articleLists[i].month = month;
               this.articleLists[i].day = this.articleLists[i].releaseDate[2];
+              this.articleLists[i].picture = getImagePath(this.articleLists[i].picture);
             }
           });
         return;
       }
-      blogApi
+      postApi
         .queryListByExample(this.pageSize, this.pageNum, this.keyword)
         .then(response => {
           const data = response.data;
@@ -164,6 +166,7 @@ export default {
             month = parseInt(month).toString() + "月";
             this.articleLists[i].month = month;
             this.articleLists[i].day = this.articleLists[i].releaseDate[2];
+            this.articleLists[i].picture = getImagePath(this.articleLists[i].picture);
           }
           // 返回顶部
           document.body.scrollTop = 0;

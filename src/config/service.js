@@ -17,8 +17,8 @@ const service = axios.create({
 
 function setTokenToHeader(config) {
     // set token
-    // const token = store.getters.token ? store.getters.token : getToken();
-    const token = store.getters.token;
+    const token = store.getters.token ? store.getters.token : getToken();
+    console.log(token);
     if (token && token.access_token) {
         config.headers['Authentication'] = token.access_token;
     }
@@ -41,8 +41,7 @@ function reRequest(config) {
 
 function refreshToken(res) {
 
-    // const refreshToken = store.getters.token ? store.getters.token.refresh_token : getToken() ? getToken().refresh_token : null;
-    const refreshToken = store.getters.token ? store.getters.token.refresh_token : null;
+    const refreshToken = store.getters.token ? store.getters.token.refresh_token : getToken() ? getToken().refresh_token : null;
     return new Promise((resolve, reject) => {
         store.dispatch("refreshToken", refreshToken).then(response => {
             if (response && response.status === 401) { //这时候说明需要重新登陆了

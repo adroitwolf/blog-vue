@@ -107,10 +107,11 @@
 import animate from "animate.css";
 import $ from "jquery";
 import { Page, Avatar, Notice, Message, Icon } from "view-design";
-import blogApi from "@/api/blog";
+import postApi from "@/api/protal/article";
 import { mapGetters, mapActions } from "vuex";
 import BlogCard from "./components/blog-card-component";
 import asideCard from "./components/aside-card-component";
+import {getImagePath} from "../../config/global.var";
 
 export default {
   name: "blogIndex",
@@ -177,11 +178,13 @@ export default {
       this.getArticleList();
     },
     getArticleList() {
-      blogApi.getAllList(this.pageSize, this.pageNum).then(response => {
+      postApi.getAllList(this.pageSize, this.pageNum).then(response => {
         const data = response.data;
         this.total = data.total;
         this.articleLists = data.rows;
-        // 转换日期
+        /**
+         * 修改  转换日期
+         */
         for (var i = 0; i < this.articleLists.length; i++) {
           this.articleLists[i].releaseDate = this.articleLists[
             i
@@ -193,6 +196,7 @@ export default {
           month = parseInt(month).toString() + "月";
           this.articleLists[i].month = month;
           this.articleLists[i].day = this.articleLists[i].releaseDate[2];
+          this.articleLists[i].picture = getImagePath(this.articleLists[i].picture);
         }
         // 返回顶部
         document.body.scrollTop = 0;
@@ -216,10 +220,10 @@ export default {
 
   },
   created() {
+    this.getProfile();
     this.getArticleList();
-    this.getTopPost();
 
-    // this.getProfile();
+    this.getTopPost();
   },
   components: {
     Page,

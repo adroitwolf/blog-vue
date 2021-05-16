@@ -1,12 +1,14 @@
-import userApi from '@/api/user'
-import adminApi from '@/api/admin'
+import userManageApi from '@/api/manage/user'
+import userApi from '@/api/protal/user'
 import { getToken, setToken, removeToken } from '@/util/auth'
+import {getImagePath}  from "@/config/global.var";
+
 const state = {
     nickname: '',
     avatar: '',
     aboutMe: '',
     roles: [],
-    token: null
+    token: getToken()
 };
 
 
@@ -14,7 +16,7 @@ const state = {
 const mutations = {
     SET_PROFILE: (state, profile) => {
         state.nickname = profile.nickname;
-        state.avatar = profile.avatar;
+        state.avatar = getImagePath(profile.avatar);
         state.aboutMe = profile.aboutMe;
         state.roles = profile.roles;
     },
@@ -23,7 +25,7 @@ const mutations = {
         state.aboutMe = profile.aboutMe;
     },
     UPDATE_AVATAR: (state, avatar) => {
-        state.avatar = avatar;
+        state.avatar = getImagePath(avatar);
     },
     SET_TOKEN: (state, token) => {
         setToken(token);
@@ -40,14 +42,12 @@ const mutations = {
 const actions = {
     login({ commit }, { username, password }) {
         return new Promise((resolve, reject) => {
-            adminApi.login(username, password)
+            userApi.login(username, password)
                 .then(response => {
                     const token = response.data;
                     // const token = data.token;
                     // const roles = data.user.roles;
                     // console.log(roles);
-
-
                     commit('SET_TOKEN', token);
                     resolve(response);
                 })
@@ -58,7 +58,7 @@ const actions = {
     },
     changePassword({ commit }, { opassword, password }) {
         return new Promise((resolve, reject) => {
-            adminApi.changePassword(opassword, password).then(response => {
+            userApi.changePassword(opassword, password).then(response => {
                 const msg = response.message;
                 resolve(msg);
             }).catch(error => {
@@ -69,7 +69,7 @@ const actions = {
     register(commit, userInfo) {
         return new Promise((resolve, reject) => {
             console.log(userInfo);
-            adminApi.register(userInfo).then(response => {
+            userApi.register(userInfo).then(response => {
                 const msg = response.message;
                 resolve(msg);
             }).catch(error => {
@@ -90,15 +90,17 @@ const actions = {
         //     })
         // },
         // clear_Info({ commit }) {
-        removeToken(); //删除cookie
+        //删除cookie
+        removeToken();
         //清除用户信息
         commit("SET_TOKEN", '');
         commit("CLEAR_PROFILE");
     },
-    refreshToken({ commit }, refreshToken) { //刷新token,并且只能被service.js调用
+    //刷新token,并且只能被service.js调用
+    refreshToken({ commit }, refreshToken) {
         console.log(refreshToken);
         return new Promise((resolve, reject) => {
-            adminApi.refresh(refreshToken).then(response => {
+            userApi.refresh(refreshToken).then(response => {
                 let data = response.data;
                 let token = data.data ? data.data : null;
                 commit('SET_TOKEN', token);
@@ -122,7 +124,7 @@ const actions = {
     },
     updateProfile({ commit }, { nickname, aboutMe }) {
         return new Promise((resolve, reject) => {
-            userApi.updateProfile(nickname, aboutMe).then(response => {
+            userManageApi.updateProfile(nickname, aboutMe).then(response => {
                 const data = response.data;
                 console.log(data);
                 commit("UPDATE_PROFILE", data);
@@ -134,7 +136,7 @@ const actions = {
     },
     uploadAvatarId({ commit }, { file }) {
         return new Promise((resolve, reject) => {
-            userApi.uploadAvatar(file).then(response => {
+            userManageApi.uploadAvatar(file).then(response => {
                 const data = response.data;
                 console.log(data);
                 commit("UPDATE_AVATAR", data);
@@ -146,7 +148,7 @@ const actions = {
     },
     verCode({ commit }, email) {
         return new Promise((resolve, reject) => {
-            adminApi.verCode(email);
+            userApi.verCode(email);
             resolve("发送成功");
         })
     }

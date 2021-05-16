@@ -1,4 +1,4 @@
-import blogApi from '@/api/blog'
+import postApi from '@/api/protal/article'
 
 
 const state = {
@@ -14,7 +14,7 @@ const mutations = {
 const actions = {
     getTopPosts({ commit }) {
         return new Promise((resolve, reject) => {
-            blogApi.getTopPosts().then(response => {
+            postApi.getTopPosts().then(response => {
                 console.log(response);
                 commit("SET_POSTS", response.data);
                 resolve(response);

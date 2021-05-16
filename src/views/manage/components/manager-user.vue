@@ -8,10 +8,11 @@
         <FormItem label="用户状态:">
           <Select clearable v-model="queryParams.status" style="width:200px">
             <Option
-              v-for="(userType,index) in userStatus"
-              :key="index"
-              :value="userType.value"
-            >{{userType.label}}</Option>
+                v-for="(userType,index) in userStatus"
+                :key="index"
+                :value="userType.value"
+            >{{ userType.label }}
+            </Option>
           </Select>
         </FormItem>
         <FormItem>
@@ -22,69 +23,70 @@
 
     <Card class="mt">
       <Row :gutter="16" v-if="datasources.length>0">
-        <div v-for="(item,index) in datasources" :key="index">
-          <Col span="6">
-            <Card :bordered="true">
-              <p slot="title">{{item.nickname}}</p>
-              <a href="#" slot="extra" @click="deleteUser(item.id)">
-                删除
-                <Icon type="ios-trash-outline" />
-              </a>
+        <Col span="6" v-for="(item,index) in datasources" :key="index">
+          <Card>
+            <p slot="title">{{ item.nickname }}</p>
+            <a href="#" slot="extra" @click="deleteUser(item.id)">
+              删除
+              <Icon type="ios-trash-outline"/>
+            </a>
+            <div>
               <div>
-                <div>
-                  <img
+                <img
                     :src="item.avatar?item.avatar:avatarUrl"
                     :alt="item.nickname"
                     style="width: 70px;height: 70px;"
-                  />
-                </div>
-                <div style="text-align: left;color:#20a0ff;font-size: 12px;margin-top: 13px">
-                  <span>账号:</span>
-                  <span>{{item.username}}</span>
-                </div>
-                <div style="text-align: left;color:#20a0ff;font-size: 12px;margin-top: 13px">
-                  <span>电子邮箱:</span>
-                  <span>{{item.email}}</span>
-                </div>
-                <div style="text-align: left;color:#20a0ff;font-size: 12px;margin-top: 13px">
-                  <span>手机:</span>
-                  <span>{{item.phone}}</span>
-                </div>
-                <div style="text-align: left;color:#20a0ff;font-size: 12px;margin-top: 13px">
-                  <span>注册时间:</span>
-                  <span>{{item.registerDate }}</span>
-                </div>
-                <div
-                  style="text-align: left;color:#20a0ff;font-size: 12px;margin-top: 13px;display: flex; align-items: center"
-                >
-                  <span>用户状态:</span>
-                  <i-switch
-                    size="large"
-                    :value="item.isEnabled"
-                    true-color="#13ce66"
-                    false-color="#ff4949"
-                    true-value="YES"
-                    false-value="NO"
-                    :before-change="()=>handleBeforeChangeUserStatus(item.id,item.isEnabled)"
-                    style="margin-left:10px;"
-                  >
-                    <span slot="open">使用</span>
-                    <span slot="close">禁用</span>
-                  </i-switch>
-                </div>
+                />
               </div>
-            </Card>
-          </Col>
-        </div>
+              <div style="text-align: left;color:#20a0ff;font-size: 12px;margin-top: 13px">
+                <span>账号:</span>
+                <span>{{ item.username }}</span>
+              </div>
+              <div style="text-align: left;color:#20a0ff;font-size: 12px;margin-top: 13px">
+                <span>电子邮箱:</span>
+                <span>{{ item.email }}</span>
+              </div>
+              <div style="text-align: left;color:#20a0ff;font-size: 12px;margin-top: 13px">
+                <span>手机:</span>
+                <span>{{ item.phone }}</span>
+              </div>
+              <div style="text-align: left;color:#20a0ff;font-size: 12px;margin-top: 13px">
+                <span>注册时间:</span>
+                <span>{{ item.registerDate }}</span>
+              </div>
+              <div
+                  style="text-align: left;color:#20a0ff;font-size: 12px;margin-top: 13px;display: flex; align-items: center"
+              >
+                <span>用户状态:</span>
+
+                <!--                    <Switch-->
+                <!--                        size="large"-->
+                <!--                        :value="item.isEnabled"-->
+                <!--                        true-color="#13ce66"-->
+                <!--                        false-color="#ff4949"-->
+                <!--                        true-value="YES"-->
+                <!--                        false-value="NO"-->
+                <!--                        :before-change="()=>handleBeforeChangeUserStatus(item.id,item.isEnabled)"-->
+                <!--                        style="margin-left:10px;"-->
+                <!--                    >-->
+                <!--                      <span slot="open">使用</span>-->
+                <!--                      <span slot="close">禁用</span>-->
+<!--                </Switch >-->
+              </div>
+            </div>
+          </Card>
+
+        </Col>
       </Row>
+
       <span v-else>暂无数据</span>
       <Divider class="mt"></Divider>
-      <Page
-        @on-change="changePage"
-        :current="pageInfo.pageNum"
-        :total="pageInfo.total"
-        show-elevator
-      />
+      <!--      <Page-->
+      <!--        @on-change="changePage"-->
+      <!--        :current="pageInfo.pageNum"-->
+      <!--        :total="pageInfo.total"-->
+      <!--        show-elevator-->
+      <!--      />-->
     </Card>
   </div>
 </template>
@@ -109,9 +111,9 @@ import {
   Col,
   Switch
 } from "view-design";
-import { BASE_URL } from "@/config/global.var";
-import userApi from "@/api/usrAdmin";
-import { reject } from 'q';
+import {BASE_URL} from "@/config/global.var";
+import userManageApi from "@/api/manage/user";
+
 export default {
   name: "UserManager",
   components: {
@@ -167,16 +169,16 @@ export default {
           content: "您确定是否要封禁该用户？",
           onOk: () => {
             console.log(status);
-            let updatedStatus = status === "YES" ?  "NO":  "YES";
+            let updatedStatus = status === "YES" ? "NO" : "YES";
             console.log(updatedStatus);
-            userApi
-              .updateUserStatus(id, updatedStatus)
-              .then(response => {
-                this.handleList();
-                resolve();
-              })
-              .catch(error => {
-              });
+            userManageApi
+                .updateUserStatus(id, updatedStatus)
+                .then(response => {
+                  this.handleList();
+                  resolve();
+                })
+                .catch(error => {
+                });
           }
         });
       });
@@ -186,14 +188,14 @@ export default {
         title: "警告！",
         content: "您确定是否要删除该用户？",
         onOk: () => {
-          userApi.deleteUser(id).then(response => {
+          userManageApi.deleteUser(id).then(response => {
             this.handleList();
           });
         }
       });
     },
     handleList() {
-      userApi.listUser(this.queryParams, this.pageInfo).then(response => {
+      userManageApi.listUser(this.queryParams, this.pageInfo).then(response => {
         console.log(response.data);
         this.datasources = response.data.rows;
         this.pageInfo.total = response.data.total;
@@ -210,6 +212,7 @@ export default {
 .mt {
   margin-top: 20px;
 }
+
 .attach-thumb {
   width: 100%;
   margin: 0 auto;
@@ -234,6 +237,7 @@ export default {
   justify-content: center;
   color: #9b9ea0;
 }
+
 .hidden {
   display: none;
 }

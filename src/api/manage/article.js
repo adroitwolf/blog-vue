@@ -1,6 +1,7 @@
 import service from '@/config/service'
 
-const baseUrl = '/api/blog'
+const baseUrl = '/iblog-blog/manager/blog'
+
 const articleApi = {}
 
 articleApi.submit = (title, tagList, pictureId, summary, content, contentMd) => {
@@ -28,7 +29,7 @@ articleApi.updateArticleStatus = (id, status) => {
 
 articleApi.getList = (pageNum, pageSize, postParams) => {
     return service({
-        url: `${baseUrl}/query`,
+        url: `${baseUrl}/querys`,
         params: {
             pageSize: pageSize,
             pageNum: pageNum,
@@ -78,6 +79,19 @@ articleApi.countArticle = () => {
     })
 }
 
+
+articleApi.getList = (pageInfo, postParams) => {
+    return new service({
+        url: `${baseUrl}/query`,
+        method: 'get',
+        params: {
+            pageSize: pageInfo.pageSize,
+            pageNum: pageInfo.pageNum,
+            keyword: postParams.keyword,
+            status: postParams.status
+        }
+    })
+}
 
 
 export default articleApi
