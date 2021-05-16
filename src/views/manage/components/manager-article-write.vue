@@ -122,6 +122,7 @@ import articleApi from "@/api/manage/article";
 import attachmentApi from "@/api/manage/attachment";
 import {getImagePath} from '@/config/global.var'
 
+
 export default {
   name: "articleWrite",
   components: {

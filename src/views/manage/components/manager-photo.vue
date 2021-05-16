@@ -165,8 +165,6 @@ export default {
           .getAttachmentList(this.pageSize, this.pageNum, this.queryParams)
           .then(response => {
             console.log(response.data);
-
-
             /**
              * 修改图片url
              */
