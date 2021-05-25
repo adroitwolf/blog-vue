@@ -16,10 +16,14 @@ Vue.use(VueLazyload)
 
 import './permission'
 
-import 'view-design/dist/styles/iview.css';
 
 new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
+
+import 'view-design/dist/styles/iview.css';
+// 注册ivew 的switch组件
+import { Switch} from 'view-design';
+Vue.component('i-switch',Switch);

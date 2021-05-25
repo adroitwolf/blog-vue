@@ -59,19 +59,19 @@
               >
                 <span>用户状态:</span>
 
-                <!--                    <Switch-->
-                <!--                        size="large"-->
-                <!--                        :value="item.isEnabled"-->
-                <!--                        true-color="#13ce66"-->
-                <!--                        false-color="#ff4949"-->
-                <!--                        true-value="YES"-->
-                <!--                        false-value="NO"-->
-                <!--                        :before-change="()=>handleBeforeChangeUserStatus(item.id,item.isEnabled)"-->
-                <!--                        style="margin-left:10px;"-->
-                <!--                    >-->
-                <!--                      <span slot="open">使用</span>-->
-                <!--                      <span slot="close">禁用</span>-->
-<!--                </Switch >-->
+                <i-switch
+                    size="large"
+                    :value="item.isEnabled"
+                    true-color="#13ce66"
+                    false-color="#ff4949"
+                    true-value="YES"
+                    false-value="NO"
+                    :before-change="()=>handleBeforeChangeUserStatus(item.id,item.isEnabled)"
+                    style="margin-left:10px;"
+                >
+                  <span slot="open">使用</span>
+                  <span slot="close">禁用</span>
+                </i-switch>
               </div>
             </div>
           </Card>
@@ -108,8 +108,7 @@ import {
   Input,
   Icon,
   Row,
-  Col,
-  Switch
+  Col
 } from "view-design";
 import {BASE_URL} from "@/config/global.var";
 import userManageApi from "@/api/manage/user";
@@ -117,7 +116,6 @@ import userManageApi from "@/api/manage/user";
 export default {
   name: "UserManager",
   components: {
-    Switch,
     Form,
     FormItem,
     Card,

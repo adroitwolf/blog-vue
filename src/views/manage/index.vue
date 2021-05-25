@@ -4,7 +4,7 @@
       <Header></Header>
       <Content class="body" :style="{padding: '0 50px'}">
         <Breadcrumb :style="{margin: '20px 0'}">
-          <BreadcrumbItem v-for="(item,index) in $route.meta.Bread" :key="index">{{item}}</BreadcrumbItem>
+          <BreadcrumbItem v-for="(item,index) in $route.meta.Bread" :key="index">{{ item }}</BreadcrumbItem>
         </Breadcrumb>
         <div class="content">
           <router-view></router-view>
@@ -19,9 +19,8 @@
 <script>
 import Header from "@/components/header-manager";
 import Foot from "@/components/footer";
-import { mapGetters, mapActions } from "vuex";
-import { Breadcrumb, BreadcrumbItem, Content, Layout } from "view-design";
-import axios from "axios";
+import {mapGetters, mapActions} from "vuex";
+import {Breadcrumb, BreadcrumbItem, Content, Layout} from "view-design";
 
 export default {
   name: "index",
@@ -48,7 +47,7 @@ export default {
     ...mapGetters({})
   },
   created() {
-    // this.getProfile();
+    this.getProfile();
   }
 };
 </script>
@@ -79,7 +78,7 @@ export default {
 .content {
   /* min-width: 78%;
   min-height: 600px; */
-  margin: 24px 24px 0px;
+  margin: 24px 24px 0;
   height: 80%;
 }
 </style>
