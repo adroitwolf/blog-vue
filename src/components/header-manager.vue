@@ -69,7 +69,6 @@ export default {
   data() {
     return {
       theme1: "dark",
-      // avatarUrl: require("@/assets/img/avatar.png")
     };
   },
   components: {

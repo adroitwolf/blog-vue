@@ -21,7 +21,8 @@ const state = {
         require("@/assets/img/8.jpg"),
         require("@/assets/img/9.jpg")
     ],
-    baseAvatar: require("@/assets/img/avatar.png")
+    baseAvatar: require("@/assets/img/avatar.png"),
+    registerImg: require("@/assets/img/register.jpg")
 
 }
 const mutations = {

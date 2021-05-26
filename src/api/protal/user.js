@@ -65,7 +65,8 @@ userApi.register = (userInfo) => {
         url: `${adminUrl}/register`,
         method: 'post',
         data: {
-            username: userInfo.nickname,
+            account: userInfo.account,
+            nickname: userInfo.nickname,
             email: userInfo.email,
             code: userInfo.code,
             password: md5(userInfo.password)

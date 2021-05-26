@@ -7,6 +7,7 @@ const getters = {
     column: state => state.config.column,
     status: state => state.config.status,
     baseAvatar: state => state.config.baseAvatar,
+    registerImg: state => state.config.registerImg,
     imgList: state => state.config.imgList,
     summary: state => state.article.summary,
     managerColumns: state => state.article.managerColumns,
