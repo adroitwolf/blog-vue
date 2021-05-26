@@ -171,7 +171,7 @@ export default {
       });
     },
     toStatus() {
-      this.$router.push({ name: "状态面板" });
+      this.$router.push({ name: "后台" });
     },
     change(index) {
       this.pageNum = index;

@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     freshContent() {
-      this.$router.push("/index.html/status");
+      this.$router.push({ name: "后台" });
     },
     ...mapActions({
       getProfile: "getProfile"

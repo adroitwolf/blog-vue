@@ -96,9 +96,6 @@ export default {
       this.$router.push({ name: name });
     }
   },
-  mounted(){
-    console.log(this.menus);
-  },
   computed: {
     ...mapGetters(["menus", "avatar","baseAvatar"])
   }

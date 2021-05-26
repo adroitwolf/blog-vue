@@ -18,10 +18,12 @@ const mutations = {
 
 
 const actions = {
-    generateRoutes({ commit }, roles) { //roles = ['管理员','用户'。。。]
+    generateRoutes({ commit }, roles) {
+        //roles = ['管理员','用户','超级管理员']
         let accessRouters = [];
-        for (var i = 0; i < asyncRouterMap.length; i++) {
-            if (asyncRouterMap[i].hasOwnProperty('children')) { //判断是否有children
+        for (let i = 0; i < asyncRouterMap.length; i++) {
+            if (asyncRouterMap[i].hasOwnProperty('children')) {
+                //判断是否有children
                 //判断用户角色属性
                 let asyncRouter = asyncRouterMap[i];
                 let origin = asyncRouterMap[i].children;

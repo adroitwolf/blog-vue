@@ -1,21 +1,5 @@
 /* 动态路由 */
 
-// export const asyncAdminRouterMap = [{
-//     path: '/admin/index.html',
-//     name: 'index',
-//     meta: { title: '后台管理', hideInMenu: false },
-//     redirect: '/admin/index.html/usrManager',
-//     component: () =>
-//         import ('@/views/manage/index'),
-//     children: []
-// }, {
-//     path: '*',
-//     meta: { title: '404-战术小队', requiresAuth: false, hideInMenu: true },
-//     name: '404',
-//     component: () =>
-//         import ('@/views/exception/404')
-// }]
-
 const component = {
     template: `
     <div class="component">
@@ -26,18 +10,25 @@ const component = {
 
 export const asyncRouterMap = [{
     path: '/admin/index.html',
-    name: 'index',
+    name: '后台',
     meta: { title: '后台管理', hideInMenu: false },
     component: () =>
         import ('@/views/manage/index'),
-    redirect: '/admin/index.html/status',
+    // redirect: '/admin/index.html/index',
     children: [{
-            path: 'status',
+            path: 'index',
             name: '状态面板',
             meta: { Bread: ["主页", "状态面板"], icon: 'ios-speedometer', title: "后台管理", role: 'USER' },
             component: () =>
                 import ('@/views/manage/components/manager-status')
-        }, { //管理员菜单
+        }, {
+        // 超级管理员菜单
+            path: 'index',
+            name: '人员管理',
+            meta:{Bread: ["主页", "人员管理"], icon: 'ios-speedometer', title: "后台管理", role: 'LORD'},
+            component: ()=> import('../views/manage/components/manage-user-role')
+        },
+        { //管理员菜单
             path: 'check',
             name: '审核',
             meta: { Bread: ["主页", "审核"], title: '后台管理', role: 'ADMIN', icon: 'md-people' },
@@ -56,13 +47,7 @@ export const asyncRouterMap = [{
                     import ('@/views/manage/components/manager-check-article')
             }],
 
-        }, {
-            path: 'sys',
-            name: '系统设置',
-            meta: { Bread: ['主页', '系统设置'], title: '后台管理', role: 'ADMIN', icon: 'md-settings' },
-            component: () =>
-                import ('@/views/manage/components/manager-system')
-        }, {
+        },{
             path: 'article',
             meta: { Bread: ["主页", "文章"], icon: 'ios-chatboxes', title: "后台管理", role: 'USER' },
             name: '文章',

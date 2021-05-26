@@ -31,7 +31,11 @@ router.beforeEach((to, from, next) => {
                     //生成路由信息
                     store.dispatch('generateRoutes', data.roles);
                     const addRouters = store.getters.addRouters;
-                    router.addRoutes(addRouters);
+                    console.log(addRouters);
+                    addRouters.forEach(item=>{
+                        router.addRoute(item);
+                    })
+
                     // 生成后台菜单
                     store.dispatch('generateMenu', addRouters);
                     //渲染页面
