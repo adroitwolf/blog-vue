@@ -309,13 +309,13 @@ input {
     -o-transition: all .3s ease;
     transition: all .3s ease;
     color: white !important;
-    background-color: rgba(9, 132, 227, .8);
-    border-color: rgba(9, 132, 227, .8);
+    background-color: rgba(9, 132, 227, .8) !important;
+    border-color: rgba(9, 132, 227, .8) !important;
 }
 
 .btn-inverse-primary {
     color: white !important;
-    background-color: rgba(10, 10, 0, 0.7);
+    background-color: rgba(10, 10, 0, 0.7) !important;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
     -o-transition: all .3s ease;
