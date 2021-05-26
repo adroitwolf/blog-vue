@@ -144,7 +144,12 @@ export default {
     getPostDetail(blogId){
       postApi.getDetail(blogId).then(response => {
         let data = response.data;
+        if(data.picture != null && data.picture != ''){
+          data.picture = BASE_URL + '/' + data.picture;
+        }
+
         this.postDetail = data;
+
         console.log(this.postDetail);
       });
     },
