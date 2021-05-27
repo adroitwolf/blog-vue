@@ -66,7 +66,7 @@ userApi.register = (userInfo) => {
         method: 'post',
         data: {
             account: userInfo.account,
-            nickname: userInfo.nickname,
+            username: userInfo.username,
             email: userInfo.email,
             code: userInfo.code,
             password: md5(userInfo.password)

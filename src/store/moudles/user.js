@@ -78,23 +78,14 @@ const actions = {
         })
     },
     logout({ commit }) {
-        //     return new Promise((resolve, reject) => {
-        //         let autoToken = {};
-        //         autoToken.accessToken = state.accessToken;
-        //         autoToken.refreshToken = state.refreshToken;
-        //         adminApi.logout(autoToken).then(response => {
-        //             this.clear_Info();
-        //         }).catch(error => {
-        //             reject(error);
-        //         })
-        //     })
-        // },
-        // clear_Info({ commit }) {
         //删除cookie
         removeToken();
         //清除用户信息
         commit("SET_TOKEN", '');
         commit("CLEAR_PROFILE");
+        // 删除路由信息
+
+
     },
     //刷新token,并且只能被service.js调用
     refreshToken({ commit }, refreshToken) {

@@ -33,7 +33,7 @@
             <div>
               <div>
                 <img
-                    :src="item.avatar?item.avatar:avatarUrl"
+                    :src="item.avatar?item.avatar:baseAvatar"
                     :alt="item.nickname"
                     style="width: 70px;height: 70px;"
                 />
@@ -47,12 +47,15 @@
                 <span>{{ item.email }}</span>
               </div>
               <div style="text-align: left;color:#20a0ff;font-size: 12px;margin-top: 13px">
-                <span>手机:</span>
-                <span>{{ item.phone }}</span>
-              </div>
-              <div style="text-align: left;color:#20a0ff;font-size: 12px;margin-top: 13px">
                 <span>注册时间:</span>
                 <span>{{ item.registerDate }}</span>
+              </div>
+              <div style="text-align: left;color:#20a0ff;font-size: 12px;margin-top: 13px;display: flex; align-items: center">
+                <span>用户角色:</span>
+                <CheckboxGroup v-model="item.roles" @on-change="updateRoles(item.id,item.roles)">
+                  <Checkbox label="USER" border>普通用户</Checkbox>
+                  <Checkbox label="ADMIN" border>管理员</Checkbox>
+                </CheckboxGroup>
               </div>
               <div
                   style="text-align: left;color:#20a0ff;font-size: 12px;margin-top: 13px;display: flex; align-items: center"
@@ -81,17 +84,19 @@
 
       <span v-else>暂无数据</span>
       <Divider class="mt"></Divider>
-      <Page
-          @on-change="changePage"
-          :current="pageInfo.pageNum"
-          :total="pageInfo.total"
-          show-elevator
-      />
+<!--      <Page-->
+<!--          @on-change="changePage"-->
+<!--          :current="pageInfo.pageNum"-->
+<!--          :total="pageInfo.total"-->
+<!--          show-elevator-->
+<!--      />-->
     </Card>
   </div>
 </template>
 
 <script>
+import adminApi from "../../../api/manage/admin";
+import {mapGetters} from 'vuex'
 import {
   Form,
   FormItem,
@@ -108,8 +113,11 @@ import {
   Input,
   Icon,
   Row,
-  Col
+  Col,
+  CheckboxGroup,
+  Checkbox
 } from "view-design";
+
 export default {
   name: "manage-user-role",
   components: {
@@ -128,11 +136,101 @@ export default {
     Input,
     Icon,
     Row,
-    Col
+    Col,
+    CheckboxGroup,
+    Checkbox
+  },
+  data() {
+    return {
+      queryParams: {
+        keyword: "",
+        status: ""
+      },
+      userStatus: [
+        {
+          label: "正常",
+          value: "YES"
+        },
+        {
+          label: "封禁",
+          value: "NO"
+        }
+      ],
+      pageInfo: {
+        pageSize: 10,
+        pageNum: 1,
+        total: 0
+      },
+      datasources: {}
+    };
+  },
+  computed: {
+    ...mapGetters(['baseAvatar'])
+  },
+  methods: {
+    handleBeforeChangeUserStatus(id, status) {
+      return new Promise(resolve => {
+        Modal.confirm({
+          title: "警告！",
+          content: "您确定是否要封禁该用户？",
+          onOk: () => {
+            console.log(status);
+            let updatedStatus = status === "YES" ? "NO" : "YES";
+            console.log(updatedStatus);
+            userManageApi
+                .updateUserStatus(id, updatedStatus)
+                .then(response => {
+                  this.handleList();
+                  resolve();
+                })
+                .catch(error => {
+                });
+          }
+        });
+      });
+    },
+    deleteUser(id) {
+      Modal.confirm({
+        title: "警告！",
+        content: "您确定是否要删除该用户？",
+        onOk: () => {
+          userManageApi.deleteUser(id).then(response => {
+            this.handleList();
+          });
+        }
+      });
+    },
+    handleList() {
+      adminApi.listUser(this.pageInfo,this.queryParams).then(response => {
+        console.log(response.data);
+        this.datasources = response.data.rows;
+        this.pageInfo.total = response.data.total;
+      });
+    },
+    updateRoles(userId,roles){
+      if(roles.length == 0){
+        Message.error("请选择至少一个用户，默认为:普通用户");
+      }
+
+      adminApi.updateRoles(userId,roles).then(response=>{
+          let status = response.status;
+          if(status == 200){
+            Message.success ("更新成功！")
+          }else{
+            this.handleList();
+            Message.error("更新失败！");
+          }
+      });
+    }
+  },
+  created() {
+    this.handleList();
   }
 }
 </script>
 
 <style scoped>
-
+.mt {
+  margin-top: 20px;
+}
 </style>
