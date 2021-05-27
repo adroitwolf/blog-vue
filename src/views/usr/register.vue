@@ -29,14 +29,22 @@
                         type="email"
                         id="email"
                         v-model="email"
-                        class="form-control form-input"
+                        class="form-control col-7"
                     />
+                    <select class="custom-select input-group-append col-5" id="email_postfix">
+                      <option value="@qq.com">@qq.com</option>
+                      <option value="@163.com">@163.com</option>
+                      <option value="@foxmail.com">@foxmail.com</option>
+                    </select>
                   </div>
                 </div>
                 <div class="form-group col-lg-6">
                   <label for="email">邮箱验证码</label>
                   <div class="input-group mb-3">
                     <input type="text" class="form-control" v-model="code"/>
+                    <div class="input-group-append">
+                      <button id="code" class="btn btn-primary" type="btn" @click="getCode">获取验证码</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -92,12 +100,10 @@ export default {
         Message.error("邮箱字段不能为空！");
         return;
       }
-      var emreg = /^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/;
-      if (!emreg.test(this.email)) {
-        Message.error("邮箱格式不正确！");
-        return;
-      }
-      this.verCode(this.email).then(res => {
+      //拼接select
+      let email = this.email + $("#email_postfix").val();
+
+      this.verCode(email).then(res => {
         Message.info("验证码发送成功，请前往邮箱查看");
       })
       let that = this;
@@ -121,6 +127,8 @@ export default {
         Message.error("邮箱相关字段不能为空！");
         return;
       }
+      // 组装email地址
+      let email = this.email + $("#email_postfix").val();
       if (!this.nickname || !this.account) {
         Message.error("用户信息字段");
         return;
@@ -133,10 +141,11 @@ export default {
         Message.error("两次密码不一致！");
         return;
       }
+
       const userInfo = {};
-      userInfo.nickname = this.nickname;
+      userInfo.username = this.nickname;
       userInfo.password = this.password;
-      userInfo.email = this.email;
+      userInfo.email = email;
       userInfo.code = this.code;
       userInfo.account = this.account;
       this.register(userInfo)
@@ -198,6 +207,10 @@ export default {
 <style scoped>
 @import "../../assets/style/blog.css";
 
+
+input{
+  color: #ffffc0 !important;
+}
 .logo-brand{
   margin: 20px 0;
   margin-bottom: 40px;
@@ -211,6 +224,7 @@ export default {
 .logo{
   width: 150px;
   height: 150px;
+  border: #ee5253 3px solid;
   border-radius: 50%;
 }
 

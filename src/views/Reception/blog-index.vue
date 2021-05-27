@@ -283,4 +283,8 @@ export default {
   background: transparent;
   color: black;
 }
+
+input{
+  color: #ffffc0 !important;
+}
 </style>
