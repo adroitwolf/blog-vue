@@ -5,12 +5,12 @@
         <div class="commentList">
           <div class="comment-item" v-for="(comment,index) in commentsList" :key="index">
             <div class="user-avatar">
-              <img :src="comment.self.user.avatar?comment.self.user.avatar:baseAvatar" />
+              <img :src="comment.self.user.avatar?baseUrl + '/' + comment.self.user.avatar:baseAvatar" />
             </div>
             <div class="article-wrap">
               <router-link class="pic" :to="{name:'博客内容', query:{id: comment.blog.id}}">
                 <img
-                  :src="comment.blog.picture?comment.blog.picture:imgList[comment.blog.id/3%imgList.length]"
+                  :src="comment.blog.picture?baseUrl + '/' + comment.blog.picture:imgList[comment.blog.id/3%imgList.length]"
                 />
                 <span class="article-title">{{comment.blog.title}}</span>
               </router-link>
@@ -28,7 +28,7 @@
               <div class="ci-parent-reply" v-if="comment.parent" style="display:none;">
                 <div class="cipr-avatar" >
                   <!-- {{comment.parent.id}} -->
-                  <img :src="comment.parent.user.avatar?comment.parent.user.avatar:baseAvatar" />
+                  <img :src="comment.parent.user.avatar?baseUrl + '/' + comment.parent.user.avatar:baseAvatar" />
                 </div>
                 <div class="cipr-head">
                   <span>{{comment.parent.user.nickname}}</span>
@@ -68,6 +68,8 @@ import $ from "jquery";
 import commentManageApi from "@/api/manage/comment";
 import { mapGetters } from "vuex";
 import { Card, Page,Modal,Message } from "view-design";
+import {BASE_URL} from "../../../config/global.var";
+
 export default {
   name: "commentManage",
   components: {
@@ -84,6 +86,7 @@ export default {
         pageNum: 1,
         total: 0,
         page: [5, 10, 20, 50],
+        baseUrl:BASE_URL
       }
     };
   },

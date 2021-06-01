@@ -76,7 +76,7 @@
     <Modal v-model="checkStatus" fullscreen :title="post.title" footer-hide>
       <div v-html="post.content"></div>
       <Divider orientation="right">博文结束</Divider>
-      <div v-if="post.tagsTitle.length >0">
+      <div v-if="post.tagsTitle">
         <Tag color="error" v-for="(item,index) in post.tagsTitle" :key="index">{{item}}</Tag>
       </div>
       <div v-else>博文未设置标签</div>
@@ -106,7 +106,7 @@ import {
   Icon,
   Modal
 } from "view-design";
-import articleAdmin from "@/api/manage/article";
+import articleAdmin from "@/api/manage/articleAdmin";
 export default {
   components: {
     Page,

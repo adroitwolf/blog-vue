@@ -1,6 +1,6 @@
 <template>
     <div class="container-box section" id="comment.id">
-        <img class="avatar_sequare" :src="comment.user.avatar?comment.user.avatar:baseAvatar" />
+        <img class="avatar_sequare" :src="comment.user.avatar?baseUrl + '/' + comment.user.avatar:baseAvatar" />
         <div class="comment_box" >
             <div class="comment_user_id slide_username" :id="comment.user.id">
                 <span>{{comment.user.nickname}}</span>
@@ -12,7 +12,7 @@
                 <span>{{comment.content}}</span>
             </div>
             <div class="comment_option">
-                <button class="chat btn" @click="disPlayCommentText">
+                <button class="chat btn btn-inverse-primary" @click="disPlayCommentText">
                     回复
                 </button >
                 
@@ -25,15 +25,17 @@
 <script>
     import {Icon} from 'view-design';
     import { mapGetters } from "vuex";
+    import {BASE_URL} from "../../../config/global.var";
+
     export default {
         name: 'Comment',
         props: ["comment"],
         components:{
-            Icon
+          Icon
         },
         data() {
             return {
-                
+                baseUrl:BASE_URL
             }
         },
         computed: {

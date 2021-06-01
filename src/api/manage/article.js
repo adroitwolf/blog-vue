@@ -80,18 +80,7 @@ articleApi.countArticle = () => {
 }
 
 
-articleApi.getList = (pageInfo, postParams) => {
-    return new service({
-        url: `${baseUrl}/query`,
-        method: 'get',
-        params: {
-            pageSize: pageInfo.pageSize,
-            pageNum: pageInfo.pageNum,
-            keyword: postParams.keyword,
-            status: postParams.status
-        }
-    })
-}
+
 
 
 export default articleApi

@@ -52,7 +52,7 @@
             <div class="mb-3" >
               <div  v-for="(item,index) in comments" :key="index">
                 <Comment :comment="item" :id="item.id" v-on:disPlayCommentText="disPlayCommentText(index,item.id,'BLOG_COMMENT',item.user.id)"> </Comment>
-                 <div v-if="item.children_count>0">
+                 <div v-if="item.childrenCount>0">
                     <div v-for="child in item.children" :key="child.id">
                       <Comment class="ml-5" :comment="child" :id="child.id" v-on:disPlayCommentText="disPlayCommentText(index,item.id,'COMMENT_COM',child.user.id)"> </Comment>
                     </div>
@@ -148,6 +148,10 @@ export default {
           data.picture = BASE_URL + '/' + data.picture;
         }
 
+        if(data.author.avatar != null && data.author.avatar != ''){
+          data.author.avatar = BASE_URL + '/' + data.author.avatar;
+        }
+
         this.postDetail = data;
 
         console.log(this.postDetail);
@@ -157,8 +161,8 @@ export default {
       let params = this.pageInfo;
       params.type = type;
       commentApi.getCommentsList(blogId,params).then(response=>{
-        var data = response.data;
-        var comments = data.rows;
+        let data = response.data;
+        let comments = data.rows;
         comments = comments.map(element =>{
         element.pushStatus = false;
         return element;
@@ -232,6 +236,12 @@ export default {
 
 <style scoped>
 @import "../../assets/style/blog.css";
+
+.blog-card{
+  background: #ed4014eb;
+  box-shadow: black 0px 0px 8px;
+  position: relative;
+}
 .section {
   padding: 20px;
 }

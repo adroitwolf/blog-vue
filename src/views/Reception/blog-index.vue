@@ -268,7 +268,7 @@ export default {
 @import "../../assets/style/blog.css";
 </style>
 
-<style>
+<style scoped>
 .none {
   display: none;
 }
